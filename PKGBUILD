@@ -46,7 +46,7 @@ ARCH=x86
 #Set '2' to build with GCC and LLVM
 #Set '3' to build with CLANG
 #Set '4' to build with CLANG and LLVM
-#Default is empty. It will build stable relase. To build rc release just use : env _compiler=(1,2,3 or 4) makepkg -s
+#Default is empty. It will build with CLANG and LLVM. To build with different compiler just use : env _compiler=(1,2,3 or 4) makepkg -s
 if [ -z ${_compiler+x} ]; then
   _compiler=
 fi
