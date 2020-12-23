@@ -148,40 +148,40 @@ if [[ $_release = "1" ]]; then
            "0acd0ffeafb417974cc4c7de0f1a6f58"  #5.10-bfq-reverts-ver1.patch
            "43663034152cfd8f0bc7926f44432886") #5.10-bfq-dev-lucjan-v13-r2K201214-ll.patch
   if [[ $_cpu_sched = "1" ]]; then
-  source+=("$patchsource/cachy-patches/cachy-5.9-r8.patch")
-  md5sums+=("c0f15019b0fcacc465aa5eea2c207c1c") #cachy-5.9-r8.patch
-  if [[ $_idle_balance = "y" ]]; then
-  source+=("$patchsource/cachy-patches/02-idle_balance.patch")
-  md5sums+=("933f282baaf71fbfa8d404e9d4404bb0")  #02-idle_balance.patch
-  fi
+    source+=("$patchsource/cachy-patches/cachy-5.9-r8.patch")
+    md5sums+=("c0f15019b0fcacc465aa5eea2c207c1c") #cachy-5.9-r8.patch
+    if [[ $_idle_balance = "y" ]]; then
+      source+=("$patchsource/cachy-patches/02-idle_balance.patch")
+      md5sums+=("933f282baaf71fbfa8d404e9d4404bb0")  #02-idle_balance.patch
+    fi
   elif [[ $_cpu_sched = "2" ]]; then
-  source+=("$patchsource/cacule-patches/cacule5.9.patch")
-  md5sums+=("acbc60a90c9b3cbb35e162985a38cb8a")  #cacule5.9.patch
+    source+=("$patchsource/cacule-patches/cacule5.9.patch")
+    md5sums+=("acbc60a90c9b3cbb35e162985a38cb8a")  #cacule5.9.patch
   elif [[ $_cpu_sched = "3" ]]; then
-  source+=("$patchsource/muqss-patches/0001-MultiQueue-Skiplist-Scheduler-v0.204.patch"
-           "$patchsource/muqss-patches/0003-Expose-vmsplit-for-our-poor-32-bit-users.patch"
-           "$patchsource/muqss-patches/0004-Create-highres-timeout-variants-of-schedule_timeout-.patch"
-           "$patchsource/muqss-patches/0005-Special-case-calls-of-schedule_timeout-1-to-use-the-.patch"
-           "$patchsource/muqss-patches/0006-Convert-msleep-to-use-hrtimers-when-active.patch"
-           "$patchsource/muqss-patches/0007-Replace-all-schedule-timeout-1-with-schedule_min_hrt.patch"
-           "$patchsource/muqss-patches/0008-Replace-all-calls-to-schedule_timeout_interruptible-.patch"
-           "$patchsource/muqss-patches/0009-Replace-all-calls-to-schedule_timeout_uninterruptibl.patch"
-           "$patchsource/muqss-patches/0010-Don-t-use-hrtimer-overlay-when-pm_freezing-since-som.patch"
-           "$patchsource/muqss-patches/0012-Make-threaded-IRQs-optionally-the-default-which-can-.patch"
-           "$patchsource/muqss-patches/0014-Swap-sucks.patch"
-           "$patchsource/muqss-patches/0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch")
-  md5sums+=("97b4c6bc474ae6181e58a0ab1ce1d096"  #0001-MultiQueue-Skiplist-Scheduler-v0.204.patch
-            "322f8444650e41fd40175693749b1592"  #0003-Expose-vmsplit-for-our-poor-32-bit-users.patch
-            "55adeb5b6f05a3c666568537ad663fb8"  #0004-Create-highres-timeout-variants-of-schedule_timeout-.patch
-            "a221ad4e6f0f2c62413c0a90945492d5"  #0005-Special-case-calls-of-schedule_timeout-1-to-use-the-.patch
-            "ced32172ce6d7c8d891750ca3bbbbef2"  #0006-Convert-msleep-to-use-hrtimers-when-active.patch
-            "11d4479ce9ac7c7a5cb8478101a5dce8"  #0007-Replace-all-schedule-timeout-1-with-schedule_min_hrt.patch
-            "e9a4d9d8214ab2aaa647a8cfaa23d668"  #0008-Replace-all-calls-to-schedule_timeout_interruptible-.patch
-            "bf5700621fe1b5830fe1188475636ef2"  #0009-Replace-all-calls-to-schedule_timeout_uninterruptibl.patch
-            "f35e7618fb95c181f367b026f12973ea"  #0010-Don-t-use-hrtimer-overlay-when-pm_freezing-since-som.patch
-            "add2a95dbe9705c4f0f49feb1f447b81"  #0012-Make-threaded-IRQs-optionally-the-default-which-can-.patch
-            "46ab9d4d09b20f6604e33215a27c27af"  #0014-Swap-sucks.patch
-            "a04390dfc0db2af7f9d454535bc012f4") #0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch
+    source+=("$patchsource/muqss-patches/0001-MultiQueue-Skiplist-Scheduler-v0.204.patch"
+             "$patchsource/muqss-patches/0003-Expose-vmsplit-for-our-poor-32-bit-users.patch"
+             "$patchsource/muqss-patches/0004-Create-highres-timeout-variants-of-schedule_timeout-.patch"
+             "$patchsource/muqss-patches/0005-Special-case-calls-of-schedule_timeout-1-to-use-the-.patch"
+             "$patchsource/muqss-patches/0006-Convert-msleep-to-use-hrtimers-when-active.patch"
+             "$patchsource/muqss-patches/0007-Replace-all-schedule-timeout-1-with-schedule_min_hrt.patch"
+             "$patchsource/muqss-patches/0008-Replace-all-calls-to-schedule_timeout_interruptible-.patch"
+             "$patchsource/muqss-patches/0009-Replace-all-calls-to-schedule_timeout_uninterruptibl.patch"
+             "$patchsource/muqss-patches/0010-Don-t-use-hrtimer-overlay-when-pm_freezing-since-som.patch"
+             "$patchsource/muqss-patches/0012-Make-threaded-IRQs-optionally-the-default-which-can-.patch"
+             "$patchsource/muqss-patches/0014-Swap-sucks.patch"
+             "$patchsource/muqss-patches/0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch")
+    md5sums+=("97b4c6bc474ae6181e58a0ab1ce1d096"  #0001-MultiQueue-Skiplist-Scheduler-v0.204.patch
+              "322f8444650e41fd40175693749b1592"  #0003-Expose-vmsplit-for-our-poor-32-bit-users.patch
+              "55adeb5b6f05a3c666568537ad663fb8"  #0004-Create-highres-timeout-variants-of-schedule_timeout-.patch
+              "a221ad4e6f0f2c62413c0a90945492d5"  #0005-Special-case-calls-of-schedule_timeout-1-to-use-the-.patch
+              "ced32172ce6d7c8d891750ca3bbbbef2"  #0006-Convert-msleep-to-use-hrtimers-when-active.patch
+              "11d4479ce9ac7c7a5cb8478101a5dce8"  #0007-Replace-all-schedule-timeout-1-with-schedule_min_hrt.patch
+              "e9a4d9d8214ab2aaa647a8cfaa23d668"  #0008-Replace-all-calls-to-schedule_timeout_interruptible-.patch
+              "bf5700621fe1b5830fe1188475636ef2"  #0009-Replace-all-calls-to-schedule_timeout_uninterruptibl.patch
+              "f35e7618fb95c181f367b026f12973ea"  #0010-Don-t-use-hrtimer-overlay-when-pm_freezing-since-som.patch
+              "add2a95dbe9705c4f0f49feb1f447b81"  #0012-Make-threaded-IRQs-optionally-the-default-which-can-.patch
+              "46ab9d4d09b20f6604e33215a27c27af"  #0014-Swap-sucks.patch
+              "a04390dfc0db2af7f9d454535bc012f4") #0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch
   elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "5" ]]; then
     source+=("${patchsource}/prjc-patches/0009-prjc_v5.10-r0.patch")
     md5sums+=("c5965574a8529a84ddfca9dc548fa781")  #0009-prjc_v5.10-r0.patch
@@ -222,40 +222,40 @@ elif [[ $_release = "2" ]]; then
            "484a08bb07adcf7268409671ad52d6b3"  #0013-v5.10-rc7-revert.patch
            "5ef95c9aa1a3010b57c9be03f8369abb") #0002-init-Kconfig-enable-O3-for-all-arches.patch
   if [[ $_cpu_sched = "1" ]]; then
-  source+=("${patchsource}/cachy-patches/cachy-5.9-r8.patch")
-  md5sums+=("c0f15019b0fcacc465aa5eea2c207c1c") #cachy-5.9-r8.patch
+    source+=("${patchsource}/cachy-patches/cachy-5.9-r8.patch")
+    md5sums+=("c0f15019b0fcacc465aa5eea2c207c1c") #cachy-5.9-r8.patch
     if [[ $_idle_balance = "y" ]]; then
       source+=("${patchsource}/cachy-patches/02-idle_balance.patch")
       md5sums+=("933f282baaf71fbfa8d404e9d4404bb0")  #02-idle_balance.patch
     fi
   elif [[ $_cpu_sched = "2" ]]; then
-  source+=("${patchsource}/cacule-patches/cacule5.9.patch")
-  md5sums+=("acbc60a90c9b3cbb35e162985a38cb8a")  #cacule5.9.patch
-elif [[ $_cpu_sched = "3" ]]; then
-  source+=("${patchsource}/muqss-patches/0001-MultiQueue-Skiplist-Scheduler-v0.204.patch"
-           "${patchsource}/muqss-patches/0003-Expose-vmsplit-for-our-poor-32-bit-users.patch"
-           "${patchsource}/muqss-patches/0004-Create-highres-timeout-variants-of-schedule_timeout-.patch"
-           "${patchsource}/muqss-patches/0005-Special-case-calls-of-schedule_timeout-1-to-use-the-.patch"
-           "${patchsource}/muqss-patches/0006-Convert-msleep-to-use-hrtimers-when-active.patch"
-           "${patchsource}/muqss-patches/0007-Replace-all-schedule-timeout-1-with-schedule_min_hrt.patch"
-           "${patchsource}/muqss-patches/0008-Replace-all-calls-to-schedule_timeout_interruptible-.patch"
-           "${patchsource}/muqss-patches/0009-Replace-all-calls-to-schedule_timeout_uninterruptibl.patch"
-           "${patchsource}/muqss-patches/0010-Don-t-use-hrtimer-overlay-when-pm_freezing-since-som.patch"
-           "${patchsource}/muqss-patches/0012-Make-threaded-IRQs-optionally-the-default-which-can-.patch"
-           "${patchsource}/muqss-patches/0014-Swap-sucks.patch"
-           "${patchsource}/muqss-patches/0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch")
-  md5sums+=("97b4c6bc474ae6181e58a0ab1ce1d096"  #0001-MultiQueue-Skiplist-Scheduler-v0.204.patch
-            "322f8444650e41fd40175693749b1592"  #0003-Expose-vmsplit-for-our-poor-32-bit-users.patch
-            "55adeb5b6f05a3c666568537ad663fb8"  #0004-Create-highres-timeout-variants-of-schedule_timeout-.patch
-            "a221ad4e6f0f2c62413c0a90945492d5"  #0005-Special-case-calls-of-schedule_timeout-1-to-use-the-.patch
-            "ced32172ce6d7c8d891750ca3bbbbef2"  #0006-Convert-msleep-to-use-hrtimers-when-active.patch
-            "11d4479ce9ac7c7a5cb8478101a5dce8"  #0007-Replace-all-schedule-timeout-1-with-schedule_min_hrt.patch
-            "e9a4d9d8214ab2aaa647a8cfaa23d668"  #0008-Replace-all-calls-to-schedule_timeout_interruptible-.patch
-            "bf5700621fe1b5830fe1188475636ef2"  #0009-Replace-all-calls-to-schedule_timeout_uninterruptibl.patch
-            "f35e7618fb95c181f367b026f12973ea"  #0010-Don-t-use-hrtimer-overlay-when-pm_freezing-since-som.patch
-            "add2a95dbe9705c4f0f49feb1f447b81"  #0012-Make-threaded-IRQs-optionally-the-default-which-can-.patch
-            "46ab9d4d09b20f6604e33215a27c27af"  #0014-Swap-sucks.patch
-            "a04390dfc0db2af7f9d454535bc012f4") #0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch
+    source+=("${patchsource}/cacule-patches/cacule5.9.patch")
+    md5sums+=("acbc60a90c9b3cbb35e162985a38cb8a")  #cacule5.9.patch
+  elif [[ $_cpu_sched = "3" ]]; then
+    source+=("${patchsource}/muqss-patches/0001-MultiQueue-Skiplist-Scheduler-v0.204.patch"
+             "${patchsource}/muqss-patches/0003-Expose-vmsplit-for-our-poor-32-bit-users.patch"
+             "${patchsource}/muqss-patches/0004-Create-highres-timeout-variants-of-schedule_timeout-.patch"
+             "${patchsource}/muqss-patches/0005-Special-case-calls-of-schedule_timeout-1-to-use-the-.patch"
+             "${patchsource}/muqss-patches/0006-Convert-msleep-to-use-hrtimers-when-active.patch"
+             "${patchsource}/muqss-patches/0007-Replace-all-schedule-timeout-1-with-schedule_min_hrt.patch"
+             "${patchsource}/muqss-patches/0008-Replace-all-calls-to-schedule_timeout_interruptible-.patch"
+             "${patchsource}/muqss-patches/0009-Replace-all-calls-to-schedule_timeout_uninterruptibl.patch"
+             "${patchsource}/muqss-patches/0010-Don-t-use-hrtimer-overlay-when-pm_freezing-since-som.patch"
+             "${patchsource}/muqss-patches/0012-Make-threaded-IRQs-optionally-the-default-which-can-.patch"
+             "${patchsource}/muqss-patches/0014-Swap-sucks.patch"
+             "${patchsource}/muqss-patches/0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch")
+    md5sums+=("97b4c6bc474ae6181e58a0ab1ce1d096"  #0001-MultiQueue-Skiplist-Scheduler-v0.204.patch
+              "322f8444650e41fd40175693749b1592"  #0003-Expose-vmsplit-for-our-poor-32-bit-users.patch
+              "55adeb5b6f05a3c666568537ad663fb8"  #0004-Create-highres-timeout-variants-of-schedule_timeout-.patch
+              "a221ad4e6f0f2c62413c0a90945492d5"  #0005-Special-case-calls-of-schedule_timeout-1-to-use-the-.patch
+              "ced32172ce6d7c8d891750ca3bbbbef2"  #0006-Convert-msleep-to-use-hrtimers-when-active.patch
+              "11d4479ce9ac7c7a5cb8478101a5dce8"  #0007-Replace-all-schedule-timeout-1-with-schedule_min_hrt.patch
+              "e9a4d9d8214ab2aaa647a8cfaa23d668"  #0008-Replace-all-calls-to-schedule_timeout_interruptible-.patch
+              "bf5700621fe1b5830fe1188475636ef2"  #0009-Replace-all-calls-to-schedule_timeout_uninterruptibl.patch
+              "f35e7618fb95c181f367b026f12973ea"  #0010-Don-t-use-hrtimer-overlay-when-pm_freezing-since-som.patch
+              "add2a95dbe9705c4f0f49feb1f447b81"  #0012-Make-threaded-IRQs-optionally-the-default-which-can-.patch
+              "46ab9d4d09b20f6604e33215a27c27af"  #0014-Swap-sucks.patch
+              "a04390dfc0db2af7f9d454535bc012f4") #0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch
   elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "5" ]]; then
     source+=("${patchsource}/prjc-patches/0009-prjc_v5.10-r0.patch")
     md5sums+=("c5965574a8529a84ddfca9dc548fa781")  #0009-prjc_v5.10-r0.patch
