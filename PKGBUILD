@@ -16,7 +16,6 @@
 #Set '1' for stable release
 #Set '2' for rc (mainline) release
 #Default is set to stable '1'
-#This variable need to have a value otherwise makepkg fill fail
 if [ -z ${_release+x} ]; then
   _release=1
 fi
@@ -48,7 +47,6 @@ ARCH=x86
 #Set '3' to build with CLANG
 #Set '4' to build with CLANG and LLVM
 #Default is set to '4'
-#This variable need to have a value otherwise makepkg fill fail
 if [ -z ${_compiler+x} ]; then
   _compiler=4
 fi
@@ -72,6 +70,12 @@ elif [[ "$_compiler" = "3" ]]; then
   HOSTCXX=clang++
   buildwith="build with CLANG"
 elif [[ "$_compiler" = "4" ]]; then
+  CC=clang
+  CXX=clang++
+  HOSTCC=clang
+  HOSTCXX=clang++
+  buildwith="build with CLANG/LLVM"
+else
   CC=clang
   CXX=clang++
   HOSTCC=clang
@@ -114,6 +118,9 @@ elif [[ $_release = "2" ]]; then
   else
     pkgbase=mainline-kernel
   fi
+else
+  _release=1
+  pkgname=linux-kernel
 fi
 
 pkgname=("$pkgbase" "$pkgbase-headers")
