@@ -819,7 +819,7 @@ configure(){
 
   plain ""
   plain "#########################################"
-  plain "Choose compiler to compile the kernel"
+  plain "Choose your architechture"
   read -rp "`echo $' > 1.x86\n > 2.x86_64\n > Default (x86_64)\nchoice[1-2]: '`" _arch
   if [[ "$_arch" = "1" ]]; then
     msg2 "Selected x86 architechture"
