@@ -120,7 +120,7 @@ elif [[ $_release = "2" ]]; then
   fi
 else
   _release=1
-  pkgname=linux-kernel
+  pkgbase=linux-kernel
 fi
 
 pkgname=("$pkgbase" "$pkgbase-headers")
