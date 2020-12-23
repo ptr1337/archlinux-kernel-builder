@@ -15,7 +15,6 @@
 #Set the release : stable, rc (mainline), git (master branch)
 #Set '1' for stable release
 #Set '2' for rc (mainline) release
-#Set '3' for git (master branch) release
 #Default is set to stable '1'
 #This variable need to have a value otherwise makepkg fill fail
 if [ -z ${_release+x} ]; then
@@ -78,8 +77,6 @@ elif [[ $_release = "2" ]]; then
   else
     pkgbase=mainline-kernel
   fi
-elif [[ $_release = "3" ]]; then
-  pkgbase=linux-kernel-git
 fi
 
 pkgname=("$pkgbase" "$pkgbase-headers")
@@ -98,8 +95,6 @@ elif [[ $_release = "2" ]]; then
   pkgver=5.10_rc7
   versiontag=5.10-rc7
   major=5.10
-elif [[ $_release = "3" ]]; then
-  pkgver=5.10
 fi
 
 pkgrel=1
@@ -263,38 +258,6 @@ elif [[ $_release = "2" ]]; then
     source+=("${patchsource}/upds-patches/0005-v5.10_undead-pds099o.patch")
     md5sums+=("07bc120fe6a43feae936e612c288fa13")  #0005-v5.10_undead-pds099o.patch
   fi
-elif [[ $_release = "3" ]]; then
-  patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/git
-  source=("linux::git+https://github.com/torvalds/linux.git"
-          "config-git"
-          "$patchsource/misc/choose-gcc-optimization.sh"
-          "$patchsource/zen-patches/0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch"
-          "$patchsource/misc/0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch"
-          "$patchsource/misc/0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch"
-          "$patchsource/xanmod-patches/0001-sched-autogroup-Add-kernel-parameter-and-config-opti.patch"
-          "$patchsource/zen-patches/0001-ZEN-Add-VHBA-driver.patch"
-          "$patchsource/futex-patches/0001-futex-patches.patch"
-          "$patchsource/ZFS-patches/0011-ZFS-fix.patch"
-          "$patchsource/ntfs3-patches/0001-ntfs3-patches.patch"
-          "$patchsource/misc/0002-init-Kconfig-enable-O3-for-all-arches.patch"
-          "$patchsource/block-patches/0001-block-patches.patch"
-          "$patchsource/bfq-patches/5.10-bfq-reverts-ver1.patch"
-          "$patchsource/bfq-patches/5.10-bfq-dev-lucjan-v13-r2K201214-ll.patch")
-  md5sums=("SKIP" #linux kernel
-           "SKIP" #config-git
-           "b3f0a4804b6fe031f674988441c1af35"  #choose-gcc-optimization.sh
-           "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
-           "d15597054a4c5e405f980d07d5eac11a"  #0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch
-           "f99b82d6f424d1a729a9b8c5a1be2b84"  #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
-           "34764d6a1af6ab2e06ef6efa95aaa467"  #0001-sched-autogroup-Add-kernel-parameter-and-config-opti.patch
-           "a0188e575abe3f27bde9ec09462b067e"  #0001-ZEN-Add-VHBA-driver.patch
-           "c97b042c437883db1e768ff474e8b35c"  #0001-futex-patches.patch
-           "c19fd76423bfc4af45d99585cedb2623"  #0011-ZFS-fix.patch
-           "39ea219cf88b984395006db9cf638304"  #0001-ntfs3-patches.patch
-           "5ef95c9aa1a3010b57c9be03f8369abb"  #0002-init-Kconfig-enable-O3-for-all-arches.patch
-           "08c1f6c132af32dea0da37144291f117"  #0001-block-patches.patch
-           "0acd0ffeafb417974cc4c7de0f1a6f58"  #5.10-bfq-reverts-ver1.patch
-           "43663034152cfd8f0bc7926f44432886") #5.10-bfq-dev-lucjan-v13-r2K201214-ll.patch
 fi
 
 export KBUILD_BUILD_HOST=archlinux
@@ -306,8 +269,6 @@ prepare(){
     cd linux-$pkgver
   elif [[ $_release = "2" ]]; then
     cd linux-$versiontag
-  elif [[ $_release = "3" ]]; then
-    cd linux
   fi
 
   # Apply any patch
@@ -328,9 +289,6 @@ prepare(){
   elif [[ $_release = "2" ]]; then
     msg2 "Copy "${srcdir}"/config to linux-$versiontag/.config"
     cp "${srcdir}"/config-5.10-rc .config
-  elif [[ $_release = "3" ]]; then
-    msg2 "Copy "${srcdir}"/config to linux/.config"
-    cp "${srcdir}"/config-git .config
   fi
 
   source "${startdir}"/prepare
@@ -367,26 +325,11 @@ prepare(){
   #ln -s "${startdir}/config.cfg" "${srcdir}" # workaround
 }
 
-#Workarround for git release
-pkgver=$pkgver
-
-if [[ $_release = "3" ]]; then
-pkgver(){
-  cd "$srcdir"/linux
-
-  git describe --long | sed -E 's/^v//;s/([^-]*-g)/r\1/;s/-/./g;s/\.rc/rc/'
-  #printf "5.10.r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
-  #echo $pkgver.$(git rev-list --count HEAD).$(git rev-parse --short HEAD)
-}
-fi
-
 build(){
   if [[ $_release = "1" ]]; then
     cd linux-$pkgver
   elif [[ $_release = "2" ]]; then
     cd linux-$versiontag
-  elif [[ $_release = "3" ]]; then
-    cd linux
   fi
 
   # make -j$(nproc) all
@@ -407,8 +350,6 @@ _package(){
     pkgdesc="Stable linux kernel and modules with a set of patches by TK-Glitch and Piotr Górski"
   elif [[ $_release = "2" ]]; then
     pkgdesc="Mainline linux kernel and modules with a set of patches by TK-Glitch and Piotr Górski"
-  elif [[ $_release = "3" ]]; then
-    pkgdesc="Linux kernel and modules with a set of patches by TK-Glitch and Piotr Górski (git release)"
   fi
   depends=("coreutils" "kmod" "initramfs" "mkinitcpio")
   optdepends=("linux-firmware: firmware images needed for some devices"
@@ -419,8 +360,6 @@ _package(){
     cd linux-$pkgver
   elif [[ $_release = "2" ]]; then
     cd linux-$versiontag
-  elif [[ $_release = "3" ]]; then
-    cd linux
   fi
 
   local kernver="$(<version)"
@@ -458,8 +397,6 @@ _package-headers(){
     cd linux-$pkgver
   elif [[ $_release = "2" ]]; then
     cd linux-$versiontag
-  elif [[ $_release = "3" ]]; then
-    cd linux
   fi
 
   local builddir="$pkgdir"/usr/lib/modules/"$(<version)"/build
