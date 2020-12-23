@@ -192,7 +192,7 @@ if [[ $_release = "1" ]]; then
 elif [[ $_release = "2" ]]; then
   patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$major
   source=("https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/linux-$versiontag.tar.gz"
-          "config"
+          "config-5.10-rc"
           "$patchsource/misc/choose-gcc-optimization.sh"
           "$patchsource/zen-patches/0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch"
           "$patchsource/misc/0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch"
@@ -206,8 +206,8 @@ elif [[ $_release = "2" ]]; then
           "$patchsource/block-patches/0001-block-patches.patch"
           "$patchsource/misc/0013-v5.10-rc7-revert.patch"
           "$patchsource/misc/0002-init-Kconfig-enable-O3-for-all-arches.patch")
-  md5sums=("fbd373ba1a12b85c36a085ca1af8c305"  #linux-5.10-rc7.tar.gz
-           "4e88d6abe73b592b95641abb97c93d6f"  #config version 5.9.11
+  md5sums=("SKIP"  #linux-5.10-rc7.tar.gz
+           "SKIP"  #config-5.10-rc
            "b3f0a4804b6fe031f674988441c1af35"  #choose-gcc-optimization.sh
            "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
            "d15597054a4c5e405f980d07d5eac11a"  #0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch
@@ -327,7 +327,7 @@ prepare(){
     cp "${srcdir}"/config-5.10 .config
   elif [[ $_release = "2" ]]; then
     msg2 "Copy "${srcdir}"/config to linux-$versiontag/.config"
-    cp "${srcdir}"/config .config
+    cp "${srcdir}"/config-5.10-rc .config
   elif [[ $_release = "3" ]]; then
     msg2 "Copy "${srcdir}"/config to linux/.config"
     cp "${srcdir}"/config-git .config
