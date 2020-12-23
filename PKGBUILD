@@ -10,9 +10,6 @@
 #Credits: Hamad Al Marri <https://github.com/hamadmarri/cachy-sched> ---> For CacULE CPU Scheduler patch
 #Credits: Alfred Chen <https://gitlab.com/alfredchen/projectc> ---> For the BMQ/PDS CPU Scheduler patch
 
-#Set architechture
-ARCH=x86_64
-
 #################################
 
 #Set the release : stable, rc (mainline), git (master branch)
