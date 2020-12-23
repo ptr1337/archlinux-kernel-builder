@@ -780,62 +780,6 @@ configure(){
 
   plain ""
   plain "#########################################"
-  plain "Choose compiler to compile the kernel"
-  read -rp "`echo $' > 1.GCC\n > 2.GCC+LLVM\n > 3.CLANG\n > 4.CLANG+LLVM\n > Default (CLANG+LLVM)\nchoice[1-4]: '`" _compiler
-  if [[ "$_compiler" = "1" ]]; then
-    msg2 "Will compile with GCC"
-    CC=gcc
-    CXX=g++
-    HOSTCC=gcc
-    HOSTCXX=g++
-  elif [[ "$_compiler" = "2" ]]; then
-    msg2 "Will compile with GCC and LLVM"
-    CC=gcc
-    CXX=g++
-    HOSTCC=gcc
-    HOSTCXX=g++
-  elif [[ "$_compiler" = "3" ]]; then
-    msg2 "Will compile with CLANG"
-    CC=clang
-    CXX=clang++
-    HOSTCC=clang
-    HOSTCXX=clang++
-  elif [[ "$_compiler" = "4" ]]; then
-    msg2 'Will compile with CLANG and LLVM'
-    CC=clang
-    CXX=clang++
-    HOSTCC=clang
-    HOSTCXX=clang++
-  else
-    msg2 "Will compile with CLANG and LLVM"
-    _compiler=4
-    CC=clang
-    CXX=clang++
-    HOSTCC=clang
-    HOSTCXX=clang++
-  fi
-  
-  sleep 2s
-
-  plain ""
-  plain "#########################################"
-  plain "Choose your architechture"
-  read -rp "`echo $' > 1.x86\n > 2.x86_64\n > Default (x86_64)\nchoice[1-2]: '`" _arch
-  if [[ "$_arch" = "1" ]]; then
-    msg2 "Selected x86 architechture"
-    ARCH=x86
-  elif [[ "$_compiler" = "2" ]]; then
-    msg2 "Selected x86_64 architechture"
-    ARCH=x86_64
-  else
-    msg2 "Selected x86_64 architechture"
-    ARCH=x86_64
-  fi
-
-  sleep 2s
-
-  plain ""
-  plain "#########################################"
   plain "Set cpu microarchitecture optimization in GCC"
   read -rp "`echo $' > 0) Generic(default)\n \
   > 1) AMD K6/K6-II/K6-III\n \
@@ -884,12 +828,4 @@ configure(){
   plain ""
 
   sleep 2
-
-  #Workarround
-  echo _compiler=$_compiler >> "${srcdir}"/config.cfg
-  echo ARCH=$ARCH >> "${srcdir}"/config.cfg
-  echo CC=$CC >> "${srcdir}"/config.cfg
-  echo CXX=$CXX >> "${srcdir}"/config.cfg
-  echo HOSTCC=$HOSTCC >> "${srcdir}"/config.cfg
-  echo HOSTCXX=$HOSTCXX >> "${srcdir}"/config.cfg
 }

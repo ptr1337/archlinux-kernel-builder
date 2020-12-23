@@ -36,13 +36,50 @@ if [ -z ${_cpu_sched+x} ]; then
   _cpu_sched=
 fi
 
-#################################
+################################# Arch ################################
 
-source "${srcdir}"/config.cfg # workaround. Will give an error at the beginning of the makepkg command
-#                               but it is necessary for the package function to have a .cfg file
-#                               with all the vars selected in the prepare script that are in the package function
+ARCH=x86
 
-#################################
+################################# CC/CXX/HOSTCC/HOSTCXX ################################
+
+#Set compiler to build the kernel
+#Set '1' to build with GCC
+#Set '2' to build with GCC and LLVM
+#Set '3' to build with CLANG
+#Set '4' to build with CLANG and LLVM
+#Default is set to '4'
+#This variable need to have a value otherwise makepkg fill fail
+if [ -z ${_compiler+x} ]; then
+  _compiler=4
+fi
+
+if [[ "$_compiler" = "1" ]]; then
+  CC=gcc
+  CXX=g++
+  HOSTCC=gcc
+  HOSTCXX=g++
+  buildwith="build with GCC"
+elif [[ "$_compiler" = "2" ]]; then
+  CC=gcc
+  CXX=g++
+  HOSTCC=gcc
+  HOSTCXX=g++
+  buildwith="build with GCC/LLVM"
+elif [[ "$_compiler" = "3" ]]; then
+  CC=clang
+  CXX=clang++
+  HOSTCC=clang
+  HOSTCXX=clang++
+  buildwith="build with CLANG"
+elif [[ "$_compiler" = "4" ]]; then
+  CC=clang
+  CXX=clang++
+  HOSTCC=clang
+  HOSTCXX=clang++
+  buildwith="build with CLANG/LLVM"
+fi
+
+###################################################################################
 
 # This section set the pkgbase based on the cpu scheduler. So user can build different package based on the cpu schduler for testing.
 if [[ $_release = "1" ]]; then
@@ -305,24 +342,17 @@ prepare(){
 
   # Config
   if [[ "$_compiler" = "1" ]]; then
-    make ARCH=$ARCH CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
   elif [[ "$_compiler" = "2" ]]; then
-    make ARCH=$ARCH CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
   elif [[ "$_compiler" = "3" ]]; then
-    make ARCH=$ARCH CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
   elif [[ "$_compiler" = "4" ]]; then
-    make ARCH=$ARCH CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
   fi
 
   make -s kernelrelease > version
   msg2 "Prepared $pkgbase version $(<version)"
-
-  # workaround
-  echo _release=$_release >> "$srcdir"/config.cfg
-  echo pkgver=$pkgver >> "$srcdir"/config.cfg
-  echo versiontag=$versiontag >> "$srcdir"/config.cfg
-
-  #ln -s "${startdir}/config.cfg" "${srcdir}" # workaround
 }
 
 build(){
@@ -335,21 +365,21 @@ build(){
   # make -j$(nproc) all
   msg2 "make -j$(nproc) all..."
   if [[ "$_compiler" = "1" ]]; then
-    make ARCH=$ARCH CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
   elif [[ "$_compiler" = "2" ]]; then
-    make ARCH=$ARCH CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
   elif [[ "$_compiler" = "3" ]]; then
-    make ARCH=$ARCH CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
   elif [[ "$_compiler" = "4" ]]; then
-    make ARCH=$ARCH CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
   fi
 }
 
 _package(){
   if [[ $_release = "1" ]]; then
-    pkgdesc="Stable linux kernel and modules with a set of patches by TK-Glitch and Piotr Górski"
+    pkgdesc="Stable linux kernel and modules with a set of patches by TK-Glitch and Piotr Górski ${buildwith}"
   elif [[ $_release = "2" ]]; then
-    pkgdesc="Mainline linux kernel and modules with a set of patches by TK-Glitch and Piotr Górski"
+    pkgdesc="Mainline linux kernel and modules with a set of patches by TK-Glitch and Piotr Górski ${buildwith}"
   fi
   depends=("coreutils" "kmod" "initramfs" "mkinitcpio")
   optdepends=("linux-firmware: firmware images needed for some devices"
@@ -375,13 +405,13 @@ _package(){
 
   msg2 "Installing modules..."
   if [[ "$_compiler" = "1" ]]; then
-    make ARCH=$ARCH CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
   elif [[ "$_compiler" = "2" ]]; then
-    make ARCH=$ARCH CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
   elif [[ "$_compiler" = "3" ]]; then
-    make ARCH=$ARCH CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
   elif [[ "$_compiler" = "4" ]]; then
-    make ARCH=$ARCH CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
   fi
 
   # remove build and source links
