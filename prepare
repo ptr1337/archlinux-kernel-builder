@@ -771,6 +771,7 @@ configure(){
   fi
 
   if [[ $_release = "3" ]]; then
+    sleep 2s
     plain ""
     plain "#########################################"
     plain "Enable/disable CFS"
@@ -802,28 +803,24 @@ configure(){
     CXX=g++
     HOSTCC=gcc
     HOSTCXX=g++
-    buildwith="build with GCC"
   elif [[ "$_compiler" = "2" ]]; then
     msg2 "Will compile with GCC and LLVM"
     CC=gcc
     CXX=g++
     HOSTCC=gcc
     HOSTCXX=g++
-    buildwith="build with GCC/LLVM"
   elif [[ "$_compiler" = "3" ]]; then
     msg2 "Will compile with CLANG"
     CC=clang
     CXX=clang++
     HOSTCC=clang
     HOSTCXX=clang++
-    buildwith="build with CLANG"
   elif [[ "$_compiler" = "4" ]]; then
     msg2 'Will compile with CLANG and LLVM'
     CC=clang
     CXX=clang++
     HOSTCC=clang
     HOSTCXX=clang++
-    buildwith="build with CLANG/LLVM"
   else
     msg2 "Will compile with CLANG and LLVM"
     _compiler=4
@@ -831,7 +828,6 @@ configure(){
     CXX=clang++
     HOSTCC=clang
     HOSTCXX=clang++
-    buildwith="build with CLANG/LLVM"
   fi
 
   sleep 2s
