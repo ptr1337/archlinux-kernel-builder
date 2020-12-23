@@ -749,7 +749,7 @@ configure(){
       msg2 "Disable CFS"
       scripts/config --disable CONFIG_FAIR_GROUP_SCHED
       scripts/config --disable CONFIG_CFS_BANDWIDTH
-    elif [[ $_cpu_sched = "6" ]]; then
+    else
       plain ""
       plain "#########################################"
       plain "Enable/disable CFS"
@@ -767,6 +767,26 @@ configure(){
         scripts/config --enable CONFIG_FAIR_GROUP_SCHED
         scripts/config --enable CONFIG_CFS_BANDWIDTH
       fi
+    fi
+  fi
+
+  if [[ $_release = "3" ]]; then
+    plain ""
+    plain "#########################################"
+    plain "Enable/disable CFS"
+    read -rp "`echo $' > 1.Disable\n > 2.Enable\n > Default (Enable)\nchoice[1-2]: '`" _cfs
+    if [[ $_cfs = "1" ]]; then
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
+    elif [[ $_cfs = "2" ]]; then
+      msg2 "Enable CFS"
+      scripts/config --enable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --enable CONFIG_CFS_BANDWIDTH
+    else
+      msg2 "Enable CFS"
+      scripts/config --enable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --enable CONFIG_CFS_BANDWIDTH
     fi
   fi
 
