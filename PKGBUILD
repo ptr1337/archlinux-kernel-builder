@@ -15,9 +15,9 @@
 #Set the release : stable, rc (mainline), git (master branch)
 #Set '1' for stable release
 #Set '2' for rc (mainline) release
-#Default is set to stable '1'
+#Default is empty. It will build stable relase. To build rc release just use : env _release=(1 or 2) makepkg -s
 if [ -z ${_release+x} ]; then
-  _release=1
+  _release=
 fi
 
 #################################
@@ -30,7 +30,7 @@ fi
 #Set '5' for PDS CPU Scheduler
 #Set '6' for UPDS CPU Scheduler
 #Leave empty for no CPU Scheduler
-#Default is set to empty
+#Default is empty. It will build with no cpu scheduler. To build with cpu shceduler just use : env _cpu_sched=(1,2,3,4, or 6) makepkg -s
 if [ -z ${_cpu_sched+x} ]; then
   _cpu_sched=
 fi
@@ -46,9 +46,9 @@ ARCH=x86
 #Set '2' to build with GCC and LLVM
 #Set '3' to build with CLANG
 #Set '4' to build with CLANG and LLVM
-#Default is set to '4'
+#Default is empty. It will build stable relase. To build rc release just use : env _compiler=(1,2,3 or 4) makepkg -s
 if [ -z ${_compiler+x} ]; then
-  _compiler=4
+  _compiler=
 fi
 
 if [[ "$_compiler" = "1" ]]; then
@@ -76,6 +76,7 @@ elif [[ "$_compiler" = "4" ]]; then
   HOSTCXX=clang++
   buildwith="build with CLANG/LLVM"
 else
+  _compiler=4
   CC=clang
   CXX=clang++
   HOSTCC=clang
