@@ -30,6 +30,7 @@ fi
 #Set '3' for MuQSS CPU Scheduler
 #Set '4' for BMQ CPU Scheduler
 #Set '5' for PDS CPU Scheduler
+#Set '6' for UPDS CPU Scheduler
 #Leave empty for no CPU Scheduler
 #Default is set to empty
 if [ -z ${_cpu_sched+x} ]; then
@@ -56,6 +57,8 @@ if [[ $_release = "1" ]]; then
     pkgbase=linux-kernel-bmq
   elif [[ $_cpu_sched = "5" ]]; then
     pkgbase=linux-kernel-pds
+  elif [[ $_cpu_sched = "6" ]]; then
+    pkgbase=linux-kernel-upds
   else
     pkgbase=linux-kernel
   fi
@@ -70,6 +73,8 @@ elif [[ $_release = "2" ]]; then
     pkgbase=mainline-kernel-bmq
   elif [[ $_cpu_sched = "5" ]]; then
     pkgbase=mainline-kernel-pds
+  elif [[ $_cpu_sched = "6" ]]; then
+    pkgbase=mainline-kernel-upds
   else
     pkgbase=mainline-kernel
   fi
@@ -146,8 +151,8 @@ if [[ $_release = "1" ]]; then
   source+=("$patchsource/cachy-patches/cachy-5.9-r8.patch")
   md5sums+=("c0f15019b0fcacc465aa5eea2c207c1c") #cachy-5.9-r8.patch
   if [[ $_idle_balance = "y" ]]; then
-    source+=("$patchsource/cachy-patches/02-idle_balance.patch")
-    md5sums+=("933f282baaf71fbfa8d404e9d4404bb0")  #02-idle_balance.patch
+  source+=("$patchsource/cachy-patches/02-idle_balance.patch")
+  md5sums+=("933f282baaf71fbfa8d404e9d4404bb0")  #02-idle_balance.patch
   fi
   elif [[ $_cpu_sched = "2" ]]; then
   source+=("$patchsource/cacule-patches/cacule5.9.patch")
@@ -177,12 +182,12 @@ if [[ $_release = "1" ]]; then
             "add2a95dbe9705c4f0f49feb1f447b81"  #0012-Make-threaded-IRQs-optionally-the-default-which-can-.patch
             "46ab9d4d09b20f6604e33215a27c27af"  #0014-Swap-sucks.patch
             "a04390dfc0db2af7f9d454535bc012f4") #0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch
-  elif [[ $_cpu_sched = "4" ]]; then
-  source+=("$patchsource/prjc-patches/0009-prjc_v5.10-r0.patch")
-  md5sums+=("00b157990c7df847b4f287a0bffdae35")  #0009-prjc_v5.10-r0.patch
-  elif [[ $_cpu_sched = "5" ]]; then
-  source+=("$patchsource/prjc-patches/0009-prjc_v5.10-r0.patch")
-  md5sums+=("00b157990c7df847b4f287a0bffdae35")  #0009-prjc_v5.10-r0.patch
+  elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "5" ]]; then
+    source+=("${patchsource}/prjc-patches/0009-prjc_v5.10-r0.patch")
+    md5sums+=("c5965574a8529a84ddfca9dc548fa781")  #0009-prjc_v5.10-r0.patch
+  elif [[ $_cpu_sched = "6" ]]; then
+    source+=("${patchsource}/upds-patches/0005-v5.10_undead-pds099o.patch")
+    md5sums+=("07bc120fe6a43feae936e612c288fa13")  #0005-v5.10_undead-pds099o.patch
   fi
 elif [[ $_release = "2" ]]; then
   patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$major
@@ -251,12 +256,12 @@ elif [[ $_cpu_sched = "3" ]]; then
             "add2a95dbe9705c4f0f49feb1f447b81"  #0012-Make-threaded-IRQs-optionally-the-default-which-can-.patch
             "46ab9d4d09b20f6604e33215a27c27af"  #0014-Swap-sucks.patch
             "a04390dfc0db2af7f9d454535bc012f4") #0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch
-  elif [[ $_cpu_sched = "4" ]]; then
-  source+=("${patchsource}/prjc-patches/0009-prjc_v5.10-r0.patch")
-  md5sums+=("c5965574a8529a84ddfca9dc548fa781")  #0009-prjc_v5.10-r0.patch
-elif [[ $_cpu_sched = "5" ]]; then
-  source+=("${patchsource}/prjc-patches/0009-prjc_v5.10-r0.patch")
-  md5sums+=("c5965574a8529a84ddfca9dc548fa781")  #0009-prjc_v5.10-r0.patch
+  elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "5" ]]; then
+    source+=("${patchsource}/prjc-patches/0009-prjc_v5.10-r0.patch")
+    md5sums+=("c5965574a8529a84ddfca9dc548fa781")  #0009-prjc_v5.10-r0.patch
+  elif [[ $_cpu_sched = "6" ]]; then
+    source+=("${patchsource}/upds-patches/0005-v5.10_undead-pds099o.patch")
+    md5sums+=("07bc120fe6a43feae936e612c288fa13")  #0005-v5.10_undead-pds099o.patch
   fi
 elif [[ $_release = "3" ]]; then
   patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/git
