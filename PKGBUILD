@@ -408,7 +408,7 @@ _package(){
   elif [[ $_release = "2" ]]; then
     pkgdesc="Mainline linux kernel and modules with a set of patches by TK-Glitch and Piotr Górski"
   elif [[ $_release = "3" ]]; then
-    pkgdesc="Linux kernel and modules (git release)"
+    pkgdesc="Linux kernel and modules with a set of patches by TK-Glitch and Piotr Górski (git release)"
   fi
   depends=("coreutils" "kmod" "initramfs" "mkinitcpio")
   optdepends=("linux-firmware: firmware images needed for some devices"
