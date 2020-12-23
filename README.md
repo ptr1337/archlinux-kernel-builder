@@ -1,2 +1,1 @@
-# linux-pkg
-linux kernel package
+# Description is coming soon!!
