@@ -39,7 +39,7 @@ fi
 
 #################################
 
-source "${srcdir}"config.cfg # workaround. Will give an error at the beginning of the makepkg command
+source "${srcdir}"/config.cfg # workaround. Will give an error at the beginning of the makepkg command
 #                               but it is necessary for the package function to have a .cfg file
 #                               with all the vars selected in the prepare script that are in the package function
 
