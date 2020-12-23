@@ -139,7 +139,7 @@ if [[ $_release = "1" ]]; then
 elif [[ $_release = "2" ]]; then
   pkgver=5.10_rc7
   versiontag=5.10-rc7
-  major=5.10
+  major=5.10-rc
 fi
 
 pkgrel=1
