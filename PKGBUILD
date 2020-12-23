@@ -12,7 +12,7 @@
 
 #################################
 
-#Set the release : stable, rc (mainline), git (master branch)
+#Set the release : stable or rc (mainline)
 #Set '1' for stable release
 #Set '2' for rc (mainline) release
 #Default is empty. It will build stable relase. To build rc release just use : env _release=(1 or 2) makepkg -s
