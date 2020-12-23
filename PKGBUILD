@@ -179,10 +179,10 @@ if [[ $_release = "1" ]]; then
             "a04390dfc0db2af7f9d454535bc012f4") #0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch
   elif [[ $_cpu_sched = "4" ]]; then
   source+=("$patchsource/prjc-patches/0009-prjc_v5.10-r0.patch")
-  md5sums+=("c5965574a8529a84ddfca9dc548fa781")  #0009-prjc_v5.10-r0.patch
+  md5sums+=("00b157990c7df847b4f287a0bffdae35")  #0009-prjc_v5.10-r0.patch
   elif [[ $_cpu_sched = "5" ]]; then
   source+=("$patchsource/prjc-patches/0009-prjc_v5.10-r0.patch")
-  md5sums+=("c5965574a8529a84ddfca9dc548fa781")  #0009-prjc_v5.10-r0.patch
+  md5sums+=("00b157990c7df847b4f287a0bffdae35")  #0009-prjc_v5.10-r0.patch
   fi
 elif [[ $_release = "2" ]]; then
   patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$major
