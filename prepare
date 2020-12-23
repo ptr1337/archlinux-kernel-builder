@@ -814,6 +814,23 @@ configure(){
     HOSTCC=clang
     HOSTCXX=clang++
   fi
+  
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Choose compiler to compile the kernel"
+  read -rp "`echo $' > 1.x86\n > 2.x86_64\n > Default (x86_64)\nchoice[1-2]: '`" _arch
+  if [[ "$_arch" = "1" ]]; then
+    msg2 "Selected x86 architechture"
+    ARCH=x86
+  elif [[ "$_compiler" = "2" ]]; then
+    msg2 "Selected x86_64 architechture"
+    ARCH=x86_64
+  else
+    msg2 "Selected x86_64 architechture"
+    ARCH=x86_64
+  fi
 
   sleep 2s
 
@@ -870,6 +887,7 @@ configure(){
 
   #Workarround
   echo _compiler=$_compiler >> "${srcdir}"/config.cfg
+  echo ARCH=$ARCH >> "${srcdir}"/config.cfg
   echo CC=$CC >> "${srcdir}"/config.cfg
   echo CXX=$CXX >> "${srcdir}"/config.cfg
   echo HOSTCC=$HOSTCC >> "${srcdir}"/config.cfg
