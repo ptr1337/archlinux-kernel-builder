@@ -12,6 +12,14 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
     git clone https://github.com/kevall474/linux-pkg
     cd linux-pkg
     env _release=(1 or 2) _cpu_sched=(1,2,3,4,5 or 6) _compiler=(1,2,3 or 4) makepkg -s
+    
+## Install
+
+    sudo pacman -U linux-kernel-(optional if cpu sched selected : cachy,cacule,muqss,bmq,pds,upds)
+    sudo pacman -U linux-kernel-(optional if cpu sched selected : cachy,cacule,muqss,bmq,pds,upds)-headers
+    or
+    sudo pacman -U mainline-kernel-(optional if cpu sched selected : cachy,cacule,muqss,bmq,pds,upds)
+    sudo pacman -U mainline-kernel-(optional if cpu sched selected : cachy,cacule,muqss,bmq,pds,upds)-headers
 
 ## Build variables
 
@@ -24,7 +32,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 ### _cpu_sched
 
-- Will add a CPU Scheduler if you want : Cachy, CacULE, MuQSS, BMQ, PDS or UPDS.
+- Will add a CPU Scheduler if you want :
 
         1 : Cachy by Hamad Al Marri
         2 : CacULE by Hamad Al Marri
@@ -32,6 +40,8 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
         4 : BMQ by Alfred Chen
         5 : PDS by Alfred Chen
         6 : UPDS by TK-Glitch based on the work by Alfred Chen
+
+Leave this variable empty if you don't want to add a CPU Scheduler
 
 ### _compiler
 
