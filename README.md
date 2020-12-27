@@ -25,15 +25,15 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 ### _release
 
-- Variable is required!
 - Will select the release of the kernel :
 
         1 : Latest stable release
         2 : Latest mainline release
 
+If not set it will build stable release by default.
+
 ### _cpu_sched
 
-- Optional variable
 - Will add a CPU Scheduler if you want :
 
         1 : Cachy by Hamad Al Marri
@@ -47,7 +47,6 @@ Leave this variable empty if you don't want to add a CPU Scheduler.
 
 ### _compiler
 
-- Optional variable
 - Will set compiler to build the kernel :
 
         1 : GCC
