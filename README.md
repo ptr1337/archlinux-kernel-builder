@@ -77,6 +77,8 @@ About Cachy Scheduler
 
 ## CacULE CPU Scheduler
 
+![cacule_sched](https://user-images.githubusercontent.com/68618182/103179297-92ac0100-4858-11eb-83aa-8992f33d67f8.png)
+
 CacULE is a newer version of Cachy. The CacULE CPU scheduler is based on interactivity score mechanism. 
 The interactivity score is inspired by the ULE scheduler (FreeBSD scheduler).
 
