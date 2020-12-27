@@ -177,3 +177,15 @@ deadline(simplfy to just deadline from here on). In PDS, balance action among
 run queues are kept as less as possible to reduce the migration cost. Cpumask
 data structure is widely used in cpu affinity checking and cpu preemption/
 selection to make PDS scalable with increasing cpu number.
+
+# Update GRUB
+
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+# Contact info
+
+kevall474@tuta.io if you have any problems or bugs report.
+
+# Info 
+
+You can refer to this Archlinux page that have lots of useful information to build the kernel and debugging if you have some issues https://wiki.archlinux.org/index.php/Kernel/Traditional_compilation
