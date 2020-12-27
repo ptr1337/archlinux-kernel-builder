@@ -58,7 +58,7 @@ If not set it will build with CLANG+LLVM by default.
 
 # CPU Scheduler
 
-## Cahy CPU Sched
+## Cahy CPU Scheduler
 
 ![cachy-logo](https://user-images.githubusercontent.com/68618182/99130896-a6204700-25df-11eb-9f08-5662a71fa273.png)
 
