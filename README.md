@@ -17,15 +17,25 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 ### _release
 
-- Will select the release of the kernel. Latest stable or mainline.
+- Will select the release of the kernel :
+
+        1 : Latest stable release
+        2 : Latest mainline release
 
 ### _cpu_sched
 
-- Will add a CPU Scheduler if you want. Cachy, CacULE, MuQSS, BMQ, PDS or UPDS.
+- Will add a CPU Scheduler if you want : Cachy, CacULE, MuQSS, BMQ, PDS or UPDS.
+
+        1 : Cachy by Hamad Al Marri
+        2 : CacULE by Hamad Al Marri
+        3 : MuQSS by Con Kolivas
+        4 : BMQ by Alfred Chen
+        5 : PDS by Alfred Chen
+        6 : UPDS by TK-Glitch based on the work by Alfred Chen
 
 ### _compiler
 
-- Will set compiler to build the kernel.
+- Will set compiler to build the kernel :
 
         1 : GCC
         2 : GCC+LLVM
