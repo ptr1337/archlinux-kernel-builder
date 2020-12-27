@@ -25,6 +25,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 ### _release
 
+- Variable is required!
 - Will select the release of the kernel :
 
         1 : Latest stable release
@@ -32,6 +33,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 ### _cpu_sched
 
+- Optional variable
 - Will add a CPU Scheduler if you want :
 
         1 : Cachy by Hamad Al Marri
@@ -41,14 +43,17 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
         5 : PDS by Alfred Chen
         6 : UPDS by TK-Glitch based on the work by Alfred Chen
 
-Leave this variable empty if you don't want to add a CPU Scheduler
+Leave this variable empty if you don't want to add a CPU Scheduler.
 
 ### _compiler
 
+- Optional variable
 - Will set compiler to build the kernel :
 
         1 : GCC
         2 : GCC+LLVM
         3 : CLANG
         4 : CLANG+LLVM
+        
+If not set it will build with CLANG+LLVM by default.
  
