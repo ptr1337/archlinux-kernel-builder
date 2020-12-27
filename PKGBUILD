@@ -15,9 +15,9 @@
 #Set the release : stable or rc (mainline)
 #Set '1' for stable release
 #Set '2' for rc (mainline) release
-#Default is empty. It will build stable relase. To build rc release just use : env _release=(1 or 2) makepkg -s
+#Default is set to '1'. It will build stable relase. To build rc release just use : env _release=(1 or 2) makepkg -s
 if [ -z ${_release+x} ]; then
-  _release=
+  _release=1
 fi
 
 #################################
@@ -119,9 +119,6 @@ elif [[ $_release = "2" ]]; then
   else
     pkgbase=mainline-kernel
   fi
-else
-  _release=1
-  pkgbase=linux-kernel
 fi
 
 pkgname=("$pkgbase" "$pkgbase-headers")
