@@ -1,6 +1,6 @@
 # linux-pkg
 
-Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, Hamad Al Marri and, Con Kolivas and Alfred Chen. 
+Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, Hamad Al Marri, Con Kolivas and Alfred Chen. 
 
 # Version
 
