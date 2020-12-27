@@ -193,7 +193,7 @@ if [[ $_release = "1" ]]; then
     fi
   elif [[ $_cpu_sched = "2" ]]; then
     source+=("$patchsource/cacule-patches/cacule5.9.patch")
-    md5sums+=("acbc60a90c9b3cbb35e162985a38cb8a")  #cacule5.9.patch
+    md5sums+=("80cddc7f600acbccc78e03930b4538f8")  #cacule5.9.patch
   elif [[ $_cpu_sched = "3" ]]; then
     source+=("$patchsource/muqss-patches/0001-MultiQueue-Skiplist-Scheduler-v0.204.patch"
              "$patchsource/muqss-patches/0003-Expose-vmsplit-for-our-poor-32-bit-users.patch"
@@ -267,7 +267,7 @@ elif [[ $_release = "2" ]]; then
     fi
   elif [[ $_cpu_sched = "2" ]]; then
     source+=("${patchsource}/cacule-patches/cacule5.9.patch")
-    md5sums+=("acbc60a90c9b3cbb35e162985a38cb8a")  #cacule5.9.patch
+    md5sums+=("80cddc7f600acbccc78e03930b4538f8")  #cacule5.9.patch
   elif [[ $_cpu_sched = "3" ]]; then
     source+=("${patchsource}/muqss-patches/0001-MultiQueue-Skiplist-Scheduler-v0.204.patch"
              "${patchsource}/muqss-patches/0003-Expose-vmsplit-for-our-poor-32-bit-users.patch"
