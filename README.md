@@ -17,4 +17,18 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 ### _release
 
-_release variable will select the release of the kernel. Latest stable or mainline.
+- Will select the release of the kernel. Latest stable or mainline.
+
+### _cpu_sched
+
+- Will add a CPU Scheduler if you want. Cachy, CacULE, MuQSS, BMQ, PDS or UPDS.
+
+### _compiler
+
+- Will set compiler to build the kernel.
+
+        1 : GCC
+        2 : GCC+LLVM
+        3 : CLANG
+        4 : CLANG+LLVM
+ 
