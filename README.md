@@ -12,3 +12,9 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
     git clone https://github.com/kevall474/linux-pkg
     cd linux-pkg
     env _release=(1 or 2) _cpu_sched=(1,2,3,4,,5 or 6) _compiler=(1,2,3 or 4) makepkg -s
+
+## Build variables
+
+### _release
+
+_release variable will select the release of the kernel. Latest stable or mainline.
