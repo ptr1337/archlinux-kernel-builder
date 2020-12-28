@@ -245,7 +245,7 @@ elif [[ $_release = "2" ]]; then
           "$patchsource/block-patches/0001-block-patches.patch"
           "$patchsource/bfq-patches/5.10-bfq-reverts-ver1.patch"
           "$patchsource/bfq-patches/5.10-bfq-dev-lucjan-v13-r2K201214-ll.patch")
-  md5sums=("SKIP"  #linux-5.10.3.tar.xz
+  md5sums=("SKIP"  #linux-5.11-rc1.tar.gz
            "SKIP"  #config-5.10-rc
            "b3f0a4804b6fe031f674988441c1af35"  #choose-gcc-optimization.sh
            "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
