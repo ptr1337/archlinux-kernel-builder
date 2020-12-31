@@ -131,7 +131,7 @@ done
 
 # This section set the version of the package based on the release
 if [[ $_release = "1" ]]; then
-  pkgver=5.10.3
+  pkgver=5.10.4
   major=5.10
 elif [[ $_release = "2" ]]; then
   pkgver=5.11_rc1
@@ -167,7 +167,7 @@ if [[ $_release = "1" ]]; then
           "$patchsource/block-patches/0001-block-patches.patch"
           "$patchsource/bfq-patches/5.10-bfq-reverts-ver1.patch"
           "$patchsource/bfq-patches/5.10-bfq-dev-lucjan-v13-r2K201214-ll.patch")
-  md5sums=("ffca5d5093a4da3be787adf8bee3f8a0"  #linux-5.10.3.tar.xz
+  md5sums=("650f047a5fc947276ef6ae513b773c9b"  #linux-5.10.4.tar.xz
            "SKIP"  #config-5.10
            "b3f0a4804b6fe031f674988441c1af35"  #choose-gcc-optimization.sh
            "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
