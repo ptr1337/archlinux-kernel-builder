@@ -4,7 +4,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 # Version
 
-- stable : 5.10.3
+- stable : 5.10.4
 - mainline : 5.10-rc7
 
 # Build 
