@@ -5,32 +5,19 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 # Version
 
 - stable : 5.10.4
-- mainline : 5.10-rc7
 
 # Build 
 
     git clone https://github.com/kevall474/linux-pkg
     cd linux-pkg
-    env _release=(1 or 2) _cpu_sched=(1,2,3,4,5 or 6) _compiler=(1,2,3 or 4) makepkg -s
+    env _cpu_sched=(1,2,3,4,5 or 6) _compiler=(1,2,3 or 4) makepkg -s
     
 ## Install
 
     sudo pacman -U linux-kernel-(optional if cpu sched selected : cachy,cacule,muqss,bmq,pds,upds)
     sudo pacman -U linux-kernel-(optional if cpu sched selected : cachy,cacule,muqss,bmq,pds,upds)-headers
-    or
-    sudo pacman -U mainline-kernel-(optional if cpu sched selected : cachy,cacule,muqss,bmq,pds,upds)
-    sudo pacman -U mainline-kernel-(optional if cpu sched selected : cachy,cacule,muqss,bmq,pds,upds)-headers
 
 ## Build variables
-
-### _release
-
-- Will select the release of the kernel :
-
-        1 : Latest stable release
-        2 : Latest mainline release
-
-If not set it will build stable release by default.
 
 ### _cpu_sched
 
