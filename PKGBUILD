@@ -181,8 +181,8 @@ elif [[ $_cpu_sched = "3" ]]; then
             "46ab9d4d09b20f6604e33215a27c27af"  #0014-Swap-sucks.patch
             "a04390dfc0db2af7f9d454535bc012f4") #0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch
 elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "5" ]]; then
-  source+=("${patchsource}/prjc-patches/0009-prjc_v5.10-r1.patch")
-  md5sums+=("618bac9139e572321c143902162f0735")  #0009-prjc_v5.10-r1.patch
+  source+=("${patchsource}/prjc-patches/0009-prjc_v5.10-r2.patch")
+  md5sums+=("e9e4bf29f301797bdca56374b51a4bf3")  #0009-prjc_v5.10-r2.patch
 elif [[ $_cpu_sched = "6" ]]; then
   source+=("${patchsource}/upds-patches/0005-v5.10_undead-pds099o.patch")
   md5sums+=("07bc120fe6a43feae936e612c288fa13")  #0005-v5.10_undead-pds099o.patch
