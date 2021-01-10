@@ -146,8 +146,8 @@ md5sums=("650f047a5fc947276ef6ae513b773c9b"  #linux-5.10.4.tar.xz
          "0acd0ffeafb417974cc4c7de0f1a6f58"  #5.10-bfq-reverts-ver1.patch
          "43663034152cfd8f0bc7926f44432886") #5.10-bfq-dev-lucjan-v13-r2K201214-ll.patch
 if [[ $_cpu_sched = "1" ]]; then
-  source+=("$patchsource/cachy-patches/cachy-5.9-r8.patch")
-  md5sums+=("c0f15019b0fcacc465aa5eea2c207c1c") #cachy-5.9-r8.patch
+  source+=("$patchsource/cachy-patches/cachy-5.9-r9.patch")
+  md5sums+=("cd4ff5080ed82538d063023aa05e9984") #cachy-5.9-r9.patch
   if [[ $_idle_balance = "y" ]]; then
     source+=("$patchsource/cachy-patches/02-idle_balance.patch")
     md5sums+=("933f282baaf71fbfa8d404e9d4404bb0")  #02-idle_balance.patch
