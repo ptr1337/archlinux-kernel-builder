@@ -25,6 +25,12 @@ if [ -z ${_cpu_sched+x} ]; then
   _cpu_sched=
 fi
 
+# enable _idle_balance patch for cachy cpu sched
+
+if [ -z ${__idle_balance+x} ]; then
+  _idle_balance=
+fi
+
 ################################# Arch ################################
 
 ARCH=x86
