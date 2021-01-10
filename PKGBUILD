@@ -27,7 +27,7 @@ fi
 
 # enable _idle_balance patch for cachy cpu sched
 
-if [ -z ${__idle_balance+x} ]; then
+if [ -z ${_idle_balance+x} ]; then
   _idle_balance=
 fi
 
