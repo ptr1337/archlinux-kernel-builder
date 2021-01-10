@@ -4,7 +4,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 # Version
 
-- stable : 5.10.4
+- stable : 5.10.6
 
 # Build 
 
@@ -42,6 +42,12 @@ Leave this variable empty if you don't want to add a CPU Scheduler.
         4 : CLANG+LLVM
         
 If not set it will build with CLANG+LLVM by default.
+
+### _idle_balance 
+
+- Enable _idle_balance patch for Cachy Sched
+
+Set 'y' to enable
 
 # CPU Scheduler
 
