@@ -133,8 +133,9 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/misc/0002-init-Kconfig-enable-O3-for-all-arches.patch"
         "$patchsource/block-patches/0001-block-patches.patch"
         "$patchsource/bfq-patches/5.10-bfq-reverts-ver1.patch"
-        "$patchsource/bfq-patches/5.10-bfq-dev-lucjan-v13-r2K201214-ll.patch")
-md5sums=("3be0e13f03206658de07d5857c224d91"  #linux-5.10.6.tar.xz
+        "$patchsource/bfq-patches/5.10-bfq-dev-lucjan-v14-r2K210125.patch")
+	#"$patchsource/btrfs-patches/0001-btrfs-patches.patch")
+md5sums=("14fa12a252795d140a7475c861123620"  #linux-5.10.10.tar.xz
          "37e6b22c1ba142850a1f8432ea15bd2d"  #config-5.10
          "b3f0a4804b6fe031f674988441c1af35"  #choose-gcc-optimization.sh
          "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
@@ -146,23 +147,24 @@ md5sums=("3be0e13f03206658de07d5857c224d91"  #linux-5.10.6.tar.xz
          "eb812a74ec92add2108b48f5a9f048fc"  #0001-clearlinux-patches.patch
          "c19fd76423bfc4af45d99585cedb2623"  #0011-ZFS-fix.patch
          "656de58729054bb71c9dc5dee737e589"  #0001-fs-patches.patch
-         "39ea219cf88b984395006db9cf638304"  #0001-ntfs3-patches.patch
+         "8e7e07e22a52c3deaf28ed7595d634c7"  #0001-ntfs3-patches.patch
          "5ef95c9aa1a3010b57c9be03f8369abb"  #0002-init-Kconfig-enable-O3-for-all-arches.patch
          "08c1f6c132af32dea0da37144291f117"  #0001-block-patches.patch
          "0acd0ffeafb417974cc4c7de0f1a6f58"  #5.10-bfq-reverts-ver1.patch
-         "43663034152cfd8f0bc7926f44432886") #5.10-bfq-dev-lucjan-v13-r2K201214-ll.patch
+         "741b6049dc5d5dfcaa3f812126f56a8a") #5.10-bfq-dev-lucjan-v14-r2K210125.patch
+	       #"SKIP") #0001-btrfs-patches.patch
 if [[ $_cpu_sched = "1" ]]; then
   source+=("$patchsource/cachy-patches/cachy-5.9-r9.patch")
-  md5sums+=("cd4ff5080ed82538d063023aa05e9984") #cachy-5.9-r9.patch
+  md5sums+=("53703024438eca5e4700edf486e2c50e")  #cachy-5.9-r9.patch
   if [[ $_idle_balance = "y" ]]; then
     source+=("$patchsource/cachy-patches/02-idle_balance.patch")
     md5sums+=("933f282baaf71fbfa8d404e9d4404bb0")  #02-idle_balance.patch
   fi
 elif [[ $_cpu_sched = "2" ]]; then
-  source+=("$patchsource/cacule-patches/cacule5.9.patch")
-  md5sums+=("80cddc7f600acbccc78e03930b4538f8")  #cacule5.9.patch
+  source+=("$patchsource/cacule-patches/cacule5.10-r2.patch")
+  md5sums+=("e5c7ba93acbcabd6a4641cab717bf4b9")  #cacule5.10-r2.patch
 elif [[ $_cpu_sched = "3" ]]; then
-  source+=("$patchsource/muqss-patches/0001-MultiQueue-Skiplist-Scheduler-v0.204.patch"
+  source+=("$patchsource/muqss-patches/0001-MultiQueue-Skiplist-Scheduler-v0.205.patch"
            "$patchsource/muqss-patches/0003-Expose-vmsplit-for-our-poor-32-bit-users.patch"
            "$patchsource/muqss-patches/0004-Create-highres-timeout-variants-of-schedule_timeout-.patch"
            "$patchsource/muqss-patches/0005-Special-case-calls-of-schedule_timeout-1-to-use-the-.patch"
@@ -174,18 +176,18 @@ elif [[ $_cpu_sched = "3" ]]; then
            "$patchsource/muqss-patches/0012-Make-threaded-IRQs-optionally-the-default-which-can-.patch"
            "$patchsource/muqss-patches/0014-Swap-sucks.patch"
            "$patchsource/muqss-patches/0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch")
-  md5sums+=("97b4c6bc474ae6181e58a0ab1ce1d096"  #0001-MultiQueue-Skiplist-Scheduler-v0.204.patch
-            "322f8444650e41fd40175693749b1592"  #0003-Expose-vmsplit-for-our-poor-32-bit-users.patch
-            "55adeb5b6f05a3c666568537ad663fb8"  #0004-Create-highres-timeout-variants-of-schedule_timeout-.patch
-            "a221ad4e6f0f2c62413c0a90945492d5"  #0005-Special-case-calls-of-schedule_timeout-1-to-use-the-.patch
-            "ced32172ce6d7c8d891750ca3bbbbef2"  #0006-Convert-msleep-to-use-hrtimers-when-active.patch
-            "11d4479ce9ac7c7a5cb8478101a5dce8"  #0007-Replace-all-schedule-timeout-1-with-schedule_min_hrt.patch
-            "e9a4d9d8214ab2aaa647a8cfaa23d668"  #0008-Replace-all-calls-to-schedule_timeout_interruptible-.patch
-            "bf5700621fe1b5830fe1188475636ef2"  #0009-Replace-all-calls-to-schedule_timeout_uninterruptibl.patch
-            "f35e7618fb95c181f367b026f12973ea"  #0010-Don-t-use-hrtimer-overlay-when-pm_freezing-since-som.patch
-            "add2a95dbe9705c4f0f49feb1f447b81"  #0012-Make-threaded-IRQs-optionally-the-default-which-can-.patch
-            "46ab9d4d09b20f6604e33215a27c27af"  #0014-Swap-sucks.patch
-            "a04390dfc0db2af7f9d454535bc012f4") #0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch
+  md5sums+=("50c0959e72d14fdf3335e77d51c270c1"  #0001-MultiQueue-Skiplist-Scheduler-v0.205.patch
+            "65c80aa95e9afcce96b36dd5be6cdac2"  #0003-Expose-vmsplit-for-our-poor-32-bit-users.patch
+            "4a4ba97ebbce56323746cd693687647b"  #0004-Create-highres-timeout-variants-of-schedule_timeout-.patch
+            "6a79f8fe23c064971d0ccd319fde5c7c"  #0005-Special-case-calls-of-schedule_timeout-1-to-use-the-.patch
+            "390d298f70829def34ef0dcb9980dc9f"  #0006-Convert-msleep-to-use-hrtimers-when-active.patch
+            "bafd17a7b185c591430d80b5ad31a73d"  #0007-Replace-all-schedule-timeout-1-with-schedule_min_hrt.patch
+            "8d9dbc22ae00e3350dc634079624e870"  #0008-Replace-all-calls-to-schedule_timeout_interruptible-.patch
+            "8deced6a0bd70196990aa1fa486150ca"  #0009-Replace-all-calls-to-schedule_timeout_uninterruptibl.patch
+            "ec2b8d887d3c551df7a54684a2a14b1d"  #0010-Don-t-use-hrtimer-overlay-when-pm_freezing-since-som.patch
+            "cd4eb5dc10e65316ab97240ff625f2f4"  #0012-Make-threaded-IRQs-optionally-the-default-which-can-.patch
+            "a255d2b4322c19b1398268a8d5358354"  #0014-Swap-sucks.patch
+            "bdd3600c90f924f2066384a16b6550af") #0015-Make-nohz_full-not-be-picked-up-as-a-default-config-.patch
 elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "5" ]]; then
   source+=("${patchsource}/prjc-patches/0009-prjc_v5.10-r2.patch")
   md5sums+=("e9e4bf29f301797bdca56374b51a4bf3")  #0009-prjc_v5.10-r2.patch
