@@ -127,7 +127,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/zen-patches/0001-ZEN-Add-VHBA-driver.patch"
         "$patchsource/futex-patches/0001-futex-patches.patch"
         "$patchsource/clearlinux-patches/0001-clearlinux-patches.patch"
-        "$patchsource/ZFS-patches/0011-ZFS-fix.patch"
+        #"$patchsource/ZFS-patches/0011-ZFS-fix.patch"
         "$patchsource/fs-patches/0001-fs-patches.patch"
         "$patchsource/ntfs3-patches/0001-ntfs3-patches.patch"
         "$patchsource/misc/0002-init-Kconfig-enable-O3-for-all-arches.patch"
@@ -145,7 +145,7 @@ md5sums=("2427bad3186737a954c2b713d53ec26d"  #linux-5.10.13.tar.xz
          "a0188e575abe3f27bde9ec09462b067e"  #0001-ZEN-Add-VHBA-driver.patch
          "c97b042c437883db1e768ff474e8b35c"  #0001-futex-patches.patch
          "eb812a74ec92add2108b48f5a9f048fc"  #0001-clearlinux-patches.patch
-         "c19fd76423bfc4af45d99585cedb2623"  #0011-ZFS-fix.patch
+         #"c19fd76423bfc4af45d99585cedb2623"  #0011-ZFS-fix.patch
          "656de58729054bb71c9dc5dee737e589"  #0001-fs-patches.patch
          "8e7e07e22a52c3deaf28ed7595d634c7"  #0001-ntfs3-patches.patch
          "5ef95c9aa1a3010b57c9be03f8369abb"  #0002-init-Kconfig-enable-O3-for-all-arches.patch
