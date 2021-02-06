@@ -679,10 +679,16 @@ configure(){
       msg2 "Set to RQ_NONE"
       scripts/config --enable CONFIG_RQ_NONE
       scripts/config --set-val CONFIG_SHARERQ 0
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
     elif [[ $_config_rq = "2" ]]; then
       msg2 "Set to RQ_SMT"
       scripts/config --enable CONFIG_RQ_SMT
       scripts/config --set-val CONFIG_SHARERQ 1
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
 
       sleep 2
 
@@ -712,22 +718,37 @@ configure(){
       msg2 "Set to RQ_MC"
       scripts/config --enable CONFIG_RQ_MC
       scripts/config --set-val CONFIG_SHARERQ 2
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
     elif [[ $_config_rq = "4" ]]; then
       msg2 "Set to RQ_MC_LLC"
       scripts/config --enable CONFIG_RQ_MC_LLC
       scripts/config --set-val CONFIG_SHARERQ 3
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
     elif [[ $_config_rq = "5" ]]; then
       msg2 "Set to RQ_SMP"
       scripts/config --enable CONFIG_RQ_SMP
       scripts/config --set-val CONFIG_SHARERQ 4
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
     elif [[ $_config_rq = "6" ]]; then
       msg2 "Set to RQ_ALL"
       scripts/config --enable CONFIG_RQ_ALL
       scripts/config --set-val CONFIG_SHARERQ 5
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
     else
       msg2 "Set to RQ_MC"
       scripts/config --enable CONFIG_RQ_MC
       scripts/config --set-val CONFIG_SHARERQ 2
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
     fi
   elif [[ $_cpu_sched = "4" ]]; then
     msg2 "Enable CONFIG_SCHED_ALT, this feature enable alternative CPU scheduler..."
@@ -753,6 +774,19 @@ configure(){
     msg2 "Enable UPDS CPU scheduler..."
     scripts/config --disable CONFIG_SCHED_BMQ
     scripts/config --enable CONFIG_SCHED_PDS
+    msg2 "Disable CFS"
+    scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+    scripts/config --disable CONFIG_CFS_BANDWIDTH
+  elif [[ $_cpu_sched = "7" ]]; then
+    msg2 "Enable CacULE CPU scheduler..."
+    scripts/config --enable CONFIG_CACULE_SCHED
+    scripts/config --enable CONFIG_CACULE_RDB
+    msg2 "Disable CFS"
+    scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+    scripts/config --disable CONFIG_CFS_BANDWIDTH
+  elif [[ $_cpu_sched = "8" ]]; then
+    msg2 "Enable Cachy CPU scheduler..."
+    scripts/config --enable CONFIG_CACHY_SCHED
     msg2 "Disable CFS"
     scripts/config --disable CONFIG_FAIR_GROUP_SCHED
     scripts/config --disable CONFIG_CFS_BANDWIDTH
