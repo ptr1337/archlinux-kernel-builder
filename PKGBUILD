@@ -91,6 +91,10 @@ elif [[ $_cpu_sched = "5" ]]; then
   pkgbase=linux-kernel-pds
 elif [[ $_cpu_sched = "6" ]]; then
   pkgbase=linux-kernel-upds
+elif [[ $_cpu_sched = "7" ]]; then
+  pkgbase=linux-kernel-cacule-rdb
+elif [[ $_cpu_sched = "8" ]]; then
+  pkgbase=linux-kernel-cachy-idle
 else
   pkgbase=linux-kernel
 fi
