@@ -784,12 +784,6 @@ configure(){
     msg2 "Disable CFS"
     scripts/config --disable CONFIG_FAIR_GROUP_SCHED
     scripts/config --disable CONFIG_CFS_BANDWIDTH
-  elif [[ $_cpu_sched = "8" ]]; then
-    msg2 "Enable Cachy CPU scheduler..."
-    scripts/config --enable CONFIG_CACHY_SCHED
-    msg2 "Disable CFS"
-    scripts/config --disable CONFIG_FAIR_GROUP_SCHED
-    scripts/config --disable CONFIG_CFS_BANDWIDTH
   else
     plain ""
     plain "#########################################"
