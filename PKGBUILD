@@ -135,7 +135,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/bfq-patches/5.10-bfq-reverts-ver1.patch"
         "$patchsource/bfq-patches/5.10-bfq-dev-lucjan-v14-r2K210125.patch")
 	#"$patchsource/btrfs-patches/0001-btrfs-patches.patch")
-md5sums=("14fa12a252795d140a7475c861123620"  #linux-5.10.10.tar.xz
+md5sums=("2427bad3186737a954c2b713d53ec26d"  #linux-5.10.13.tar.xz
          "37e6b22c1ba142850a1f8432ea15bd2d"  #config-5.10
          "b3f0a4804b6fe031f674988441c1af35"  #choose-gcc-optimization.sh
          "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
