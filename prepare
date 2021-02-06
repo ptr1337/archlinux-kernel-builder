@@ -674,7 +674,7 @@ configure(){
     plain "across NUMA nodes. This can substantially decrease throughput in NUMA configurations, but light NUMA designs will not be dramatically"
     plain "affected. This option should only be chosen if latency is the prime concern."
     plain ""
-    read -rp "`echo $' > 1.RQ_NONE\n > 2.RQ_SMT\n > 3.RQ_MC\n > 4.RQ_MC_LLC\n > 5.RQ_SMP\n 6.RQ_ALL\n > Default (RQ_MC)\nchoice[1-6]: '`" _config_rq
+    read -rp "`echo $' > 1.RQ_NONE\n > 2.RQ_SMT\n > 3.RQ_MC\n > 4.RQ_MC_LLC\n > 5.RQ_SMP\n > 6.RQ_ALL\n > Default (RQ_MC)\nchoice[1-6]: '`" _config_rq
     if [[ $_config_rq = "1" ]]; then
       msg2 "Set to RQ_NONE"
       scripts/config --enable CONFIG_RQ_NONE
