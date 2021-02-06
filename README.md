@@ -4,18 +4,18 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 # Version
 
-- stable : 5.10.6
+- stable : 5.10.13
 
 # Build 
 
     git clone https://github.com/kevall474/linux-pkg
     cd linux-pkg
-    env _cpu_sched=(1,2,3,4,5 or 6) _compiler=(1,2,3 or 4) makepkg -s
+    env _cpu_sched=(1,2,3,4,5,6,7 or 8) _compiler=(1,2,3 or 4) makepkg -s
     
 ## Install
 
-    sudo pacman -U linux-kernel-(optional if cpu sched selected : cachy,cacule,muqss,bmq,pds,upds)
-    sudo pacman -U linux-kernel-(optional if cpu sched selected : cachy,cacule,muqss,bmq,pds,upds)-headers
+    sudo pacman -U linux-kernel-(optional if cpu sched selected : cachy,cacule,muqss,bmq,pds,upds,cacule-rdb,cachy-idle)
+    sudo pacman -U linux-kernel-(optional if cpu sched selected : cachy,cacule,muqss,bmq,pds,upds,cacule-rdb,cachy-idle)-headers
 
 ## Build variables
 
@@ -29,6 +29,8 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
         4 : BMQ by Alfred Chen
         5 : PDS by Alfred Chen
         6 : UPDS by TK-Glitch based on the work by Alfred Chen
+        7 : CacULE-rdb by Hamad Al Marri
+        8 : Cacchy-idle by Hamad Al Marri
 
 Leave this variable empty if you don't want to add a CPU Scheduler.
 
@@ -42,12 +44,6 @@ Leave this variable empty if you don't want to add a CPU Scheduler.
         4 : CLANG+LLVM
         
 If not set it will build with CLANG+LLVM by default.
-
-### _idle_balance 
-
-- Enable _idle_balance patch for Cachy Sched
-
-Set 'y' to enable
 
 # CPU Scheduler
 
