@@ -19,16 +19,12 @@
 #Set '4' for BMQ CPU Scheduler
 #Set '5' for PDS CPU Scheduler
 #Set '6' for UPDS CPU Scheduler
+#Set '7' for CacULE-rdb CPU Scheduler
+#Set '8' for Cachy-idle CPU Scheduler
 #Leave empty for no CPU Scheduler
 #Default is empty. It will build with no cpu scheduler. To build with cpu shceduler just use : env _cpu_sched=(1,2,3,4, or 6) makepkg -s
 if [ -z ${_cpu_sched+x} ]; then
   _cpu_sched=
-fi
-
-# enable _idle_balance patch for cachy cpu sched
-
-if [ -z ${_idle_balance+x} ]; then
-  _idle_balance=
 fi
 
 ################################# Arch ################################
@@ -156,10 +152,6 @@ md5sums=("2427bad3186737a954c2b713d53ec26d"  #linux-5.10.13.tar.xz
 if [[ $_cpu_sched = "1" ]]; then
   source+=("$patchsource/cachy-patches/cachy-5.9-r9.patch")
   md5sums+=("53703024438eca5e4700edf486e2c50e")  #cachy-5.9-r9.patch
-  if [[ $_idle_balance = "y" ]]; then
-    source+=("$patchsource/cachy-patches/02-idle_balance.patch")
-    md5sums+=("933f282baaf71fbfa8d404e9d4404bb0")  #02-idle_balance.patch
-  fi
 elif [[ $_cpu_sched = "2" ]]; then
   source+=("$patchsource/cacule-patches/cacule5.10-r2.patch")
   md5sums+=("e5c7ba93acbcabd6a4641cab717bf4b9")  #cacule5.10-r2.patch
@@ -194,6 +186,14 @@ elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "5" ]]; then
 elif [[ $_cpu_sched = "6" ]]; then
   source+=("${patchsource}/upds-patches/0005-v5.10_undead-pds099o.patch")
   md5sums+=("07bc120fe6a43feae936e612c288fa13")  #0005-v5.10_undead-pds099o.patch
+elif [[ $_cpu_sched = "7" ]]; then
+  source+=("${patchsource}/cacule/cacule5.10-rdb.patch")
+  md5sums+=("SKIP")  #cacule5.10-rdb.patch
+elif [[ $_cpu_sched = "8" ]]; then
+  source+=("${patchsource}/cachy-patches/cachy-5.9-r9.patch"
+  	   "${patchsource}/cachy-patches/02-idle_balance.patch")
+  md5sums+=("53703024438eca5e4700edf486e2c50e"  #cachy-5.9-r9.patch
+  	    "SKIP") #02-idle_balance.patch
 fi
 
 export KBUILD_BUILD_HOST=archlinux
