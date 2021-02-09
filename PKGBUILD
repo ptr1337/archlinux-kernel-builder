@@ -1,3 +1,9 @@
+#_                   _ _ _  _ _____ _  _
+#| | _______   ____ _| | | || |___  | || |
+#| |/ / _ \ \ / / _` | | | || |_ / /| || |_
+#|   <  __/\ V / (_| | | |__   _/ / |__   _|
+#|_|\_\___| \_/ \__,_|_|_|  |_|/_/     |_|
+
 #Maintainer: kevall474 <kevall474@tuta.io> <https://github.com/kevall474>
 #Credits: Jan Alexander Steffens (heftig) <heftig@archlinux.org> ---> For the base PKGBUILD
 #Credits: Andreas Radke <andyrtr@archlinux.org> ---> For the base PKGBUILD
