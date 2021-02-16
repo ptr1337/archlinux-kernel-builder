@@ -167,7 +167,7 @@ md5sums=("d2985a3f16ef1ea3405c04c406e29dcc"  #linux-5.11.tar.xz
          "cc70bf905a1237a41b11338b2eba4a8b"  #0001-mm-patches.patch
          "ddcda13d2e86984517e841b4acebd2f5"  #0001-spadfs-5.11-merge-v1.0.12.patch
          "b256a9147a976303ad8490fdeebc82ab"  #0001-zswap-patches.patch
-         "dcb506abf81826a5a005c9e66b4312f2")  #0001-pf-patches.patch
+         "dcb506abf81826a5a005c9e66b4312f2") #0001-pf-patches.patch
 if [[ $_cpu_sched = "1" ]]; then
   source+=("$patchsource/cachy-patches/cachy-5.9-r9.patch")
   md5sums+=("53703024438eca5e4700edf486e2c50e")  #cachy-5.9-r9.patch
