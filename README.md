@@ -6,6 +6,8 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 - stable : 5.10.13
 
+- trunk-incomplete : 5.11 and the two package that will build is : linux-kernel-pds or linux-kernel-bmq
+
 # Build 
 
     git clone https://github.com/kevall474/linux-pkg
