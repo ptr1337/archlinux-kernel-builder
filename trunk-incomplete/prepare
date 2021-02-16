@@ -1,0 +1,865 @@
+#!/usr/bin/bash
+
+#_                   _ _ _  _ _____ _  _
+#| | _______   ____ _| | | || |___  | || |
+#| |/ / _ \ \ / / _` | | | || |_ / /| || |_
+#|   <  __/\ V / (_| | | |__   _/ / |__   _|
+#|_|\_\___| \_/ \__,_|_|_|  |_|/_/     |_|
+
+configure(){
+  plain ""
+  plain "#########################################"
+  plain "Enable/disable CONFIG_STACK_VALIDATION"
+  plain "Gives better stack traces. Also is enabled in all official kernel packages by Archlinux team"
+  read -rp "`echo $' > 1.enable\n > 2.disable\n > Default (enable)\nchoice[1-2]: '`" _config_stack;
+  if [[ $_config_stack = "1" ]]; then
+    msg2 "Enable CONFIG_STACK_VALIDATION"
+    scripts/config --enable CONFIG_STACK_VALIDATION
+  elif [[ $_config_stack = "2" ]]; then
+    msg2 "Disable CONFIG_STACK_VALIDATION"
+    scripts/config --disable CONFIG_STACK_VALIDATION
+  else
+    msg2 "Enable CONFIG_STACK_VALIDATION"
+    scripts/config --enable CONFIG_STACK_VALIDATION
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Enable/disable IKCONFIG"
+  plain "Enable access to the kernel configuration file through /proc/config.gz"
+  read -rp "`echo $' > 1.enable\n > 2.disable\n > Default (enable)\nchoice[1-2]: '`" _ikconfig;
+  if [[ $_ikconfig = "1" ]]; then
+    msg2 "Enable IKCONFIG"
+    scripts/config --enable CONFIG_IKCONFIG
+    scripts/config --enable CONFIG_IKCONFIG_PROC
+  elif [[ $_ikconfig = "2" ]]; then
+    msg2 "Disable IKCONFIG"
+    scripts/config --disable CONFIG_IKCONFIG
+    scripts/config --disable CONFIG_IKCONFIG_PROC
+  else
+    msg2 "Enable IKCONFIG"
+    scripts/config --enable CONFIG_IKCONFIG
+    scripts/config --enable CONFIG_IKCONFIG_PROC
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Enable/disable NUMA"
+  plain "Better option is to disable NUMA since most users do not have multiple processors... Breaks CUDA/NvEnc..."
+  read -rp "`echo $' > 1.enable\n > 2.disable (possibly increase performance)\n > Default (disable)\nchoice[1-2]: '`" _numa;
+  if [[ $_numa = "1" ]]; then
+    msg2 "Enable NUMA"
+    scripts/config --enable CONFIG_NUMA
+    scripts/config --enable CONFIG_NUMA
+    scripts/config --enable CONFIG_AMD_NUMA
+    scripts/config --enable CONFIG_X86_64_ACPI_NUMA
+    scripts/config --enable CONFIG_NODES_SPAN_OTHER_NODES
+    scripts/config --enable CONFIG_NUMA_EMU
+    scripts/config --enable CONFIG_NEED_MULTIPLE_NODES
+    scripts/config --enable CONFIG_USE_PERCPU_NUMA_NODE_ID
+    scripts/config --enable CONFIG_ACPI_NUMA
+    scripts/config --enable CONFIG_ARCH_SUPPORTS_NUMA_BALANCING
+  elif [[ $_numa = "2" ]]; then
+    msg2 "Disable NUMA"
+    scripts/config --disable CONFIG_NUMA
+    scripts/config --disable CONFIG_AMD_NUMA
+    scripts/config --disable CONFIG_X86_64_ACPI_NUMA
+    scripts/config --disable CONFIG_NODES_SPAN_OTHER_NODES
+    scripts/config --disable CONFIG_NUMA_EMU
+    scripts/config --disable CONFIG_NEED_MULTIPLE_NODES
+    scripts/config --disable CONFIG_USE_PERCPU_NUMA_NODE_ID
+    scripts/config --disable CONFIG_ACPI_NUMA
+    scripts/config --disable CONFIG_ARCH_SUPPORTS_NUMA_BALANCING
+  else
+    msg2 "Disable NUMA"
+    scripts/config --disable CONFIG_NUMA
+    scripts/config --disable CONFIG_NUMA
+    scripts/config --disable CONFIG_AMD_NUMA
+    scripts/config --disable CONFIG_X86_64_ACPI_NUMA
+    scripts/config --disable CONFIG_NODES_SPAN_OTHER_NODES
+    scripts/config --disable CONFIG_NUMA_EMU
+    scripts/config --disable CONFIG_NEED_MULTIPLE_NODES
+    scripts/config --disable CONFIG_USE_PERCPU_NUMA_NODE_ID
+    scripts/config --disable CONFIG_ACPI_NUMA
+    scripts/config --disable CONFIG_ARCH_SUPPORTS_NUMA_BALANCING
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Enable/disable FUNCTION_TRACER/GRAPH_TRACER"
+  plain "Limits debugging and analyzing of the kernel"
+  read -rp "`echo $' > 1.enable\n > 2.disable (possibly increase performance)\n > Default (disable)\nchoice[1-2]: '`" _tracer;
+  if [[ $_tracer = "1" ]]; then
+    msg2 "Enable FUNCTION_TRACER/GRAPH_TRACER"
+    scripts/config --enable CONFIG_FUNCTION_TRACER
+    scripts/config --enable CONFIG_STACK_TRACER
+  elif [[ $_tracer = "2" ]]; then
+    msg2 "Disable FUNCTION_TRACER/GRAPH_TRACER"
+    scripts/config --disable CONFIG_FUNCTION_TRACER
+    scripts/config --disable CONFIG_STACK_TRACER
+  else
+    msg2 "Disable FUNCTION_TRACER/GRAPH_TRACER"
+    scripts/config --disable CONFIG_FUNCTION_TRACER
+    scripts/config --disable CONFIG_STACK_TRACER
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Enable/Disable CONFIG_USER_NS_UNPRIVILEGED"
+  read -rp "`echo $' > 1.enable\n > 2.disable\n > Default (disable)\nchoice[1-2]: '`" _ns;
+  if [[ $_ns = "1" ]]; then
+    msg2 "Enable CONFIG_USER_NS_UNPRIVILEGED"
+    scripts/config --disable CONFIG_USER_NS_UNPRIVILEGED
+  elif [[ $_ns = "2" ]]; then
+    msg2 "Disable CONFIG_USER_NS_UNPRIVILEGED"
+    scripts/config --disable CONFIG_USER_NS_UNPRIVILEGED
+  else
+    msg2 "Disable CONFIG_USER_NS_UNPRIVILEGED"
+    scripts/config --disable CONFIG_USER_NS_UNPRIVILEGED
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Set CPU Frequency scaling"
+  plain ""
+  plain "performance : When attached to a policy object, this governor causes the highest frequency,"
+  plain "within the scaling_max_freq policy limit, to be requested for that policy. The request is"
+  plain "made once at that time the governor for the policy is set to performance and whenever"
+  plain "the scaling_max_freq or scaling_min_freq policy limits change after that."
+  plain ""
+  plain "powersave : When attached to a policy object, this governor causes the lowest frequency, within"
+  plain "the scaling_min_freq policy limit, to be requested for that policy.The request is made once at "
+  plain "that time the governor for the policy is set to powersave and whenever"
+  plain "the scaling_max_freq or scaling_min_freq policy limits change after that."
+  plain ""
+  plain "userspace : This governor does not do anything by itself. Instead, it allows user space to set the"
+  plain "CPU frequency for the policy it is attached to by writing to the scaling_setspeed attribute of that policy."
+  plain ""
+  plain "schedutil : This governor uses CPU utilization data available from the CPU scheduler. It generally is regarded"
+  plain "as a part of th CPU scheduler, so it can access the scheduler’s internal data structures directly."
+  plain ""
+  plain "ondemand : This governor uses CPU load as a CPU frequency selection metric. In order to estimate the current CPU"
+  plain "load, it measures the time elapsed between consecutive invocations of its worker routine and computes"
+  plain "the fraction of that time in which the given CPU was not idle. The ratio of the non-idle (active) time to the total CPU time is"
+  plain "taken as an estimate of the load."
+  plain ""
+  plain "conservative : This governor uses CPU load as a CPU frequency selection metric. It estimates the CPU load in the same way as the"
+  plain "ondemand governor described above, but the CPU frequency selection algorithm implemented by it is different."
+  plain ""
+  plain "Full documentation at : https://www.kernel.org/doc/html/v4.14/admin-guide/pm/cpufreq.html"
+  plain ""
+  read -rp "`echo $' > 1.powersave\n > 2.userspace\n > 3.ondemand\n > 4.conservative\n > 5.schedutil\n > 6.performance\n > 7.Default(zen-kernel)\n > Default (performance)\nchoice[1-7]: '`" _cpu_freq;
+  if [[ $_cpu_freq = "1" ]]; then
+    msg2 "Set CPU Frequency scaling CONFIG_CPU_FREQ_DEFAULT_GOV/CONFIG_CPU_FREQ_GOV for powersave"
+    scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_POWERSAVE
+    scripts/config --enable CONFIG_CPU_FREQ_GOV_POWERSAVE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_USERSPACE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_USERSPACE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_ONDEMAND
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_CONSERVATIVE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_CONSERVATIVE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_SCHEDUTIL
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_PERFORMANCE
+  elif [[ $_cpu_freq = "2" ]]; then
+    msg2 "Set CPU Frequency scaling CONFIG_CPU_FREQ_DEFAULT_GOV/CONFIG_CPU_FREQ_GOV for userspace"
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_POWERSAVE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_POWERSAVE
+    scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_USERSPACE
+    scripts/config --enable CONFIG_CPU_FREQ_GOV_USERSPACE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_ONDEMAND
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_CONSERVATIVE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_CONSERVATIVE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_SCHEDUTIL
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_PERFORMANCE
+  elif [[ $_cpu_freq = "3" ]]; then
+    msg2 "Set CPU Frequency scaling CONFIG_CPU_FREQ_DEFAULT_GOV/CONFIG_CPU_FREQ_GOV for ondemand"
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_POWERSAVE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_POWERSAVE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_USERSPACE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_USERSPACE
+    scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND
+    scripts/config --enable CONFIG_CPU_FREQ_GOV_ONDEMAND
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_CONSERVATIVE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_CONSERVATIVE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_SCHEDUTIL
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_PERFORMANCE
+  elif [[ $_cpu_freq = "4" ]]; then
+    msg2 "Set CPU Frequency scaling CONFIG_CPU_FREQ_DEFAULT_GOV/CONFIG_CPU_FREQ_GOV for conservative"
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_POWERSAVE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_POWERSAVE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_USERSPACE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_USERSPACE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_ONDEMAND
+    scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_CONSERVATIVE
+    scripts/config --enable CONFIG_CPU_FREQ_GOV_CONSERVATIVE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_SCHEDUTIL
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_PERFORMANCE
+  elif [[ $_cpu_freq = "5" ]]; then
+    msg2 "Set CPU Frequency scaling CONFIG_CPU_FREQ_DEFAULT_GOV/CONFIG_CPU_FREQ_GOV for schedutil"
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_POWERSAVE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_POWERSAVE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_USERSPACE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_USERSPACE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_ONDEMAND
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_CONSERVATIVE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_CONSERVATIVE
+    scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
+    scripts/config --enable CONFIG_CPU_FREQ_GOV_SCHEDUTIL
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_PERFORMANCE
+  elif [[ $_cpu_freq = "6" ]]; then
+    msg2 "Set CPU Frequency scaling CONFIG_CPU_FREQ_DEFAULT_GOV/CONFIG_CPU_FREQ_GOV for performance"
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_POWERSAVE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_POWERSAVE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_USERSPACE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_USERSPACE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_ONDEMAND
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_CONSERVATIVE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_CONSERVATIVE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_SCHEDUTIL
+    scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
+    scripts/config --enable CONFIG_CPU_FREQ_GOV_PERFORMANCE
+  elif [[ $_cpu_freq = "7" ]]; then
+    msg2 "Set CPU Frequency scaling default from zen kernel"
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_POWERSAVE
+    scripts/config --enable CONFIG_CPU_FREQ_GOV_POWERSAVE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_USERSPACE
+    scripts/config --enable CONFIG_CPU_FREQ_GOV_USERSPACE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND
+    scripts/config --enable CONFIG_CPU_FREQ_GOV_ONDEMAND
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_CONSERVATIVE
+    scripts/config --enable CONFIG_CPU_FREQ_GOV_CONSERVATIVE
+    scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
+    scripts/config --enable CONFIG_CPU_FREQ_GOV_SCHEDUTIL
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
+    scripts/config --enable CONFIG_CPU_FREQ_GOV_PERFORMANCE
+  else
+    msg2 "Set CPU Frequency scaling CONFIG_CPU_FREQ_DEFAULT_GOV/CONFIG_CPU_FREQ_GOV for performance"
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_POWERSAVE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_POWERSAVE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_USERSPACE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_USERSPACE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_ONDEMAND
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_CONSERVATIVE
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_CONSERVATIVE
+    scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
+    scripts/config --disable CONFIG_CPU_FREQ_GOV_SCHEDUTIL
+    scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
+    scripts/config --enable CONFIG_CPU_FREQ_GOV_PERFORMANCE
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Set CPU DEVFREQ Governor"
+  plain ""
+  plain "Simple Ondemand : Chooses frequency based on the recent load on the device. Works similar as ONDEMAND"
+  plain "governor of CPUFREQ does. A device with Simple-Ondemand should be able to provide busy/total counter values"
+  plain "that imply the usage rate. A device may provide tuned values to the governor with data field at devfreq_add_device()."
+  plain ""
+  plain "Performance : Sets the frequency at the maximum available frequency. This governor always returns UINT_MAX as"
+  plain "frequency so that the DEVFREQ framework returns the highest frequency available at any time."
+  plain ""
+  plain "Powersave : Sets the frequency at the minimum available frequency. This governor always returns 0 as frequency so that"
+  plain "the DEVFREQ framework returns the lowest frequency available at any time."
+  plain ""
+  plain "Userspace : Sets the frequency at the user specified one. This governor returns the user configured frequency if there has"
+  plain "been an input to /sys/devices/.../power/devfreq_set_freq. Otherwise, the governor does not change the frequency given"
+  plain "at the initialization."
+  plain ""
+  plain "Passive : Sets the frequency based on the frequency of its parent devfreq device. This governor does not change the"
+  plain "frequency by itself through sysfs entries. The passive governor recommends that devfreq device uses the OPP table to"
+  plain "get the frequency/voltage."
+  plain ""
+  read -rp "`echo $' > 1.simple ondemand\n > 2.powersave\n > 3.userspace\n > 4.passive\n > 5.performance\n > 6.Default(zen kernel : all)\n > Default (performance)\nchoice[1-6]: '`" _devfreq
+  if [[ $_devfreq = "1" ]]; then
+    msg2 "Set CPU DEVFREQ GOV CONFIG_DEVFREQ_GOV for simple ondemand"
+    scripts/config --enable CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND
+    scripts/config --disable CONFIG_DEVFREQ_GOV_POWERSAVE
+    scripts/config --disable CONFIG_DEVFREQ_GOV_USERSPACE
+    scripts/config --disable CONFIG_DEVFREQ_GOV_PASSIVE
+    scripts/config --disable CONFIG_DEVFREQ_GOV_PERFORMANCE
+  elif [[ $_devfreq = "2" ]]; then
+    msg2 "Set CPU DEVFREQ GOV CONFIG_DEVFREQ_GOV for powersave"
+    scripts/config --disable CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND
+    scripts/config --undefine CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND
+    scripts/config --enable CONFIG_DEVFREQ_GOV_POWERSAVE
+    scripts/config --disable CONFIG_DEVFREQ_GOV_USERSPACE
+    scripts/config --disable CONFIG_DEVFREQ_GOV_PASSIVE
+    scripts/config --disable CONFIG_DEVFREQ_GOV_PERFORMANCE
+  elif [[ $_devfreq = "3" ]]; then
+    msg2 "Set CPU DEVFREQ GOV CONFIG_DEVFREQ_GOV for userspace"
+    scripts/config --disable CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND
+    scripts/config --undefine CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND
+    scripts/config --disable CONFIG_DEVFREQ_GOV_POWERSAVE
+    scripts/config --enable CONFIG_DEVFREQ_GOV_USERSPACE
+    scripts/config --disable CONFIG_DEVFREQ_GOV_PASSIVE
+    scripts/config --disable CONFIG_DEVFREQ_GOV_PERFORMANCE
+  elif [[ $_devfreq = "4" ]]; then
+    msg2 "Set CPU DEVFREQ GOV CONFIG_DEVFREQ_GOV for passive"
+    scripts/config --disable CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND
+    scripts/config --undefine CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND
+    scripts/config --disable CONFIG_DEVFREQ_GOV_POWERSAVE
+    scripts/config --disable CONFIG_DEVFREQ_GOV_USERSPACE
+    scripts/config --enable CONFIG_DEVFREQ_GOV_PASSIVE
+    scripts/config --disable CONFIG_DEVFREQ_GOV_PERFORMANCE
+  elif [[ $_devfreq = "5" ]]; then
+    msg2 "Set CPU DEVFREQ GOV CONFIG_DEVFREQ_GOV for performance"
+    scripts/config --disable CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND
+    scripts/config --undefine CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND
+    scripts/config --disable CONFIG_DEVFREQ_GOV_POWERSAVE
+    scripts/config --disable CONFIG_DEVFREQ_GOV_USERSPACE
+    scripts/config --disable CONFIG_DEVFREQ_GOV_PASSIVE
+    scripts/config --enable CONFIG_DEVFREQ_GOV_PERFORMANCE
+  elif [[ $_devfreq = "6" ]]; then
+    msg2 "Set CPU DEVFREQ GOV CONFIG_DEVFREQ_GOV default from zen kernel"
+    scripts/config --enable CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND
+    scripts/config --enable CONFIG_DEVFREQ_GOV_POWERSAVE
+    scripts/config --enable CONFIG_DEVFREQ_GOV_USERSPACE
+    scripts/config --enable CONFIG_DEVFREQ_GOV_PASSIVE
+    scripts/config --enable CONFIG_DEVFREQ_GOV_PERFORMANCE
+  else
+    msg2 "Set CPU DEVFREQ GOV CONFIG_DEVFREQ_GOV for performance"
+    scripts/config --disable CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND
+    scripts/config --undefine CONFIG_DEVFREQ_GOV_SIMPLE_ONDEMAND
+    scripts/config --disable CONFIG_DEVFREQ_GOV_POWERSAVE
+    scripts/config --disable CONFIG_DEVFREQ_GOV_USERSPACE
+    scripts/config --disable CONFIG_DEVFREQ_GOV_PASSIVE
+    scripts/config --enable CONFIG_DEVFREQ_GOV_PERFORMANCE
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Set PCIEASPM driver"
+  plain ""
+  plain "BIOS default : Use the BIOS defaults for PCI Express ASPM."
+  plain ""
+  plain "Powersave : Enable PCI Express ASPM L0s and L1 where possible, even if the BIOS did not."
+  plain ""
+  plain "Power Supersave : Same as PCIEASPM_POWERSAVE, except it also enables L1 substates where possible."
+  plain "This would result in higher power savings while staying in L1 where the components support it."
+  plain ""
+  plain "Performance : Disable PCI Express ASPM L0s and L1, even if the BIOS enabled them."
+  plain ""
+  read -rp "`echo $' > 1.default\n > 2.powersave\n > 3.supersave\n > 4.performance\n > 5.Default(zen kernel : default)\n > Default (performance)\nchoice[1-5]: '`" _pcieaspm
+  if [[ $_pcieaspm = "1" ]] || [[ $_pcieaspm = "5" ]]; then
+    msg2 "Set PCIEASPM DRIVER to default"
+    scripts/config --enable CONFIG_PCIEASPM
+    scripts/config --enable CONFIG_PCIEASPM_DEFAULT
+  elif [[ $_pcieaspm = "2" ]]; then
+    msg2 "Set PCIEASPM DRIVER to powersave"
+    scripts/config --enable CONFIG_PCIEASPM
+    scripts/config --enable CONFIG_PCIEASPM_POWERSAVE
+  elif [[ $_pcieaspm = "3" ]]; then
+    msg2 "Set PCIEASPM DRIVER to supersave"
+    scripts/config --enable CONFIG_PCIEASPM
+    scripts/config --enable CONFIG_PCIEASPM_SUPERSAVE
+  elif [[ $_pcieaspm = "4" ]]; then
+    msg2 "Set PCIEASPM DRIVER to performance"
+    scripts/config --enable CONFIG_PCIEASPM
+    scripts/config --enable CONFIG_PCIEASPM_PERFORMANCE
+  else
+    msg2 "Set PCIEASPM DRIVER to performance"
+    scripts/config --enable CONFIG_PCIEASPM
+    scripts/config --enable CONFIG_PCIEASPM_PERFORMANCE
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Set PCIE_BUS driver"
+  plain ""
+  plain "Tune Off : Use the BIOS defaults; don't touch MPS at all.  This is the same as booting with 'pci=pcie_bus_tune_off'."
+  plain ""
+  plain "Default : Default choice; ensure that the MPS matches upstream bridge."
+  plain ""
+  plain "Safe : Use largest MPS that boot-time devices support. If you have a closed system with no possibility of adding new devices,"
+  plain "this will use the largest MPS that's supported by all devices. This is the same as booting with 'pci=pcie_bus_safe'."
+  plain ""
+  plain "Performance : Use MPS and MRRS for best performance.  Ensure that a given device's MPS is no larger than its parent MPS, which allows us to"
+  plain "keep all switches/bridges to the max MPS supported by their parent.  This is the same as booting with 'pci=pcie_bus_perf'."
+  plain ""
+  plain "Peer2peer : Set MPS = 128 for all devices.  MPS configuration effected by the other options could cause the MPS on one root port to"
+  plain "be different than that of the MPS on another, which may cause hot-added devices or peer-to-peer DMA to fail.  Set MPS to the"
+  plain "smallest possible value (128B) system-wide to avoid these issues. This is the same as booting with 'pci=pcie_bus_peer2peer'."
+  plain ""
+  read -rp "`echo $' > 1.Tune off\n > 2.default\n > 3.safe\n > 4.performance\n > 5.peer2peer\n > 6.Default(zen kernel : default)\n > Default (performance)\nchoice[1-5]: '`" _pcie_bus
+  if [[ $_pcie_bus = "1" ]]; then
+    msg2 "Set CONFIG_PCIE_BUS for tune off"
+    scripts/config --enable CONFIG_PCIE_BUS_TUNE_OFF
+  elif [[ $_pcie_bus = "2" ]] || [[ $_pcie_bus = "6" ]]; then
+    msg2 "Set CONFIG_PCIE_BUS for default"
+    scripts/config --enable CONFIG_PCIE_BUS_DEAULT
+  elif [[ $_pcie_bus = "3" ]]; then
+    msg2 "Set CONFIG_PCIE_BUS for safe"
+    scripts/config --enable CONFIG_PCIE_BUS_SAFE
+  elif [[ $_pcie_bus = "4" ]]; then
+    msg2 "Set CONFIG_PCIE_BUS for performance"
+    scripts/config --enable CONFIG_PCIE_BUS_PERFORMANCE
+  elif [[ $_pcie_bus = "5" ]]; then
+    msg2 "Set CONFIG_PCIE_BUS for peerpeer"
+    scripts/config --enable CONFIG_PCIE_BUS_PEER2PEER
+  else
+    msg2 "Set CONFIG_PCIE_BUS for performance"
+    scripts/config --enable CONFIG_PCIE_BUS_PERFORMANCE
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Set Optimization"
+  plain ""
+  plain "Optimize for performance (-O2) : This is the default optimization level for the kernel, building with the "-O2""
+  plain "compiler flag for best performance and most helpful compile-time warnings."
+  plain ""
+  plain "Optimize more for performance (-O3) : Choosing this option will pass "-O3" to your compiler to optimize the kernel yet more for performance."
+  plain ""
+  plain "Optimize for size (-Os) : Choosing this option will pass "-Os" to your compiler resulting in a smaller kernel."
+  plain ""
+  read -rp "`echo $' > 1.optimize for performance(-O2)\n > 2.optimize for performance(-O3)\n > 3.optimize for size(-Os)\n > 4.Default (zen-kernel : optimize for performance (-O3))\n > Default (optimize for performance (-O3))\nchoice[1-4]: '`" _optimize
+  if [[ "$_optimize" = "1" ]]; then
+    msg2 "Enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE"
+    scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_SIZE
+    scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
+    scripts/config --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
+  elif [[ "$_optimize" = "2" ]] || [[ "$_optimize" = "4" ]]; then
+    msg2 "Enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3"
+    scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
+    scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_SIZE
+    scripts/config --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
+  elif [[ "$_optimize" = "3" ]]; then
+    msg2 "Enable CONFIG_CC_OPTIMIZE_FOR_SIZE..."
+    scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
+    scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
+    scripts/config --enable CONFIG_CC_OPTIMIZE_FOR_SIZE
+  else
+    msg2 "Enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3"
+    scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
+    scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_SIZE
+    scripts/config --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Set timer frequency"
+  read -rp "`echo $' > 1.100\n > 2.250\n > 3.300\n > 4.750\n > 5.1000\n > 6.Default(zen kernel : 1000)\n > Default (1000)\nchoice[1-6]: '`" _timer_freq
+  if [[ "$_timer_freq" = "1" ]]; then
+    msg2 "Set timer frequency to 100HZ"
+    scripts/config --enable CONFIG_HZ_100
+    scripts/config --set-val CONFIG_HZ 100
+  elif [[ "$_timer_freq" = "2" ]]; then
+    msg2 "Set timer frequency to 250HZ"
+    scripts/config --enable CONFIG_HZ_250
+    scripts/config --set-val CONFIG_HZ 250
+  elif [[ "$_timer_freq" = "3" ]]; then
+    msg2 "Set timer frequency to 300HZ"
+    scripts/config --enable CONFIG_HZ_300
+    scripts/config --set-val CONFIG_HZ 300
+  elif [[ "$_timer_freq" = "4" ]]; then
+    msg2 "Set timer frequency to 750HZ"
+    scripts/config --enable CONFIG_HZ_750
+    scripts/config --set-val CONFIG_HZ 750
+  elif [[ "$_timer_freq" = "5" ]] || [[ "$_timer_freq" = "6" ]]; then
+    msg2 "Set timer frequency to 1000HZ"
+    scripts/config --enable CONFIG_HZ_1000
+    scripts/config --set-val CONFIG_HZ 1000
+  else
+    msg2 "Set timer frequency to 1000HZ"
+    scripts/config --enable CONFIG_HZ_1000
+    scripts/config --set-val CONFIG_HZ 1000
+  fi
+
+  sleep 2
+
+  plain ""
+  plain "#########################################"
+  plain "Enable/disable Kyber I/O Scheduler"
+  plain ""
+  plain "The Kyber I/O scheduler is a low-overhead scheduler suitable for multiqueue and other fast devices."
+  plain "Given target latencies for reads and synchronous writes, it will self-tune queue depths to achieve that goal."
+  plain ""
+  read -rp "`echo $' > 1.Disable\n > 2.Enable\n > 3.Default(zen kernel : Enable)\n > Default (Disable)\nchoice[1-3]: '`" _kyber
+  if [[ "$_kyber" = "1" ]]; then
+    msg2 "Disabling Kyber I/O scheduler"
+    scripts/config --disable CONFIG_MQ_IOSCHED_KYBER
+  elif [[ "$_kyber" = "2" ]] || [[ "$_kyber" = "3" ]]; then
+    msg2 "Enable Kyber I/O scheduler"
+    scripts/config --enable CONFIG_MQ_IOSCHED_KYBER
+  else
+    msg2 "Disabling Kyber I/O scheduler"
+    scripts/config --disable CONFIG_MQ_IOSCHED_KYBER
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Enable/disable MQ-Deadline I/O Scheduler"
+  plain ""
+  plain "MQ version of the deadline IO scheduler.MQ version of the deadline IO scheduler."
+  plain ""
+  plain "deadline i/o scheduler : The goal of the deadline io scheduler is to attempt to guarantee a start"
+  plain "service time for a request. As we focus mainly on read latencies, this is tunable. When a read request"
+  plain "first enters the io scheduler, it is assigned a deadline that is the current time + the read_expire"
+  plain "value in units of milliseconds."
+  plain ""
+  read -rp "`echo $' > 1.Disable\n > 2.Enable\n > 3.Default(zen kernel : Enable)\n > Default (Disable)\nchoice[1-3]: '`" _deadline
+  if [[ "$_deadline" = "1" ]]; then
+    msg2 "Disabling MQ-Deadline I/O scheduler"
+    scripts/config --disable CONFIG_MQ_IOSCHED_DEADLINE
+    scripts/config --disable CONFIG_MQ_IOSCHED_DEADLINE_NODEFAULT
+  elif [[ "$_deadline" = "2" ]] || [[ "$_deadline" = "3" ]]; then
+    msg2 "Enable Deadline I/O scheduler"
+    scripts/config --enable CONFIG_MQ_IOSCHED_DEADLINE
+
+    sleep 2s
+
+    plain ""
+    plain "#########################################"
+    plain "Enable/disable MQ-Deadline-Nodefault I/O Scheduler"
+    plain ""
+    plain "This renames the mq-deadline scheduler to "mq-deadline-nodefault" and also drops its alias of "deadline"."
+    plain "This can prevent existing userspace from forcing this scheduler over the kernel's choice."
+    plain ""
+    read -rp "`echo $' > 1.Disable\n > 2.Enable\n > 3.Default(zen kernel : Disable)\n > Default (Enable)\nchoice[1-3]: '`" _deadline_nodefault
+    if [[ "$_deadline_nodefault" = "1" ]] || [[ "$_deadline_nodefault" = "3" ]]; then
+      msg2 "Disable MQ-Deadline-Nodefault I/O scheduler"
+      scripts/config --disable CONFIG_MQ_IOSCHED_DEADLINE_NODEFAULT
+    elif [[ "$_deadline_nodefault" = "2" ]]; then
+      msg2 "Enable MQ-Deadline-Nodefault I/O scheduler"
+      scripts/config --enable CONFIG_MQ_IOSCHED_DEADLINE_NODEFAULT
+    else
+      msg2 "Enable MQ-Deadline-Nodefault I/O scheduler"
+      scripts/config --enable CONFIG_MQ_IOSCHED_DEADLINE_NODEFAULT
+    fi
+  else
+    msg2 "Disable MQ-Deadline I/O scheduler"
+    scripts/config --disable CONFIG_MQ_IOSCHED_DEADLINE
+    scripts/config --disable CONFIG_MQ_IOSCHED_DEADLINE_NODEFAULT
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Enable/disable CONFIG_BFQ_CGROUP_DEBUG"
+  read -rp "`echo $' > 1.Disable\n > 2.Enable\n > 3.Default(zen kernel : Disable)\n > Default (Enable)\nchoice[1-3]: '`" _bfq_cgroup
+  if [[ "$_bfq_cgroup" = "1" ]] || [[ "$_bfq_cgroup" = "3" ]]; then
+    msg2 "disable CONFIG_BFQ_CGROUP_DEBUG..."
+    scripts/config --disable CONFIG_BFQ_CGROUP_DEBUG
+  elif [[ "$_bfq_cgroup" = "2" ]]; then
+    msg2 "Enable CONFIG_BFQ_CGROUP_DEBUG..."
+    scripts/config --enable CONFIG_BFQ_CGROUP_DEBUG
+  else
+    msg2 "Enable CONFIG_BFQ_CGROUP_DEBUG..."
+    scripts/config --enable CONFIG_BFQ_CGROUP_DEBUG
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Enable/disable debbug options"
+  read -rp "`echo $' > 1.Disable\n > 2.Enable\n > 3.Default(linux-tkg : Disable)\n > Default (Disable)\nchoice[1-3]: '`" _debbug
+  if [[ "$_debbug" = "1" || "3" ]]; then
+    msg2 "Disable debbug options"
+    scripts/config --disable CONFIG_SLUB_DEBUG
+    scripts/config --disable CONFIG_PM_DEBUG
+    scripts/config --disable CONFIG_PM_ADVANCED_DEBUG
+    scripts/config --disable CONFIG_PM_SLEEP_DEBUG
+    scripts/config --disable CONFIG_ACPI_DEBUG
+    scripts/config --disable CONFIG_SCHED_DEBUG
+    scripts/config --disable CONFIG_LATENCYTOP
+    scripts/config --disable CONFIG_DEBUG_PREEMPT
+  elif [[ "$_debbug" = "2" ]]; then
+    msg2 "Disable debbug options"
+    scripts/config --enable CONFIG_SLUB_DEBUG
+    scripts/config --enable CONFIG_PM_DEBUG
+    scripts/config --enable CONFIG_PM_ADVANCED_DEBUG
+    scripts/config --enable CONFIG_PM_SLEEP_DEBUG
+    scripts/config --enable CONFIG_ACPI_DEBUG
+    scripts/config --enable CONFIG_SCHED_DEBUG
+    scripts/config --enable CONFIG_LATENCYTOP
+    scripts/config --enable CONFIG_DEBUG_PREEMPT
+  else
+    msg2 "Disable debbug options"
+    scripts/config --disable CONFIG_SLUB_DEBUG
+    scripts/config --disable CONFIG_PM_DEBUG
+    scripts/config --disable CONFIG_PM_ADVANCED_DEBUG
+    scripts/config --disable CONFIG_PM_SLEEP_DEBUG
+    scripts/config --disable CONFIG_ACPI_DEBUG
+    scripts/config --disable CONFIG_SCHED_DEBUG
+    scripts/config --disable CONFIG_LATENCYTOP
+    scripts/config --disable CONFIG_DEBUG_PREEMPT
+  fi
+
+  sleep 2s
+
+  plain ""
+  if [[ $_cpu_sched = "1" ]]; then
+    msg2 "Enable Cachy CPU scheduler..."
+    scripts/config --enable CONFIG_CACHY_SCHED
+    msg2 "Disable CFS"
+    scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+    scripts/config --disable CONFIG_CFS_BANDWIDTH
+  elif [[ $_cpu_sched = "2" ]]; then
+    msg2 "Enable CacULE CPU scheduler..."
+    scripts/config --enable CONFIG_CACULE_SCHED
+    msg2 "Disable CFS"
+    scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+    scripts/config --disable CONFIG_CFS_BANDWIDTH
+  elif [[ $_cpu_sched = "3" ]]; then
+    msg2 "Enable MuQSS"
+    scripts/config --enable CONFIG_SCHED_MC
+    scripts/config --enable CONFIG_SCHED_SMT
+    scripts/config --enable CONFIG_SMP
+    scripts/config --enable CONFIG_SCHED_MC_PRIO
+    scripts/config --enable CONFIG_SCHED_MUQSS
+    msg2 "Disable CFS"
+    scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+    scripts/config --disable CONFIG_CFS_BANDWIDTH
+
+    plain ""
+    plain "#########################################"
+    plain "Set CONFIG_RQ"
+    plain ""
+    plain "RQ_NONE : No sharing: This is the default behaviour where the CPU scheduler has one runqueue per CPU, whether"
+    plain "it is a physical or logical CPU (hyperthread)."
+    plain ""
+    plain "RQ_SMT : SMT (hyperthread) siblings : With this option enabled, the CPU scheduler will have one runqueue shared by SMT"
+    plain "(hyperthread) siblings. As these logical cores share one physical core, sharing the runqueue resource can lead to decreased"
+    plain "overhead, lower latency and higher throughput."
+    plain ""
+    plain "RQ_MC : Multicore siblings : With this option enabled, the CPU scheduler will have one runqueue shared by multicore siblings"
+    plain "in addition to any SMT siblings. As these physical cores share caches, sharing the runqueue resource will lead to lower latency,"
+    plain "but its effects on overhead and throughput are less predictable. As a general rule, 6 or fewer cores will likely benefit from this,"
+    plain "while larger CPUs will only derive a latency benefit. If your workloads are primarily single threaded, this will possibly worsen"
+    plain "throughput. If you are only concerned about latency then enable this regardless of how many cores you have."
+    plain ""
+    plain "RQ_MC_LLC : Multicore siblings (LLC) : With this option enabled, the CPU scheduler will behave similarly as with Multicore siblings."
+    plain "This option takes LLC cache into account when scheduling tasks. Option may benefit CPUs with multiple LLC caches,"
+    plain "such as Ryzen and Xeon CPUs."
+    plain ""
+    plain "RQ_SMP : Symmetric Multi-Processing : With this option enabled, the CPU scheduler will have one runqueue shared by all physical"
+    plain "CPUs unless they are on separate NUMA nodes. As physical CPUs usually do not share resources, sharing the runqueue will normally"
+    plain "worsen throughput but improve latency. If you only care about latency enable this"
+    plain ""
+    plain "RQ_ALL : With this option enabled, the CPU scheduler will have one runqueue regardless of the architecture configuration, including"
+    plain "across NUMA nodes. This can substantially decrease throughput in NUMA configurations, but light NUMA designs will not be dramatically"
+    plain "affected. This option should only be chosen if latency is the prime concern."
+    plain ""
+    read -rp "`echo $' > 1.RQ_NONE\n > 2.RQ_SMT\n > 3.RQ_MC\n > 4.RQ_MC_LLC\n > 5.RQ_SMP\n > 6.RQ_ALL\n > Default (RQ_MC)\nchoice[1-6]: '`" _config_rq
+    if [[ $_config_rq = "1" ]]; then
+      msg2 "Set to RQ_NONE"
+      scripts/config --enable CONFIG_RQ_NONE
+      scripts/config --set-val CONFIG_SHARERQ 0
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
+    elif [[ $_config_rq = "2" ]]; then
+      msg2 "Set to RQ_SMT"
+      scripts/config --enable CONFIG_RQ_SMT
+      scripts/config --set-val CONFIG_SHARERQ 1
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
+
+      sleep 2
+
+      plain ""
+      plain "#########################################"
+      plain "Enable/disable CONFIG_SMT_NICE"
+      plain ""
+      plain "SMT nice support makes each logical CPU aware of what is running on"
+      plain "its hyperthread siblings, maintaining appropriate distribution of"
+      plain "CPU according to nice levels and scheduling policies at the expense"
+      plain "of slightly increased overhead."
+      plain "If unsure Enable"
+      plain ""
+      read -rp "`echo $' > 1.Disable\n > 2.Enable\n > Default (Enable)\nchoice[1-2]: '`" _smt_nice
+      if [[ $_smt_nice = "1" ]]; then
+        msg2 "Disable CONFIG_SMT_NICE"
+        scripts/config --disable CONFIG_SMT_NICE
+      elif [[ $_smt_nice = "2" ]]; then
+        msg2 "Enable CONFIG_SMT_NICE"
+        scripts/config --enable CONFIG_SMT_NICE
+      else
+        msg2 "Enable CONFIG_SMT_NICE"
+        scripts/config --enable CONFIG_SMT_NICE
+      fi
+
+    elif [[ $_config_rq = "3" ]]; then
+      msg2 "Set to RQ_MC"
+      scripts/config --enable CONFIG_RQ_MC
+      scripts/config --set-val CONFIG_SHARERQ 2
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
+    elif [[ $_config_rq = "4" ]]; then
+      msg2 "Set to RQ_MC_LLC"
+      scripts/config --enable CONFIG_RQ_MC_LLC
+      scripts/config --set-val CONFIG_SHARERQ 3
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
+    elif [[ $_config_rq = "5" ]]; then
+      msg2 "Set to RQ_SMP"
+      scripts/config --enable CONFIG_RQ_SMP
+      scripts/config --set-val CONFIG_SHARERQ 4
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
+    elif [[ $_config_rq = "6" ]]; then
+      msg2 "Set to RQ_ALL"
+      scripts/config --enable CONFIG_RQ_ALL
+      scripts/config --set-val CONFIG_SHARERQ 5
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
+    else
+      msg2 "Set to RQ_MC"
+      scripts/config --enable CONFIG_RQ_MC
+      scripts/config --set-val CONFIG_SHARERQ 2
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
+    fi
+  elif [[ $_cpu_sched = "4" ]]; then
+    msg2 "Enable CONFIG_SCHED_ALT, this feature enable alternative CPU scheduler..."
+    scripts/config --enable CONFIG_SCHED_ALT
+    msg2 "Enable BMQ CPU scheduler..."
+    scripts/config --enable CONFIG_SCHED_BMQ
+    scripts/config --disable CONFIG_SCHED_PDS
+    msg2 "Disable CFS"
+    scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+    scripts/config --disable CONFIG_CFS_BANDWIDTH
+  elif [[ $_cpu_sched = "5" ]]; then
+    msg2 "Enable CONFIG_SCHED_ALT, this feature enable alternative CPU scheduler..."
+    scripts/config --enable CONFIG_SCHED_ALT
+    msg2 "Enable PDS CPU scheduler..."
+    scripts/config --disable CONFIG_SCHED_BMQ
+    scripts/config --enable CONFIG_SCHED_PDS
+    msg2 "Disable CFS"
+    scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+    scripts/config --disable CONFIG_CFS_BANDWIDTH
+  elif [[ $_cpu_sched = "6" ]]; then
+    msg2 "Enable CONFIG_SCHED_ALT, this feature enable alternative CPU scheduler..."
+    scripts/config --enable CONFIG_SCHED_ALT
+    msg2 "Enable UPDS CPU scheduler..."
+    scripts/config --disable CONFIG_SCHED_BMQ
+    scripts/config --enable CONFIG_SCHED_PDS
+    msg2 "Disable CFS"
+    scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+    scripts/config --disable CONFIG_CFS_BANDWIDTH
+  elif [[ $_cpu_sched = "7" ]]; then
+    msg2 "Enable CacULE CPU scheduler..."
+    scripts/config --enable CONFIG_CACULE_SCHED
+    scripts/config --enable CONFIG_CACULE_RDB
+    msg2 "Disable CFS"
+    scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+    scripts/config --disable CONFIG_CFS_BANDWIDTH
+  else
+    plain ""
+    plain "#########################################"
+    plain "Enable/disable CFS"
+    read -rp "`echo $' > 1.Disable\n > 2.Enable\n > Default (Enable)\nchoice[1-2]: '`" _cfs
+    if [[ $_cfs = "1" ]]; then
+      msg2 "Disable CFS"
+      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --disable CONFIG_CFS_BANDWIDTH
+    elif [[ $_cfs = "2" ]]; then
+      msg2 "Enable CFS"
+      scripts/config --enable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --enable CONFIG_CFS_BANDWIDTH
+    else
+      msg2 "Enable CFS"
+      scripts/config --enable CONFIG_FAIR_GROUP_SCHED
+      scripts/config --enable CONFIG_CFS_BANDWIDTH
+    fi
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Set cpu microarchitecture optimization in GCC"
+  read -rp "`echo $' > 0) Generic(default)\n \
+  > 1) AMD K6/K6-II/K6-III\n \
+  > 2) AMD Athlon/Duron/K7\n \
+  > 3) AMD Opteron/Athlon64/Hammer/K8\n \
+  > 4) AMD Opteron/Athlon64/Hammer/K8 with SSE3\n \
+  > 5) AMD 61xx/7x50/PhenomX3/X4/II/K10\n \
+  > 6) AMD Family 10h (Barcelona)\n \
+  > 7) AMD Family 14h (Bobcat)\n \
+  > 8) AMD Family 16h (Jaguar)\n \
+  > 9) AMD Family 15h (Bulldozer)\n \
+  > 10) AMD Family 15h (Piledriver)\n \
+  > 11) AMD Family 15h (Steamroller)\n \
+  > 12) AMD Family 15h (Excavator)\n \
+  > 13) AMD Family 17h (Zen)\n \
+  > 14) AMD Family 17h (Zen 2)\n \
+  > 15) Transmeta Crusoe\n \
+  > 16) Transmeta Efficeon\n \
+  > 17) IDT Winchip C6\n \
+  > 18) Winchip-2/Winchip-2A/Winchip-3\n \
+  > 19) AMD Elan\n \
+  > 20) Geode GX1 (Cyrix MediaGX)\n \
+  > 21) AMD Geode GX and LX\n \
+  > 22) Cyrix III or C3\n \
+  > 23) VIA C3 "Nehemiah"\n \
+  > 24) VIA C7\n \
+  > 25) Intel Pentium 4, Pentium D and older Nocona/Dempsey Xeon CPUs with Intel 64bit\n \
+  > 26) Intel Atom\n \
+  > 27) Intel Core 2 and newer Core 2 Xeons (Xeon 51xx and 53xx)\n \
+  > 28) Intel 1st Gen Core i3/i5/i7-family (Nehalem)\n \
+  > 29) Intel 1.5 Gen Core i3/i5/i7-family (Westmere)\n \
+  > 30) Intel Silvermont\n \
+  > 31) Intel Goldmont (Apollo Lake and Denverton)\n \
+  > 32) Intel Goldmont Plus (Gemini Lake)\n \
+  > 33) Intel 2nd Gen Core i3/i5/i7-family (Sandybridge)\n \
+  > 34) Intel 3rd Gen Core i3/i5/i7-family (Ivybridge)\n \
+  > 35) Intel 4th Gen Core i3/i5/i7-family (Haswell)\n \
+  > 36) Intel 5th Gen Core i3/i5/i7-family (Broadwell)\n \
+  > 37) Intel 6th Gen Core i3/i5/i7-family (Skylake)\n \
+  > 38) Intel 6th Gen Core i7/i9-family (Skylake X)\n \
+  > 39) Intel 8th Gen Core i3/i5/i7-family (Cannon Lake)\n \
+  > 40) Intel 8th Gen Core i7/i9-family (Ice Lake)\n \
+  > 41) Xeon processors in the Cascade Lake family\n \
+  > 42) Native optimizations autodetected by GCC\nchoice[0-42]: '`" _microarchitecture
+
+  plain ""
+
+  sleep 2
+}
