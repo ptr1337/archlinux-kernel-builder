@@ -6,7 +6,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 - stable : 5.10.13
 
-- trunk-incomplete : 5.11 and the 3 package that will build is : linux-kernel-pds, linux-kernel-bmq and linux-kernel-muqss (patches for cacule, cacule-rdb, cachy and upds are not ready yet). MuQSS patches are 5.10 kernel version, but apply with succes. When you'll pass env _cpu_sched=(1,2,6 or 7) makepkg -s build will fail. For build succes pass env _cpu_sched=(3,4 or 5) makepkg -s
+- trunk-incomplete : 5.11 and the 3 package that will build is : linux-kernl, linux-kernel-pds, linux-kernel-bmq. For build succes pass env _cpu_sched=(3,4 or 5) makepkg -s
 
 # Build 
 
