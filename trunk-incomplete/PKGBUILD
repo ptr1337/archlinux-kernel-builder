@@ -143,7 +143,12 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/mm-patches/0001-mm-patches.patch"
         "$patchsource/spadfs-patches/0001-spadfs-5.11-merge-v1.0.12.patch"
         "$patchsource/zswap-patches/0001-zswap-patches.patch"
-        "$patchsource/pf-patches/0001-pf-patches.patch")
+        "$patchsource/pf-patches/0001-pf-patches.patch"
+        "$patchsource/android-patches/0001-android-patches.patch"
+        "$patchsource/arch-patches/0002-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch"
+        "$patchsource/miscellaneous-patches/0001-fixes-miscellaneous.patch")
+        #"$patchsource/ksm-patches/0001-ksm-patches.patch"
+        #"$patchsource/uksm-patches/0001-UKSM-for-5.11.patch"
 md5sums=("d2985a3f16ef1ea3405c04c406e29dcc"  #linux-5.11.tar.xz
          "efa5b2f5b6c05d0445198391bcb69a0e"  #config-5.11
          "b3f0a4804b6fe031f674988441c1af35"  #choose-gcc-optimization.sh
@@ -167,7 +172,12 @@ md5sums=("d2985a3f16ef1ea3405c04c406e29dcc"  #linux-5.11.tar.xz
          "cc70bf905a1237a41b11338b2eba4a8b"  #0001-mm-patches.patch
          "ddcda13d2e86984517e841b4acebd2f5"  #0001-spadfs-5.11-merge-v1.0.12.patch
          "b256a9147a976303ad8490fdeebc82ab"  #0001-zswap-patches.patch
-         "dcb506abf81826a5a005c9e66b4312f2") #0001-pf-patches.patch
+         "dcb506abf81826a5a005c9e66b4312f2"  #0001-pf-patches.patch
+         "03738d0ea3fceb52e5c4817814a5a148"  #0001-android-patches.patch
+         "e7ef63d6e6fb1ed9d8c2b4d3f65de86c"  #0002-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch
+         "7dc9d1667b158e60707714dc76e59018") #0001-fixes-miscellaneous.patch
+         #"9c37d7643710ffa49552cc43b96980ed"  #0001-ksm-patches.patch
+         #"3d4defdab76bf6c766b94ea41493db51"  #0001-UKSM-for-5.11.patch
 if [[ $_cpu_sched = "1" ]]; then
   source+=("$patchsource/cachy-patches/cachy-5.9-r9.patch")
   md5sums+=("53703024438eca5e4700edf486e2c50e")  #cachy-5.9-r9.patch
