@@ -604,7 +604,7 @@ configure(){
     scripts/config --disable CONFIG_LATENCYTOP
     scripts/config --disable CONFIG_DEBUG_PREEMPT
   elif [[ "$_debbug" = "2" ]]; then
-    msg2 "Disable debbug options"
+    msg2 "Enable debbug options"
     scripts/config --enable CONFIG_SLUB_DEBUG
     scripts/config --enable CONFIG_PM_DEBUG
     scripts/config --enable CONFIG_PM_ADVANCED_DEBUG
