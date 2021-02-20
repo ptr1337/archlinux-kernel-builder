@@ -42,38 +42,6 @@ If not set it will build with CLANG+LLVM by default.
 
 # CPU Scheduler
 
-## Cahy CPU Scheduler
-
-![cachy-logo](https://user-images.githubusercontent.com/68618182/99130896-a6204700-25df-11eb-9f08-5662a71fa273.png)
-
-### Info
-
-Cachy-sched is a linux scheduler that is based on Highest Response Ratio Next (HRRN) policy.
-About Cachy Scheduler
-
-- Each CPU has its own runqueue.
-- NORMAL runqueue is a linked list of sched_entities (instead of RB-Tree).
-- RT and other runqueues are just the same as the CFS's.
-- A task gets preempted when any task in the runqueue has a higher HRRN.
-- Wake up tasks preempt currently running tasks if its HRRN value is higher.
-- This scheduler is designed for desktop usage since it is about responsiveness.
-- Cachy might be good for mobiles or Android since it has high responsiveness, but it needs to be integrated to Android, I don't think the current version it is ready to go without some tweeking and adapting to Android hacks.
-
-## CacULE CPU Scheduler
-
-![cacule_sched](https://user-images.githubusercontent.com/68618182/103179297-92ac0100-4858-11eb-83aa-8992f33d67f8.png)
-
-CacULE is a newer version of Cachy. The CacULE CPU scheduler is based on interactivity score mechanism.
-The interactivity score is inspired by the ULE scheduler (FreeBSD scheduler).
-
-About CacULE Scheduler
-
-- Each CPU has its own runqueue.
-- NORMAL runqueue is a linked list of sched_entities (instead of RB-Tree).
-- RT and other runqueues are just the same as the CFS's.
-- Wake up tasks preempt currently running tasks if its interactivity score value is higher.
-
-
 ## MuQSS CPU Scheduler
 
 MuQSS - The Multiple Queue Skiplist Scheduler by Con Kolivas.
