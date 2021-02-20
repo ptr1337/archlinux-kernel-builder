@@ -138,7 +138,10 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/arch-patches/0004-drm-amdgpu-fix-shutdown-with-s0ix.patch"
         "$patchsource/android-patches/0001-Export-symbols-needed-by-Android-drivers.patch"
         "$patchsource/android-patches/0002-android-Enable-building-ashmem-and-binder-as-modules.patch"
-        "$patchsource/ksm-patches/0001-ksm-patches.patch")
+        "$patchsource/ksm-patches/0001-ksm-patches.patch"
+        "$patchsource/zstd-patches/0001-init-add-support-for-zstd-compressed-modules.patch"
+        "$patchsource/zstd-patches/0001-zstd-dev-patches.patch"
+        "$patchsource/lqx-patches/0001-lqx-patches.patch")
         #"$patchsource/uksm-patches/0001-UKSM-for-5.11.patch"
         #"$patchsource/iommu-patches/0006-add-acs-overrides_iommu.patch"
         #"$patchsource/aufs-patches/0001-aufs-20210215.patch"
@@ -173,7 +176,10 @@ md5sums=("d2985a3f16ef1ea3405c04c406e29dcc"  #linux-5.11.tar.xz
          "738f9c2c80f7c2e484291994259acbac"  #0004-drm-amdgpu-fix-shutdown-with-s0ix.patch
          "3b5866097de15af399841405bc844020"  #0001-Export-symbols-needed-by-Android-drivers.patch
          "0eda7e947dd25e6b77ea40d734deea8d"  #0002-android-Enable-building-ashmem-and-binder-as-modules.patch
-         "9c37d7643710ffa49552cc43b96980ed") #0001-ksm-patches.patch
+         "9c37d7643710ffa49552cc43b96980ed"  #0001-ksm-patches.patch
+         "855e96bb7ebe1a52b97f5eaaff95908a"  #0001-init-add-support-for-zstd-compressed-modules.patch
+         "88f7a6c8a8ab3fb27ee5ab1f27a22f8a"  #0001-zstd-dev-patches.patch
+         "88cf7de95382a2b4cd58bffa363a855a") #0001-lqx-patches.patch"
          #"3d4defdab76bf6c766b94ea41493db51"  #0001-UKSM-for-5.11.patch
          #"168a924c7c83ecdc872a9a1c6d1c8bdb"  #0006-add-acs-overrides_iommu.patch
          #"c11b864bb47868d5ab72360d960ff6a8"  #0001-aufs-20210215.patch
