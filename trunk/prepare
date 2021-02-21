@@ -10,7 +10,6 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Set module SIG level"
-  plain ""
   read -rp "`echo $' > 1.SHA1\n > 2.SHA224\n > 3.SHA256\n > 4.SHA384\n > 5.SHA512\n > Default (SHA512)\nchoice[1-5]: '`" _sig;
   if [[ $_sig = "1" ]]; then
     msg2 "Set SIG level to SHA1"
@@ -91,7 +90,6 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Set module compression"
-  plain ""
   read -rp "`echo $' > 1.GZIP\n > 2.XZ\n > 3.ZSTD\n > Default (XZ)\nchoice[1-3]: '`" _compression;
   if [[ $_compression = "1" ]]; then
     msg2 "Set module compression to GZIP"
@@ -125,7 +123,6 @@ configure(){
   plain "#########################################"
   plain "Enable/disable CONFIG_STACK_VALIDATION"
   plain "Gives better stack traces. Also is enabled in all official kernel packages by Archlinux team"
-  plain ""
   read -rp "`echo $' > 1.enable\n > 2.disable\n > Default (enable)\nchoice[1-2]: '`" _config_stack;
   if [[ $_config_stack = "1" ]]; then
     msg2 "Enable CONFIG_STACK_VALIDATION"
@@ -144,7 +141,6 @@ configure(){
   plain "#########################################"
   plain "Enable/disable IKCONFIG"
   plain "Enable access to the kernel configuration file through /proc/config.gz"
-  plain ""
   read -rp "`echo $' > 1.enable\n > 2.disable\n > Default (enable)\nchoice[1-2]: '`" _ikconfig;
   if [[ $_ikconfig = "1" ]]; then
     msg2 "Enable IKCONFIG"
@@ -166,7 +162,6 @@ configure(){
   plain "#########################################"
   plain "Enable/disable NUMA"
   plain "Better option is to disable NUMA since most users do not have multiple processors... Breaks CUDA/NvEnc..."
-  plain ""
   read -rp "`echo $' > 1.enable\n > 2.disable (possibly increase performance)\n > Default (disable)\nchoice[1-2]: '`" _numa;
   if [[ $_numa = "1" ]]; then
     msg2 "Enable NUMA"
@@ -218,7 +213,6 @@ configure(){
   plain "#########################################"
   plain "Enable/disable FUNCTION_TRACER/GRAPH_TRACER"
   plain "Limits debugging and analyzing of the kernel"
-  plain ""
   read -rp "`echo $' > 1.enable\n > 2.disable (possibly increase performance)\n > Default (disable)\nchoice[1-2]: '`" _tracer;
   if [[ $_tracer = "1" ]]; then
     msg2 "Enable FUNCTION_TRACER/GRAPH_TRACER"
@@ -239,7 +233,6 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Enable/Disable CONFIG_USER_NS_UNPRIVILEGED"
-  plain ""
   read -rp "`echo $' > 1.enable\n > 2.disable\n > Default (disable)\nchoice[1-2]: '`" _ns;
   if [[ $_ns = "1" ]]; then
     msg2 "Enable CONFIG_USER_NS_UNPRIVILEGED"
@@ -600,7 +593,6 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Set timer frequency"
-  plain ""
   read -rp "`echo $' > 1.100\n > 2.250\n > 3.300\n > 4.750\n > 5.1000\n > 6.Default(zen kernel : 1000)\n > Default (1000)\nchoice[1-6]: '`" _timer_freq
   if [[ "$_timer_freq" = "1" ]]; then
     msg2 "Set timer frequency to 100HZ"
@@ -633,7 +625,6 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Enable/disable CONFIG_IRQ_FORCE_THREADING"
-  plain ""
   read -rp "`echo $' > 1.Enable\n > 2.Disable\n > Default (Enable)\nchoice[1-2]: '`" _irq
   if [[ "$_irq" = "1" ]]; then
     msg2 "Enable CONFIG_IRQ_FORCE_THREADING"
@@ -694,7 +685,6 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Enable/disable Device Tree and Open Firmware support"
-  plain ""
   read -rp "`echo $' > 1.Enable\n > 2.Disable\n > Default (Enable)\nchoice[1-2]: '`" _of
   if [[ "$_of" = "1" ]]; then
     msg2 "Enable Device Tree and Open Firmware support"
@@ -712,7 +702,6 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Enable/disable tristate V4L2 loopback device"
-  plain ""
   read -rp "`echo $' > 1.Enable\n > 2.Disable\n > Default (Enable)\nchoice[1-2]: '`" _loopback
   if [[ "$_loopback" = "1" ]]; then
     msg2 "Enable tristate V4L2 loopback device"
@@ -730,7 +719,6 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Enable/disable tristate SPADFS file system support"
-  plain ""
   read -rp "`echo $' > 1.Enable\n > 2.Disable\n > Default (Enable)\nchoice[1-2]: '`" _spadfs
   if [[ "$_spadfs" = "1" ]]; then
     msg2 "Enable tristate SPADFS file system support"
@@ -861,7 +849,6 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Enable/disable CONFIG_BFQ_CGROUP_DEBUG"
-  plain ""
   read -rp "`echo $' > 1.Disable\n > 2.Enable\n > 3.Default(zen kernel : Disable)\n > Default (Enable)\nchoice[1-3]: '`" _bfq_cgroup
   if [[ "$_bfq_cgroup" = "1" ]] || [[ "$_bfq_cgroup" = "3" ]]; then
     msg2 "disable CONFIG_BFQ_CGROUP_DEBUG..."
@@ -896,7 +883,6 @@ configure(){
     scripts/config --disable CONFIG_SCHED_DEBUG
     scripts/config --disable CONFIG_LATENCYTOP
     scripts/config --disable CONFIG_DEBUG_PREEMPT
-
     scripts/config --disable CONFIG_DEBUG_INFO
     scripts/config --disable CONFIG_CGROUP_BPF
     scripts/config --disable CONFIG_BPF_LSM
@@ -907,10 +893,8 @@ configure(){
     scripts/config --disable CONFIG_DEBUG_INFO_COMPRESSED
     scripts/config --disable CONFIG_DEBUG_INFO_SPLI
     scripts/config --disable CONFIG_GDB_SCRIPTS
-
     scripts/config --disable CONFIG_DEBUG_INFO_DWARF4
     scripts/config --disable CONFIG_DEBUG_INFO_BTF
-
     scripts/config --disable CONFIG_BPF_PRELOAD
     scripts/config --disable CONFIG_BPF_PRELOAD_UMD
     scripts/config --disable CONFIG_BPF_STREAM_PARSER
@@ -924,7 +908,6 @@ configure(){
     scripts/config --enable CONFIG_SCHED_DEBUG
     scripts/config --enable CONFIG_LATENCYTOP
     scripts/config --enable CONFIG_DEBUG_PREEMPT
-
     scripts/config --enable CONFIG_DEBUG_INFO
     scripts/config --enable CONFIG_CGROUP_BPF
     scripts/config --enable CONFIG_BPF_LSM
@@ -935,10 +918,8 @@ configure(){
     scripts/config --enable CONFIG_DEBUG_INFO_COMPRESSED
     scripts/config --enable CONFIG_DEBUG_INFO_SPLI
     scripts/config --enable CONFIG_GDB_SCRIPTS
-
     scripts/config --enable CONFIG_DEBUG_INFO_DWARF4
     scripts/config --enable CONFIG_DEBUG_INFO_BTF
-
     scripts/config --enable CONFIG_BPF_PRELOAD
     scripts/config --enable CONFIG_BPF_PRELOAD_UMD
     scripts/config --enable CONFIG_BPF_STREAM_PARSER
@@ -952,7 +933,6 @@ configure(){
     scripts/config --disable CONFIG_SCHED_DEBUG
     scripts/config --disable CONFIG_LATENCYTOP
     scripts/config --disable CONFIG_DEBUG_PREEMPT
-
     scripts/config --disable CONFIG_DEBUG_INFO
     scripts/config --disable CONFIG_CGROUP_BPF
     scripts/config --disable CONFIG_BPF_LSM
@@ -963,10 +943,8 @@ configure(){
     scripts/config --disable CONFIG_DEBUG_INFO_COMPRESSED
     scripts/config --disable CONFIG_DEBUG_INFO_SPLI
     scripts/config --disable CONFIG_GDB_SCRIPTS
-
     scripts/config --disable CONFIG_DEBUG_INFO_DWARF4
     scripts/config --disable CONFIG_DEBUG_INFO_BTF
-
     scripts/config --disable CONFIG_BPF_PRELOAD
     scripts/config --disable CONFIG_BPF_PRELOAD_UMD
     scripts/config --disable CONFIG_BPF_STREAM_PARSER
@@ -1113,7 +1091,6 @@ configure(){
     plain ""
     plain "#########################################"
     plain "Enable/disable CFS"
-    plain ""
     read -rp "`echo $' > 1.Disable\n > 2.Enable\n > Default (Enable)\nchoice[1-2]: '`" _cfs
     if [[ $_cfs = "1" ]]; then
       msg2 "Disable CFS"
@@ -1135,7 +1112,6 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Set cpu microarchitecture optimization in GCC"
-  plain ""
   read -rp "`echo $' > 0) Generic(default)\n \
   > 1) AMD K6/K6-II/K6-III\n \
   > 2) AMD Athlon/Duron/K7\n \
