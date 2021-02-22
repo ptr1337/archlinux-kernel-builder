@@ -98,7 +98,7 @@ for _p in "${pkgname[@]}"; do
 done
 pkgver=5.11
 major=5.11
-pkgrel=1
+pkgrel=4
 arch=(x86_64)
 url="https://www.kernel.org/"
 license=(GPL-2.0)
@@ -106,7 +106,7 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
              "python" "python-appdirs" "python-mako" "python-evdev" "python-sphinx_rtd_theme" "python-graphviz" "python-sphinx"
              "clang" "lib32-clang" "bc" "gcc" "gcc-libs" "lib32-gcc-libs" "glibc" "lib32-glibc" "pahole" "patch" "gtk3" "llvm" "lib32-llvm"
              "llvm-libs" "lib32-llvm-libs" "lld" "kmod" "libmikmod" "lib32-libmikmod" "xmlto" "xmltoman" "graphviz" "imagemagick" "imagemagick-doc"
-             "rsync" "cpio" "inetutils")
+             "rsync" "cpio" "inetutils" "gzip" "zstd" "xz")
 patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$major
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar.xz"
         "config-5.11"
@@ -220,61 +220,11 @@ prepare(){
   msg2 "Copy "${srcdir}"/config to linux-$pkgver/.config"
   cp "${srcdir}"/config-$major .config
 
-  # General setup
-
-  if [[ "$_cpu_sched" = "1" ]]; then
-    # https://bbs.archlinux.org/viewtopic.php?pid=1824594#p1824594
-    scripts/config --enable CONFIG_PSI_DEFAULT_DISABLED
-    # FS#66613
-    # https://bugzilla.kernel.org/show_bug.cgi?id=207173#c6
-    scripts/config --disable CONFIG_KVM_WERROR
-  fi
-
-  # Power management and ACPI options
-  scripts/config --enable ACPI_REV_OVERRIDE_POSSIBLE
-  scripts/config --enable ACPI_TABLE_UPGRAD
-
-  # Networking support
-  scripts/config --enable NETFILTER_INGRESS
-
-  # Device Drivers
-  scripts/config --enable FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER
-  scripts/config --enable CONFIG_DELL_SMBIOS_SMM
-  scripts/config --module CONFIG_PATA_JMICRON
-  scripts/config --module CONFIG_SOUND
-  scripts/config --enable CONFIG_SOUND_OSS_CORE
-  scripts/config --enable CONFIG_SND_OSSEMUL
-  scripts/config --module CONFIG_SND_MIXER_OSS
-  scripts/config --module CONFIG_SND_PCM_OSS
-  scripts/config --enable CONFIG_SND_PCM_OSS_PLUGINS
-  scripts/config --module CONFIG_AGP
-  scripts/config --module CONFIG_AGP_INTEL
-  scripts/config --module CONFIG_AGP_VIA
-  scripts/config --module CONFIG_AGP_SIS
-  scripts/config --module CONFIG_AGP_AMD64
-
-  # Security options
-  scripts/config --enable SECURITY_SELINUX
-  scripts/config --enable SECURITY_SELINUX_BOOTPARAM
-  scripts/config --enable SECURITY_SMACK
-  scripts/config --enable SECURITY_SMACK_BRINGUP
-  scripts/config --enable SECURITY_SMACK_NETFILTER
-  scripts/config --enable SECURITY_SMACK_APPEND_SIGNALS
-  scripts/config --enable SECURITY_TOMOYO
-  scripts/config --enable SECURITY_APPARMOR
-  scripts/config --enable SECURITY_YAMA
-
-  # Library routines
-  scripts/config --enable CONFIG_FONT_TER16x32
-
-  # Kernel hacking -> Compile-time checks and compiler options -> Make section mismatch errors non-fatal
-  scripts/config --enable CONFIG_SECTION_MISMATCH_WARN_ONLY
-
-  scripts/config --undefine CONFIG_RT_GROUP_SCHED
-
   # Customize the kernel
   source "${startdir}"/prepare
   configure
+  general_setup
+  cpu_arch
 
   # Let's user choose microarchitecture optimization in GCC
   sh ${srcdir}/choose-gcc-optimization.sh $_microarchitecture
