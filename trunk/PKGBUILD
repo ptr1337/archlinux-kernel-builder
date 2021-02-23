@@ -222,8 +222,23 @@ prepare(){
 
   # Customize the kernel
   source "${startdir}"/prepare
+  
   configure
-  general_setup
+
+  plain ""
+  plain "#########################################"
+  plain "Do you want to strip down the kernel config?"
+  read -rp "`echo $' > 1.Yes\n > 2.No\n > Default (Yes)\nchoice[1-2]: '`" _strip;
+  if [[ $_strip = "1" ]]; then
+    msg2 "Begin to strip down kernel config"
+    strip_down
+  elif [[ $_strip = "1" ]]; then
+    msg2 "You choose to not strip down the kernel config"
+  else
+    msg2 "Begin to strip down kernel config"
+    strip_down
+  fi
+  
   cpu_arch
 
   # Let's user choose microarchitecture optimization in GCC
