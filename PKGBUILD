@@ -96,7 +96,7 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11
+pkgver=5.11.1
 major=5.11
 pkgrel=1
 arch=(x86_64)
@@ -146,7 +146,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         #"$patchsource/iommu-patches/0006-add-acs-overrides_iommu.patch"
         #"$patchsource/aufs-patches/0001-aufs-20210215.patch"
         #"$patchsource/ZFS-patches/0011-ZFS-fix.patch
-md5sums=("d2985a3f16ef1ea3405c04c406e29dcc"  #linux-5.11.tar.xz
+md5sums=("46518d989b33efc5438bb8711b066b4a"  #linux-5.11.1.tar.xz
          "efa5b2f5b6c05d0445198391bcb69a0e"  #config-5.11
          "b3f0a4804b6fe031f674988441c1af35"  #choose-gcc-optimization.sh
          "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
@@ -168,8 +168,8 @@ md5sums=("d2985a3f16ef1ea3405c04c406e29dcc"  #linux-5.11.tar.xz
          "cc70bf905a1237a41b11338b2eba4a8b"  #0001-mm-patches.patch
          "ddcda13d2e86984517e841b4acebd2f5"  #0001-spadfs-5.11-merge-v1.0.12.patch
          "64e629e48f15cc0ebddfee366386f17a"  #0001-zswap-patches.patch
-         "dcb506abf81826a5a005c9e66b4312f2"  #0001-pf-patches.patch
-         "71f9d48d9acfdfc78ad68f5cb76b3333"  #0001-fixes-miscellaneous.patch
+         "936ab98a8dce1eedd4bce2b412e4e13f"  #0001-pf-patches.patch
+         "eb463ec74fcdd002cae827e964e33572"  #0001-fixes-miscellaneous.patch
          "e7ef63d6e6fb1ed9d8c2b4d3f65de86c"  #0002-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch
          "5cbf26872b5e716d4c49acd309169633"  #0002-Bluetooth-btusb-Some-Qualcomm-Bluetooth-adapters-sto.patch
          "34d442266fadf10835a83f916e55cf58"  #0003-Revert-drm-amd-display-reuse-current-context-instead.patch
