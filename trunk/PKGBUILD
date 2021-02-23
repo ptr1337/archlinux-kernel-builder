@@ -96,8 +96,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11
-major=5.11.1
+pkgver=5.11.1
+major=5.11
 pkgrel=1
 arch=(x86_64)
 url="https://www.kernel.org/"
