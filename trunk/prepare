@@ -1223,7 +1223,7 @@ configure(){
   sleep 2s
 }
 
-general_setup(){
+strip_down(){
   # # Security options
   # plain ""
   # msg2 "Enable Security options"
