@@ -247,8 +247,6 @@ prepare(){
 
   make -s kernelrelease > version
   msg2 "Prepared $pkgbase version $(<version)"
-
-  make menuconfig
 }
 
 build(){
