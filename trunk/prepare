@@ -1292,6 +1292,10 @@ general_setup(){
   #
   # sleep 2s
 
+  plain ""
+
+############ Accessibility ############
+
   # Disable accessibility
   msg2 "Disable accessibility"
   scripts/config --disable CONFIG_ACCESSIBILITY
@@ -1317,6 +1321,52 @@ general_setup(){
   scripts/config --disable CONFIG_SPEAKUP_SYNTH_SPKOUT
   scripts/config --disable CONFIG_SPEAKUP_SYNTH_TXPRT
   scripts/config --disable CONFIG_SPEAKUP_SYNTH_DUMMY
+
+#######################################
+
+  sleep 2s
+
+############ Drivers/gpu/drm ############
+
+  # Add full support for DRM
+  msg2 "Add full support for DRM"
+  scripts/config --module CONFIG_DRM
+  scripts/config --module CONFIG_DRM_MIPI_DBI
+  scripts/config --enable CONFIG_DRM_MIPI_DSI
+  scripts/config --enable CONFIG_DRM_DP_AUX_CHARDEV
+  scripts/config --enable CONFIG_DRM_KMS_HELPER
+  scripts/config --enable CONFIG_DRM_KMS_FB_HELPER
+  scripts/config --enable CONFIG_DRM_FBDEV_EMULATION
+  scripts/config --set-val CONFIG_DRM_FBDEV_OVERALLOC 100
+  scripts/config --enable CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM
+  scripts/config --enable CONFIG_DRM_LOAD_EDID_FIRMWARE
+  scripts/config --enable CONFIG_DRM_DP_CEC
+  scripts/config --module CONFIG_DRM_TTM
+  scripts/config --module CONFIG_DRM_VRAM_HELPER
+  scripts/config --module CONFIG_DRM_TTM_HELPER
+  scripts/config --enable CONFIG_DRM_GEM_CMA_HELPER
+  scripts/config --enable CONFIG_DRM_KMS_CMA_HELPER
+  scripts/config --enable CONFIG_DRM_GEM_SHMEM_HELPER
+  scripts/config --enable CONFIG_DRM_VM
+  scripts/config --module CONFIG_DRM_SCHED
+  scripts/config --module CONFIG_DRM_RADEON
+  scripts/config --module CONFIG_DRM_AMDGPU
+  scripts/config --module CONFIG_DRM_VGEM
+  scripts/config --module CONFIG_DRM_VKMS
+  scripts/config --enable CONFIG_DRM_LEGACY
+  scripts/config --module CONFIG_DRM_TDFX
+  scripts/config --module CONFIG_DRM_R128
+  scripts/config --module CONFIG_DRM_I810
+  scripts/config --module CONFIG_DRM_MGA
+  scripts/config --module CONFIG_DRM_SIS
+  scripts/config --module CONFIG_DRM_VIA
+  scripts/config --module CONFIG_DRM_SAVAGE
+  scripts/config --enable CONFIG_DRM_EXPORT_FOR_TESTS
+  scripts/config --enable CONFIG_DRM_PANEL_ORIENTATION_QUIRKS
+  scripts/config --enable CONFIG_DRM_LIB_RANDOM
+  scripts/config --enable CONFIG_DRM_DEBUG_MM
+  scripts/config --enable CONFIG_DRM_DEBUG_SELFTEST
+  scripts/config --enable CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS
 
   sleep 2s
 
@@ -1652,48 +1702,6 @@ general_setup(){
 
   sleep 2s
 
-  # Add full support for DRM
-  msg2 "Add full support for DRM"
-  scripts/config --module CONFIG_DRM
-  scripts/config --module CONFIG_DRM_MIPI_DBI
-  scripts/config --enable CONFIG_DRM_MIPI_DSI
-  scripts/config --enable CONFIG_DRM_DP_AUX_CHARDEV
-  scripts/config --enable CONFIG_DRM_KMS_HELPER
-  scripts/config --enable CONFIG_DRM_KMS_FB_HELPER
-  scripts/config --enable CONFIG_DRM_FBDEV_EMULATION
-  scripts/config --set-val CONFIG_DRM_FBDEV_OVERALLOC 100
-  scripts/config --enable CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM
-  scripts/config --enable CONFIG_DRM_LOAD_EDID_FIRMWARE
-  scripts/config --enable CONFIG_DRM_DP_CEC
-  scripts/config --module CONFIG_DRM_TTM
-  scripts/config --module CONFIG_DRM_VRAM_HELPER
-  scripts/config --module CONFIG_DRM_TTM_HELPER
-  scripts/config --enable CONFIG_DRM_GEM_CMA_HELPER
-  scripts/config --enable CONFIG_DRM_KMS_CMA_HELPER
-  scripts/config --enable CONFIG_DRM_GEM_SHMEM_HELPER
-  scripts/config --enable CONFIG_DRM_VM
-  scripts/config --module CONFIG_DRM_SCHED
-  scripts/config --module CONFIG_DRM_RADEON
-  scripts/config --module CONFIG_DRM_AMDGPU
-  scripts/config --module CONFIG_DRM_VGEM
-  scripts/config --module CONFIG_DRM_VKMS
-  scripts/config --enable CONFIG_DRM_LEGACY
-  scripts/config --module CONFIG_DRM_TDFX
-  scripts/config --module CONFIG_DRM_R128
-  scripts/config --module CONFIG_DRM_I810
-  scripts/config --module CONFIG_DRM_MGA
-  scripts/config --module CONFIG_DRM_SIS
-  scripts/config --module CONFIG_DRM_VIA
-  scripts/config --module CONFIG_DRM_SAVAGE
-  scripts/config --enable CONFIG_DRM_EXPORT_FOR_TESTS
-  scripts/config --enable CONFIG_DRM_PANEL_ORIENTATION_QUIRKS
-  scripts/config --enable CONFIG_DRM_LIB_RANDOM
-  scripts/config --enable CONFIG_DRM_DEBUG_MM
-  scripts/config --enable CONFIG_DRM_DEBUG_SELFTEST
-  scripts/config --enable CONFIG_DRM_DEBUG_DP_MST_TOPOLOGY_REFS
-
-  sleep 2s
-
   # Enable CONFIG_DRM_BRIDGE/CONFIG_DRM_PANEL_BRIDGE
   msg2 "Enable CONFIG_DRM_BRIDGE/CONFIG_DRM_PANEL_BRIDGE"
   scripts/config --enable CONFIG_DRM_BRIDGE
@@ -1782,44 +1790,496 @@ general_setup(){
   scripts/config --module CONFIG_DRM_VMWGFX
   scripts/config --enable CONFIG_DRM_VMWGFX_FBCON
 
+#######################################
+
   sleep 2s
+
+############ Leds ############
 
   # Disable some leds features
   msg2 "Disable CONFIG_LEDS_RT8515"
   scripts/config --disable CONFIG_LEDS_RT8515
 
+#######################################
+
+  sleep 2s
+
+############ Filesystem ############
+
+  # Base support for filesystem
+  msg2 "Enable base support for file system"
+  echo "Enable DCACHE_WORD_ACCESS"
+  scripts/config --enable CONFIG_DCACHE_WORD_ACCESS
+  echo "Enable VALIDATE_FS_PARSER"
+  scripts/config --enable CONFIG_VALIDATE_FS_PARSER
+  echo "Enable FS_IOMAP"
+  scripts/config --enable CONFIG_FS_IOMAP
+  echo "Enable FS_MBCACHE"
+  scripts/config --module CONFIG_FS_MBCACHE
+  echo "Enable FS_DAX"
+  scripts/config --enable CONFIG_FS_DAX
+  echo "Enable FS_DAX_PMD"
+  scripts/config --enable CONFIG_FS_DAX_PMD
+  echo "Enable FS_DAX_LIMITED"
+  scripts/config --enable CONFIG_FS_DAX_LIMITED
+  echo "Enable FS_POSIX_ACL"
+  scripts/config --enable CONFIG_FS_POSIX_ACL
+  echo "Enable EXPORTFS"
+  scripts/config --enable CONFIG_EXPORTFS
+  echo "Enable EXPORTFS_BLOCK_OPS"
+  scripts/config --enable CONFIG_EXPORTFS_BLOCK_OPS
+  echo "Enable FILE_LOCKING"
+  scripts/config --enable CONFIG_FILE_LOCKING
+  echo "Enable MANDATORY_FILE_LOCKING"
+  scripts/config --enable CONFIG_MANDATORY_FILE_LOCKING
+  echo "Enable TMPFS"
+  scripts/config --enable CONFIG_TMPFS
+  echo "Enable TMPFS_POSIX_ACL"
+  scripts/config --enable CONFIG_TMPFS_POSIX_ACL
+  echo "Enable TMPFS_XATTR"
+  scripts/config --enable CONFIG_TMPFS_XATTR
+  echo "Enable TMPFS_INODE64"
+  scripts/config --enable CONFIG_TMPFS_INODE64
+  echo "Enable HUGETLBFS"
+  scripts/config --enable CONFIG_HUGETLBFS
+  echo "Enable HUGETLB_PAGE"
+  scripts/config --enable CONFIG_HUGETLB_PAGE
+  echo "Enable MEMFD_CREATE"
+  scripts/config --enable CONFIG_MEMFD_CREATE
+  echo "Enable MISC_FILESYSTEMS"
+  scripts/config --enable CONFIG_MISC_FILESYSTEMS
+  echo "Enable NETWORK_FILESYSTEMS"
+  scripts/config --enable CONFIG_NETWORK_FILESYSTEMS
+  echo "Enable GRACE_PERIOD"
+  scripts/config --module CONFIG_GRACE_PERIOD
+  echo "Enable LOCKD"
+  scripts/config --module CONFIG_LOCKD
+  echo "Enable LOCKD_V4"
+  scripts/config --enable CONFIG_LOCKD_V4
+  echo "Enable NFS_ACL_SUPPORT"
+  scripts/config --module CONFIG_NFS_ACL_SUPPORT
+  echo "Enable NFS_COMMON"
+  scripts/config --enable CONFIG_NFS_COMMON
+  echo "Enable IO_WQ"
+  scripts/config --enable CONFIG_IO_WQ
+
   sleep 2s
 
   # Filesystem
-  msg2 "Disable some filesystem support... Because here we use ntfs/ntfs3,ext4,btrfs,exfat,fat,ramfs,proc"
+  msg2 "Disable uneeded filesystem support"
+  # Disable 9p
+  echo "Disable 9p"
+  scripts/config --disable CONFIG_9P_FS
+  scripts/config --disable CONFIG_9P_FSCACHE
+  scripts/config --disable CONFIG_9P_FS_POSIX_ACL
+  scripts/config --disable CONFIG_9P_FS_SECURITY
+  # Disable Adfs
+  scripts/config --disable CONFIG_ADFS_FS
+  scripts/config --disable CONFIG_ADFS_FS_RW
   # Disable Affs (Amiga FFS file system support)
   echo "Disable AFFS (Amiga FFS file system support)"
   scripts/config --disable CONFIG_AFFS_FS
+  # Disable Afs (Andrew File System support (AFS))
+  echo "Disable Afs (Andrew File System support (AFS))"
+  scripts/config --disable CONFIG_AFS_FS
+  scripts/config --disable CONFIG_AFS_DEBUG
+  scripts/config --disable CONFIG_AFS_FSCACHE
+  scripts/config --disable CONFIG_AFS_DEBUG_CURSOR
+  # Disable Befs (BeOS file system (BeFS) support (read only))
+  echo "Disable Befs (BeOS file system (BeFS) support (read only))"
+  scripts/config --disable CONFIG_BEFS_FS
+  scripts/config --disable CONFIG_BEFS_DEBUG
+  # Disable Bfs (BFS file system support)
+  echo "Disable Bfs (BFS file system support)"
+  scripts/config --disable CONFIG_BFS_FS
+  # Disable Cachefiles (Filesystem caching on files)
+  echo "Disable Cachefiles (Filesystem caching on files)"
+  scripts/config --disable CONFIG_CACHEFILES
+  scripts/config --disable CONFIG_CACHEFILES_DEBUG
+  scripts/config --disable CONFIG_CACHEFILES_HISTOGRAM
+  # Disable Ceph (Ceph distributed file system)
+  echo "Disable Ceph (Ceph distributed file system)"
+  scripts/config --disable CONFIG_CEPH_FS
+  scripts/config --disable CONFIG_CEPH_FSCACHE
+  scripts/config --disable CONFIG_CEPH_FS_POSIX_ACL
+  scripts/config --disable CONFIG_CEPH_FS_SECURITY_LABEL
+  # Disable coda (Coda file system support (advanced network fs))
+  echo "Disable coda (Coda file system support (advanced network fs))"
+  scripts/config --disable CONFIG_CODA_FS
+  # Disable Configfs (Userspace-driven configuration filesystem)
+  echo "Disable Configfs (Userspace-driven configuration filesystem)"
+  scripts/config --disable CONFIG_CONFIGFS_FS
+  # Disable Cramfs (Compressed ROM file system support (cramfs))
+  echo "Disable Cramfs (Compressed ROM file system support (cramfs))"
+  scripts/config --disable CONFIG_CRAMFS
+  scripts/config --disable CONFIG_CRAMFS_BLOCKDEV
+  scripts/config --disable CONFIG_CRAMFS_MTD
+  # Disable Dlm (Distributed Lock Manager (DLM))
+  echo "Disable Dlm (Distributed Lock Manager (DLM))"
+  scripts/config --disable CONFIG_DLM
+  scripts/config --disable CONFIG_DLM_DEBUG
+  # Disable Efs (EFS file system support (read only))
+  echo "Disable Efs (EFS file system support (read only))"
+  scripts/config --disable CONFIG_EFS_FS
+  # Disable Erofs
+  echo "Disable Erofs"
+  scripts/config --disable CONFIG_EROFS_FS
+  scripts/config --disable CONFIG_EROFS_FS_DEBUG
+  scripts/config --disable CONFIG_EROFS_FS_XATTR
+  scripts/config --disable CONFIG_EROFS_FS_POSIX_ACL
+  scripts/config --disable CONFIG_EROFS_FS_SECURITY
+  scripts/config --disable CONFIG_EROFS_FS_ZIP
+  scripts/config --disable CONFIG_EROFS_FS_CLUSTER_PAGE_LIMIT
   # Disable ext2 support
-  echo "Disable ext2 support"
+  echo "Disable ext2"
   scripts/config --disable CONFIG_EXT2_FS
   scripts/config --disable CONFIG_EXT2_FS_XATTR
   scripts/config --disable CONFIG_EXT2_FS_POSIX_ACL
   scripts/config --disable CONFIG_EXT2_FS_SECURITY
   # Disable ext3 support
-  echo "Disable ext3 support"
+  echo "Disable ext3"
   scripts/config --disable CONFIG_EXT3_FS
   scripts/config --disable CONFIG_EXT3_FS_POSIX_ACL
   scripts/config --disable CONFIG_EXT3_FS_SECURITY
+  # Disable F2fs
+  echo "Disable F2fs"
+  scripts/config --disable CONFIG_F2FS_FS
+  scripts/config --disable CONFIG_F2FS_STAT_FS
+  scripts/config --disable CONFIG_F2FS_FS_XATTR
+  scripts/config --disable CONFIG_F2FS_FS_POSIX_ACL
+  scripts/config --disable CONFIG_F2FS_FS_SECURITY
+  scripts/config --disable CONFIG_F2FS_CHECK_FS
+  scripts/config --disable CONFIG_F2FS_IO_TRACE
+  scripts/config --disable CONFIG_F2FS_FAULT_INJECTION
+  scripts/config --disable CONFIG_F2FS_FS_COMPRESSION
+  scripts/config --disable CONFIG_F2FS_FS_LZO
+  scripts/config --disable CONFIG_F2FS_FS_LZ4
+  scripts/config --disable CONFIG_F2FS_FS_ZSTD
+  scripts/config --disable CONFIG_F2FS_FS_LZORLE
+  # Disable FreeVxfs
+  echo "Disable FreeVxfs"
+  scripts/config --disable CONFIG_VXFS_FS
+  # Disable Fscache (General filesystem local caching manager)
+  echo "Disable Fscache (General filesystem local caching manager)"
+  scripts/config --disable CONFIG_FSCACHE
+  scripts/config --disable CONFIG_FSCACHE_STATS
+  scripts/config --disable CONFIG_FSCACHE_HISTOGRAM
+  scripts/config --disable CONFIG_FSCACHE_DEBUG
+  scripts/config --disable CONFIG_FSCACHE_OBJECT_LIST
+  # Disable Gfs2
+  echo "DIsable Gfs2"
+  scripts/config --disable CONFIG_GFS2_FS
+  scripts/config --disable CONFIG_GFS2_FS_LOCKING_DLM
+  # Disable Hfs (Apple Macintosh file system support)
+  echo "Disable Hfs (Apple Macintosh file system support)"
+  scripts/config --disable CONFIG_HFS_FS
+  # Disable Hfsplus (Apple Extended HFS file system support)
+  echo "Disable Hfsplus (Apple Extended HFS file system support)"
+  scripts/config --disable CONFIG_HFSPLUS_FS
+  # Disable Hpfs (OS/2 HPFS file system support)
+  echo "Disable Hpfs (OS/2 HPFS file system support)"
+  scripts/config --disable CONFIG_HPFS_FS
+  # Disable Isofs (ISO 9660 CDROM file system support)
+  echo "Disable Isofs (ISO 9660 CDROM file system support)"
+  scripts/config --disable CONFIG_ISO9660_FS
+  scripts/config --disable CONFIG_JOLIET
+  scripts/config --disable CONFIG_ZISOFS
+  # Disable Jffs2
+  echo "Disable Jffs2"
+  scripts/config --disable CONFIG_JFFS2_FS
+  scripts/config --disable CONFIG_JFFS2_FS_DEBUG
+  scripts/config --disable CONFIG_JFFS2_FS_WRITEBUFFER
+  scripts/config --disable CONFIG_JFFS2_FS_WBUF_VERIFY
+  scripts/config --disable CONFIG_JFFS2_SUMMARY
+  scripts/config --disable CONFIG_JFFS2_FS_XATTR
+  scripts/config --disable CONFIG_JFFS2_FS_POSIX_ACL
+  scripts/config --disable CONFIG_JFFS2_FS_SECURITY
+  scripts/config --disable CONFIG_JFFS2_COMPRESSION_OPTIONS
+  scripts/config --disable CONFIG_JFFS2_ZLIB
+  scripts/config --disable CONFIG_JFFS2_LZO
+  scripts/config --disable CONFIG_JFFS2_RTIME
+  scripts/config --disable CONFIG_JFFS2_RUBIN
+  scripts/config --disable CONFIG_JFFS2_CMODE_NONE
+  scripts/config --disable CONFIG_JFFS2_CMODE_PRIORITY
+  scripts/config --disable CONFIG_JFFS2_CMODE_SIZE
+  scripts/config --disable CONFIG_JFFS2_CMODE_FAVOURLZO
+  # Disable Jfs
+  echo "Disable Jfs"
+  scripts/config --disable CONFIG_JFS_FS
+  scripts/config --disable CONFIG_JFS_POSIX_ACL
+  scripts/config --disable CONFIG_JFS_SECURITY
+  scripts/config --disable CONFIG_JFS_DEBUG
+  scripts/config --disable CONFIG_JFS_STATISTICS
+  # Disable Kernfs
+  echo "Disable Kernfs"
+  scripts/config --disable CONFIG_KERNFS
+  # Disable Minix
+  echo "Disable Minix"
+  scripts/config --disable CONFIG_MINIX_FS
+  scripts/config --disable CONFIG_MINIX_FS_NATIVE_ENDIAN
+  scripts/config --disable CONFIG_MINIX_FS_BIG_ENDIAN_16BIT_INDEXED
+  # Disable Notify
+  echo "Disable Notify"
+  scripts/config --disable CONFIG_FSNOTIFY
+  # Disable Ocfs2
+  echo "Disable Ocfs2"
+  scripts/config --disable CONFIG_OCFS2_FS
+  scripts/config --disable CONFIG_OCFS2_FS_O2CB
+  scripts/config --disable CONFIG_OCFS2_FS_USERSPACE_CLUSTER
+  scripts/config --disable CONFIG_OCFS2_FS_STATS
+  scripts/config --disable CONFIG_OCFS2_DEBUG_MASKLOG
+  scripts/config --disable CONFIG_OCFS2_DEBUG_FS
+  # Disable Orangefs
+  echo "Disable Orangefs"
+  scripts/config --disable CONFIG_ORANGEFS_FS
+  # Disable Overlayfs
+  echo "Disable Overlayfs"
+  scripts/config --disable CONFIG_OVERLAY_FS
+  scripts/config --disable CONFIG_OVERLAY_FS_REDIRECT_DIR
+  scripts/config --disable CONFIG_OVERLAY_FS_REDIRECT_ALWAYS_FOLLOW
+  scripts/config --disable CONFIG_OVERLAY_FS_INDEX
+  scripts/config --disable CONFIG_OVERLAY_FS_NFS_EXPORT
+  scripts/config --disable CONFIG_OVERLAY_FS_XINO_AUTO
+  scripts/config --disable CONFIG_OVERLAY_FS_METACOPY
+  # Disable Pstore
+  echo "Disable Pstore"
+  scripts/config --disable CONFIG_PSTORE
+  scripts/config --disable CONFIG_PSTORE_DEFAULT_KMSG_BYTES
+  scripts/config --disable CONFIG_PSTORE_DEFLATE_COMPRESS
+  scripts/config --disable CONFIG_PSTORE_LZO_COMPRESS
+  scripts/config --disable CONFIG_PSTORE_LZ4_COMPRESS
+  scripts/config --disable CONFIG_PSTORE_LZ4HC_COMPRESS
+  scripts/config --disable CONFIG_PSTORE_842_COMPRESS
+  scripts/config --disable CONFIG_PSTORE_ZSTD_COMPRESS
+  scripts/config --disable CONFIG_PSTORE_COMPRESS
+  scripts/config --disable CONFIG_PSTORE_COMPRESS_DEFAULT
+  scripts/config --disable CONFIG_PSTORE_CONSOLE
+  scripts/config --disable CONFIG_PSTORE_PMSG
+  scripts/config --disable CONFIG_PSTORE_FTRACE
+  scripts/config --disable CONFIG_PSTORE_RAM
+  scripts/config --disable CONFIG_PSTORE_ZONE
+  scripts/config --disable CONFIG_PSTORE_BLK
+  scripts/config --disable CONFIG_PSTORE_BLK_BLKDEV
+  scripts/config --disable CONFIG_PSTORE_BLK_KMSG_SIZE
+  scripts/config --disable CONFIG_PSTORE_BLK_MAX_REASON
+  scripts/config --disable CONFIG_PSTORE_BLK_PMSG_SIZE
+  scripts/config --disable CONFIG_PSTORE_BLK_CONSOLE_SIZE
+  scripts/config --disable CONFIG_PSTORE_BLK_FTRACE_SIZE
+  # Disable Qnx4
+  echo "Disable Qnx4"
+  scripts/config --disable CONFIG_QNX4FS_FS
+  # Disable Qnx6
+  echo "Disable Qnx6"
+  scripts/config --disable CONFIG_QNX6FS_FS
+  scripts/config --disable CONFIG_QNX6FS_DEBUG
+  # Disable Quota
+  echo "Disable Quota"
+  scripts/config --disable CONFIG_QUOTA
+  scripts/config --disable CONFIG_QUOTA_NETLINK_INTERFACE
+  scripts/config --disable CONFIG_PRINT_QUOTA_WARNING
+  scripts/config --disable CONFIG_QUOTA_DEBUG
+  scripts/config --disable CONFIG_QUOTA_TREE
+  scripts/config --disable CONFIG_QFMT_V1
+  scripts/config --disable CONFIG_QFMT_V2
+  scripts/config --disable CONFIG_QUOTACTL
+  # Disable Reiserfs
+  echo "Disable Reiserfs"
+  scripts/config --disable CONFIG_REISERFS_FS
+  scripts/config --disable CONFIG_REISERFS_CHECK
+  scripts/config --disable CONFIG_REISERFS_PROC_INFO
+  scripts/config --disable CONFIG_REISERFS_FS_XATTR
+  scripts/config --disable CONFIG_REISERFS_FS_POSIX_ACL
+  scripts/config --disable CONFIG_REISERFS_FS_SECURITY
+  # Disable Romfs
+  echo "Disable Romfs"
+  scripts/config --disable CONFIG_ROMFS_FS
+  # Disable Squashfs
+  echo "Disable Squashfs"
+  scripts/config --disable CONFIG_SQUASHFS
+  scripts/config --disable CONFIG_SQUASHFS_FILE_CACHE
+  scripts/config --disable CONFIG_SQUASHFS_FILE_DIRECT
+  scripts/config --disable CONFIG_SQUASHFS_DECOMP_SINGLE
+  scripts/config --disable CONFIG_SQUASHFS_DECOMP_MULTI
+  scripts/config --disable CONFIG_SQUASHFS_DECOMP_MULTI_PERCPU
+  scripts/config --disable CONFIG_SQUASHFS_XATTR
+  scripts/config --disable CONFIG_SQUASHFS_ZLIB
+  scripts/config --disable CONFIG_SQUASHFS_LZ4
+  scripts/config --disable CONFIG_SQUASHFS_LZO
+  scripts/config --disable CONFIG_SQUASHFS_XZ
+  scripts/config --disable CONFIG_SQUASHFS_ZSTD
+  scripts/config --disable CONFIG_SQUASHFS_4K_DEVBLK_SIZE
+  scripts/config --disable CONFIG_SQUASHFS_EMBEDDED
+  scripts/config --disable CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE
+  # Disable Sysv
+  echo "Disable Sysv"
+  scripts/config --disable CONFIG_SYSV_FS
+  # Disable Ubifs
+  echo "Disable Ubifs"
+  scripts/config --disable CONFIG_UBIFS_FS
+  scripts/config --disable CONFIG_UBIFS_FS_ADVANCED_COMPR
+  scripts/config --disable CONFIG_UBIFS_FS_LZO
+  scripts/config --disable CONFIG_UBIFS_FS_ZLIB
+  scripts/config --disable CONFIG_UBIFS_FS_ZSTD
+  scripts/config --disable CONFIG_UBIFS_ATIME_SUPPORT
+  scripts/config --disable CONFIG_UBIFS_FS_XATTR
+  scripts/config --disable CONFIG_UBIFS_FS_SECURITY
+  scripts/config --disable CONFIG_UBIFS_FS_AUTHENTICATION
+  # Disable Udf
+  echo "Disable Udf"
+  scripts/config --disable CONFIG_UDF_FS
+  # Disable Ufs
+  echo "Disable Ufs"
+  scripts/config --disable CONFIG_UFS_FS
+  scripts/config --disable CONFIG_UFS_FS_WRITE
+  scripts/config --disable CONFIG_UFS_DEBUG
+  # Disable Xfs
+  echo "Disable Xfs"
+  scripts/config --disable CONFIG_XFS_FS
+  scripts/config --disable CONFIG_XFS_SUPPORT_V4
+  scripts/config --disable CONFIG_XFS_QUOTA
+  scripts/config --disable CONFIG_XFS_POSIX_ACL
+  scripts/config --disable CONFIG_XFS_RT
+  scripts/config --disable CONFIG_XFS_ONLINE_SCRUB
+  scripts/config --disable CONFIG_XFS_ONLINE_REPAIR
+  scripts/config --disable CONFIG_XFS_WARN
+  scripts/config --disable CONFIG_XFS_DEBUG
+  scripts/config --disable CONFIG_XFS_ASSERT_FATAL
+  # Disable Zonefs
+  echo "Disable Zonefs"
+  scripts/config --disable CONFIG_ZONEFS_FS
 
   sleep 2s
 
+  # Enable Needed filesystem
+  msg2 "Enable Needed filesystem"
+  # Autofs (Kernel automounter support (supports v3, v4 and v5))
+  echo "Enable Autofs (Kernel automounter support (supports v3, v4 and v5))"
+  scripts/config --enable CONFIG_AUTOFS4_FS
+  scripts/config --enable CONFIG_AUTOFS_FS
+  # Btrfs
+  echo "Enable Btrfs"
+  scripts/config --enable CONFIG_BTRFS_FS
+  scripts/config --enable CONFIG_BTRFS_FS_POSIX_ACL
+  # Cifs
+  echo "Enable Cifs"
+  scripts/config --module CONFIG_CIFS
+  scripts/config --enable CONFIG_CIFS_ALLOW_INSECURE_LEGACY
+  scripts/config --enable CONFIG_CIFS_WEAK_PW_HASH
+  scripts/config --enable CONFIG_CIFS_UPCALL
+  scripts/config --enable CONFIG_CIFS_XATTR
+  scripts/config --enable CONFIG_CIFS_POSIX
+  scripts/config --enable CONFIG_CIFS_DFS_UPCALL
+  scripts/config --enable CONFIG_CIFS_SWN_UPCALL
+  scripts/config --enable CONFIG_CIFS_NFSD_EXPORT
+  scripts/config --enable CONFIG_CIFS_SMB_DIRECT
+  scripts/config --enable CONFIG_CIFS_FSCACHE
+  scripts/config --enable CONFIG_CIFS_ROOT
+  # Crypto
+  echo "Enable Crypto"
+  scripts/config --enable CONFIG_FS_ENCRYPTION
+  scripts/config --module CONFIG_FS_ENCRYPTION_ALGS
+  scripts/config --enable CONFIG_FS_ENCRYPTION_INLINE_CRYPT
+  # Ecryptfs
+  echo "Enable Ecryptfs"
+  scripts/config --enable CONFIG_ECRYPT_FS
+  scripts/config --enable CONFIG_ECRYPT_FS_MESSAGING
+  # Efivarfs
+  echo "Enable Efivarfs"
+  scripts/config --enable CONFIG_EFIVAR_FS
+  # Exfat
+  echo "Enable Exfat"
+  scripts/config --enable CONFIG_EXFAT_FS
+  scripts/config --set-val CONFIG_EXFAT_DEFAULT_IOCHARSET "utf8"
   # Fully support ext4
-  msg2 "Enable ext4 support"
+  echo "Enable ext4"
   scripts/config --enable CONFIG_EXT4_FS
   scripts/config --enable CONFIG_EXT4_USE_FOR_EXT2
   scripts/config --enable CONFIG_EXT4_FS_POSIX_ACL
   scripts/config --enable CONFIG_EXT4_FS_SECURITY
+  # Fat
+  echo "Enable Fat"
+  scripts/config --module CONFIG_FAT_FS
+  scripts/config --module CONFIG_MSDOS_FS
+  scripts/config --module CONFIG_VFAT_FS
+  scripts/config --set-val CONFIG_FAT_DEFAULT_CODEPAGE 437
+  scripts/config --set-val CONFIG_FAT_DEFAULT_IOCHARSET "ascii"
+  scripts/config --enable CONFIG_FAT_DEFAULT_UTF8
+  # Fuse
+  echo "Enable Fuse"
+  scripts/config --module CONFIG_FUSE_FS
+  scripts/config --module CONFIG_CUSE
+  scripts/config --module CONFIG_VIRTIO_FS
+  scripts/config --enable CONFIG_FUSE_DAX
+  # Jbd2
+  echo "Enable Jbd2"
+  scripts/config --enable CONFIG_JBD2
+  # Nfs
+  echo "Enable Nfs"
+  scripts/config --module CONFIG_CONFIG_NFS_FS
+  scripts/config --module CONFIG_CONFIG_NFS_V2
+  scripts/config --module CONFIG_CONFIG_NFS_V3
+  scripts/config --enable CONFIG_CONFIG_NFS_V3_ACL
+  scripts/config --module CONFIG_CONFIG_NFS_V4
+  scripts/config --enable CONFIG_CONFIG_NFS_SWAP
+  scripts/config --enable CONFIG_CONFIG_NFS_V4_1
+  scripts/config --enable CONFIG_CONFIG_NFS_V4_2
+  scripts/config --module CONFIG_CONFIG_PNFS_FILE_LAYOUT
+  scripts/config --module CONFIG_CONFIG_PNFS_BLOCK
+  scripts/config --module CONFIG_CONFIG_PNFS_FLEXFILE_LAYOUT
+  scripts/config --set-val CONFIG_CONFIG_NFS_V4_1_IMPLEMENTATION_ID_DOMAIN "kernel.org"
+  scripts/config --enable CONFIG_CONFIG_NFS_V4_1_MIGRATION
+  scripts/config --enable CONFIG_CONFIG_NFS_V4_SECURITY_LABEL
+  scripts/config --enable CONFIG_CONFIG_NFS_FSCACHE
+  scripts/config --enable CONFIG_CONFIG_NFS_USE_LEGACY_DNS
+  scripts/config --enable CONFIG_CONFIG_NFS_USE_KERNEL_DNS
+  scripts/config --enable CONFIG_CONFIG_NFS_DISABLE_UDP_SUPPORT
+  scripts/config --enable CONFIG_CONFIG_NFS_V4_2_READ_PLUS
+  # Nfsd
+  echo "Enable Nfsd"
+  scripts/config --module CONFIG_NFSD
+  scripts/config --enable CONFIG_NFSD_V2_ACL
+  scripts/config --enable CONFIG_NFSD_V3
+  scripts/config --enable CONFIG_NFSD_V3_ACL
+  scripts/config --enable CONFIG_NFSD_V4
+  scripts/config --enable CONFIG_NFSD_PNFS
+  scripts/config --enable CONFIG_NFSD_BLOCKLAYOUT
+  scripts/config --enable CONFIG_NFSD_SCSILAYOUT
+  scripts/config --enable CONFIG_NFSD_FLEXFILELAYOUT
+  scripts/config --enable CONFIG_NFSD_V4_2_INTER_SSC
+  scripts/config --enable CONFIG_NFSD_V4_SECURITY_LABEL
+  # Nilfs2
+  echo "Enable Nilfs2"
+  scripts/config --module CONFIG_NILFS2_FS
+  # Proc
+  echo "Enable proc"
+  scripts/config --enable CONFIG_PROC_FS
+  scripts/config --enable CONFIG_PROC_KCORE
+  scripts/config --enable CONFIG_PROC_VMCORE
+  scripts/config --enable CONFIG_PROC_VMCORE_DEVICE_DUMP
+  scripts/config --enable CONFIG_PROC_SYSCTL
+  scripts/config --enable CONFIG_PROC_PAGE_MONITOR
+  scripts/config --enable CONFIG_PROC_CHILDREN
+  scripts/config --enable CONFIG_PROC_PID_ARCH_STATUS
+  scripts/config --enable CONFIG_PROC_CPU_RESCTRL
+  # Sysfs
+  echo "Enable Sysfs"
+  scripts/config --enable CONFIG_SYSFS
+  # Unicode
+  echo "Enable UNicode"
+  scripts/config --enable CONFIG_UNICODE
+  scripts/config --enable CONFIG_UNICODE_NORMALIZATION_SELFTEST
+  # Vboxfs
+  echo "Enable Vboxfs"
+  scripts/config --enable CONFIG_VBOXSF_FS
+
+#######################################
 
   sleep 2s
 
-  # Disable Radio driver... This kernel is meant for gaming, programming and desktop stuff
-  msg2 "Disable Radio driver... This kernel is meant for gaming, programming and desktop stuff"
+############ Radio ############
+
+  # Disable Radio driver
+  msg2 "Disable Radio driver"
   scripts/config --disable CONFIG_MEDIA_RADIO_SUPPORT
   scripts/config --disable CONFIG_RADIO_ADAPTERS
   scripts/config --disable CONFIG_RADIO_TEA575X
@@ -1870,10 +2330,14 @@ general_setup(){
   scripts/config --disable CONFIG_I2C_SI4713
   scripts/config --disable CONFIG_RADIO_WL128X
 
+#######################################
+
   sleep 2s
 
-  # Disable TV Tuners... This kernel is meant for gaming, programming and desktop stuff
-  msg2 "Disable TV Tuners... This kernel is meant for gaming, programming and desktop stuff"
+############ Tv Tunners ############
+
+  # Disable TV Tuners
+  msg2 "Disable TV Tuners"
   scripts/config --disable CONFIG_MEDIA_DIGITAL_TV_SUPPORT
   scripts/config --disable CONFIG_MEDIA_TUNER
   scripts/config --disable CONFIG_MEDIA_TUNER_SIMPLE
@@ -1914,7 +2378,11 @@ general_setup(){
   scripts/config --disable CONFIG_MEDIA_TUNER_QM1D1C0042
   scripts/config --disable CONFIG_MEDIA_TUNER_QM1D1B0004
 
+#######################################
+
   sleep 2s
+
+############ Apple drivers ############
 
   # Disable Apple drivers
   msg2 "Disable Apple drivers... Please dont buy apple stuff!.."
@@ -1951,7 +2419,224 @@ general_setup(){
   scripts/config --disable CONFIG_SENSORS_AMS_PMU
   scripts/config --disable CONFIG_SENSORS_AMS_I2C
 
+#######################################
+
   sleep 2s
+
+############ iio ############
+
+  # Disable uneeded iio drivers
+  msg2 "Disable uneeded iio drivers"
+  # Accelerometers
+  echo "Disable accelerometers"
+  scripts/config --disable CONFIG_ADIS16201
+  scripts/config --disable CONFIG_ADIS16209
+  scripts/config --disable CONFIG_ADXL345
+  scripts/config --disable CONFIG_ADXL345_I2C
+  scripts/config --disable CONFIG_ADXL345_SPI
+  scripts/config --disable CONFIG_ADXL372
+  scripts/config --disable CONFIG_ADXL372_SPI
+  scripts/config --disable CONFIG_ADXL372_I2C
+  scripts/config --disable CONFIG_BMA180
+  scripts/config --disable CONFIG_BMA220
+  scripts/config --disable CONFIG_BMA400
+  scripts/config --disable CONFIG_BMA400_I2C
+  scripts/config --disable CONFIG_BMA400_SPI
+  scripts/config --disable CONFIG_BMC150_ACCEL
+  scripts/config --disable CONFIG_BMC150_ACCEL_I2C
+  scripts/config --disable CONFIG_BMC150_ACCEL_SPI
+  scripts/config --disable CONFIG_DA280
+  scripts/config --disable CONFIG_DA311
+  scripts/config --disable CONFIG_DMARD06
+  scripts/config --disable CONFIG_DMARD09
+  scripts/config --disable CONFIG_DMARD10
+  scripts/config --disable CONFIG_HID_SENSOR_ACCEL_3D
+  scripts/config --disable CONFIG_IIO_CROS_EC_ACCEL_LEGACY
+  scripts/config --disable CONFIG_IIO_ST_ACCEL_3AXIS
+  scripts/config --disable CONFIG_IIO_ST_ACCEL_I2C_3AXIS
+  scripts/config --disable CONFIG_IIO_ST_ACCEL_SPI_3AXIS
+  scripts/config --disable CONFIG_KXSD9
+  scripts/config --disable CONFIG_KXSD9_SPI
+  scripts/config --disable CONFIG_KXSD9_I2C
+  scripts/config --disable CONFIG_KXCJK1013
+  scripts/config --disable CONFIG_MC3230
+  scripts/config --disable CONFIG_MMA7455
+  scripts/config --disable CONFIG_MMA7455_I2C
+  scripts/config --disable CONFIG_MMA7455_SPI
+  scripts/config --disable CONFIG_MMA7660
+  scripts/config --disable CONFIG_MMA8452
+  scripts/config --disable CONFIG_MMA9551_CORE
+  scripts/config --disable CONFIG_MMA9551
+  scripts/config --disable CONFIG_MMA9553
+  scripts/config --disable CONFIG_MXC4005
+  scripts/config --disable CONFIG_MXC6255
+  scripts/config --disable CONFIG_SCA3000
+  scripts/config --disable CONFIG_STK8312
+  scripts/config --disable CONFIG_STK8BA50
+  # Chemical
+  echo "Disable chemical drivers"
+  scripts/config --disable CONFIG_ATLAS_PH_SENSOR
+  scripts/config --disable CONFIG_ATLAS_EZO_SENSOR
+  scripts/config --disable CONFIG_BME680
+  scripts/config --disable CONFIG_BME680_I2C
+  scripts/config --disable CONFIG_BME680_SPI
+  scripts/config --disable CONFIG_CCS811
+  scripts/config --disable CONFIG_IAQCORE
+  scripts/config --disable CONFIG_PMS7003
+  scripts/config --disable CONFIG_SCD30_CORE
+  scripts/config --disable CONFIG_SCD30_I2C
+  scripts/config --disable CONFIG_SCD30_SERIAL
+  scripts/config --disable CONFIG_SENSIRION_SGP30
+  scripts/config --disable CONFIG_SPS30
+  scripts/config --disable CONFIG_VZ89X
+  # Frequency
+  echo "Disable Frequency Synthesizers drivers"
+  scripts/config --disable CONFIG_AD9523
+  scripts/config --disable CONFIG_ADF4350
+  scripts/config --disable CONFIG_ADF4371
+  # Gyro
+  echo "Disable gyro drivers"
+  scripts/config --disable CONFIG_ADIS16080
+  scripts/config --disable CONFIG_ADIS16130
+  scripts/config --disable CONFIG_ADIS16136
+  scripts/config --disable CONFIG_ADIS16260
+  scripts/config --disable CONFIG_ADXRS290
+  scripts/config --disable CONFIG_ADXRS450
+  scripts/config --disable CONFIG_BMG160
+  scripts/config --disable CONFIG_BMG160_I2C
+  scripts/config --disable CONFIG_BMG160_SPI
+  scripts/config --disable CONFIG_FXAS21002C
+  scripts/config --disable CONFIG_FXAS21002C_I2C
+  scripts/config --disable CONFIG_FXAS21002C_SPI
+  scripts/config --disable CONFIG_HID_SENSOR_GYRO_3D
+  scripts/config --disable CONFIG_MPU3050
+  scripts/config --disable CONFIG_MPU3050_I2C
+  scripts/config --disable CONFIG_IIO_ST_GYRO_3AXIS
+  scripts/config --disable CONFIG_IIO_ST_GYRO_I2C_3AXIS
+  scripts/config --disable CONFIG_IIO_ST_GYRO_SPI_3AXIS
+  scripts/config --disable CONFIG_ITG3200
+  # Health
+  scripts/config --disable CONFIG_AFE4403
+  scripts/config --disable CONFIG_AFE4404
+  scripts/config --disable CONFIG_MAX30100
+  scripts/config --disable CONFIG_MAX30102
+  # Humidity
+  scripts/config --disable CONFIG_AM2315
+  scripts/config --disable CONFIG_DHT11
+  scripts/config --disable CONFIG_HDC100X
+  scripts/config --disable CONFIG_HDC2010
+  scripts/config --disable CONFIG_HID_SENSOR_HUMIDITY
+  scripts/config --disable CONFIG_HTS221
+  scripts/config --disable CONFIG_HTS221_I2C
+  scripts/config --disable CONFIG_HTS221_SPI
+  scripts/config --disable CONFIG_HTU21
+  scripts/config --disable CONFIG_SI7005
+  scripts/config --disable CONFIG_SI7020
+  # Magnetometer
+  echo "Disable Magnetometer drivers"
+  scripts/config --disable CONFIG_AK8974
+  scripts/config --disable CONFIG_AK8975
+  scripts/config --disable CONFIG_AK09911
+  scripts/config --disable CONFIG_BMC150_MAGN
+  scripts/config --disable CONFIG_BMC150_MAGN_I2C
+  scripts/config --disable CONFIG_BMC150_MAGN_SPI
+  scripts/config --disable CONFIG_MAG3110
+  scripts/config --disable CONFIG_HID_SENSOR_MAGNETOMETER_3D
+  scripts/config --disable CONFIG_MMC35240
+  scripts/config --disable CONFIG_IIO_ST_MAGN_3AXIS
+  scripts/config --disable CONFIG_IIO_ST_MAGN_I2C_3AXIS
+  scripts/config --disable CONFIG_IIO_ST_MAGN_SPI_3AXIS
+  scripts/config --disable CONFIG_SENSORS_HMC5843
+  scripts/config --disable CONFIG_SENSORS_HMC5843_I2C
+  scripts/config --disable CONFIG_SENSORS_HMC5843_SPI
+  scripts/config --disable CONFIG_SENSORS_RM3100
+  scripts/config --disable CONFIG_SENSORS_RM3100_I2C
+  scripts/config --disable CONFIG_SENSORS_RM3100_SPI
+  # Multiplexer
+  echo "Disable Multiplexer drivers"
+  scripts/config --disable CONFIG_IIO_MUX
+  # Orientation
+  echo "Disable Orientation drivers"
+  scripts/config --disable CONFIG_HID_SENSOR_INCLINOMETER_3D
+  scripts/config --disable CONFIG_HID_SENSOR_DEVICE_ROTATION
+  # Position
+  echo "Disable Position drivers"
+  scripts/config --disable CONFIG_IQS624_POS
+  # Potentiometers
+  echo "Disable Potentiometers drivers"
+  scripts/config --disable CONFIG_AD5272
+  scripts/config --disable CONFIG_DS1803
+  scripts/config --disable CONFIG_MAX5432
+  scripts/config --disable CONFIG_MAX5481
+  scripts/config --disable CONFIG_MAX5487
+  scripts/config --disable CONFIG_MCP4018
+  scripts/config --disable CONFIG_MCP4131
+  scripts/config --disable CONFIG_MCP4531
+  scripts/config --disable CONFIG_MCP41010
+  scripts/config --disable CONFIG_TPL0102
+  # potentiostats
+  echo "Disable Potentiostats drivers"
+  scripts/config --disable CONFIG_LMP91000
+  # Pressure
+  echo "Disable Pressure drivers"
+  scripts/config --disable CONFIG_ABP060MG
+  scripts/config --disable CONFIG_BMP280
+  scripts/config --disable CONFIG_BMP280_I2C
+  scripts/config --disable CONFIG_BMP280_SPI
+  scripts/config --disable CONFIG_IIO_CROS_EC_BARO
+  scripts/config --disable CONFIG_DLHL60D
+  scripts/config --disable CONFIG_DPS310
+  scripts/config --disable CONFIG_HID_SENSOR_PRESS
+  scripts/config --disable CONFIG_HP03
+  scripts/config --disable CONFIG_ICP10100
+  scripts/config --disable CONFIG_MPL115
+  scripts/config --disable CONFIG_MPL115_I2C
+  scripts/config --disable CONFIG_MPL115_SPI
+  scripts/config --disable CONFIG_MPL3115
+  scripts/config --disable CONFIG_MS5611
+  scripts/config --disable CONFIG_MS5611_I2C
+  scripts/config --disable CONFIG_MS5611_SPI
+  scripts/config --disable CONFIG_MS5637
+  scripts/config --disable CONFIG_IIO_ST_PRESS
+  scripts/config --disable CONFIG_IIO_ST_PRESS_I2C
+  scripts/config --disable CONFIG_IIO_ST_PRESS_SPI
+  scripts/config --disable CONFIG_T5403
+  scripts/config --disable CONFIG_HP206C
+  scripts/config --disable CONFIG_ZPA2326
+  scripts/config --disable CONFIG_ZPA2326_I2C
+  scripts/config --disable CONFIG_ZPA2326_SPI
+  # Proximity
+  echo "Disable Proximity drivers"
+  scripts/config --disable CONFIG_AS3935
+  scripts/config --disable CONFIG_ISL29501
+  scripts/config --disable CONFIG_LIDAR_LITE_V2
+  scripts/config --disable CONFIG_MB1232
+  scripts/config --disable CONFIG_PING
+  scripts/config --disable CONFIG_RFD77402
+  scripts/config --disable CONFIG_SRF04
+  scripts/config --disable CONFIG_SX9310
+  scripts/config --disable CONFIG_SX9500
+  scripts/config --disable CONFIG_SRF08
+  scripts/config --disable CONFIG_VCNL3020
+  scripts/config --disable CONFIG_VL53L0X_I2C
+  # Resolver
+  echo "Disable Resolver drivers"
+  scripts/config --disable CONFIG_AD2S90
+  scripts/config --disable CONFIG_AD2S1200
+  # Trigger
+  echo "Disable Trigger drivers"
+  scripts/config --disable CONFIG_IIO_HRTIMER_TRIGGER
+  scripts/config --disable CONFIG_IIO_INTERRUPT_TRIGGER
+  scripts/config --disable CONFIG_IIO_STM32_LPTIMER_TRIGGER
+  scripts/config --disable CONFIG_IIO_STM32_TIMER_TRIGGER
+  scripts/config --disable CONFIG_IIO_TIGHTLOOP_TRIGGER
+  scripts/config --disable CONFIG_IIO_SYSFS_TRIGGER
+
+#######################################
+
+  sleep 2s
+
+############ Debugs ############
 
   # Disable CONFIG_DEBUG_INFO=y at build time otherwise memory usage blows up
   # and can easily overwhelm a system with 32 GB of memory using a tmpfs build
@@ -2011,6 +2696,14 @@ general_setup(){
   scripts/config --disable CONFIG_POWER_SUPPLY_DEBUG
   scripts/config --disable CONFIG_NTFS_DEBUG
   scripts/config --disable CONFIG_GENERIC_IRQ_DEBUGFS
+  scripts/config --disable CONFIG_CIFS_STATS2
+  scripts/config --disable CONFIG_CIFS_DEBUG
+  scripts/config --disable CONFIG_CIFS_DEBUG2
+  scripts/config --disable CONFIG_CIFS_DEBUG_DUMP_KEYS
+  scripts/config --disable CONFIG_JBD2_DEBUG
+  scripts/config --disable CONFIG_CONFIG_NFS_DEBUG
+
+#######################################
 
   sleep 2s
 

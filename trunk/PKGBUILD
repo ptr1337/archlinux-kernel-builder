@@ -98,7 +98,7 @@ for _p in "${pkgname[@]}"; do
 done
 pkgver=5.11
 major=5.11
-pkgrel=4
+pkgrel=8
 arch=(x86_64)
 url="https://www.kernel.org/"
 license=(GPL-2.0)
@@ -247,6 +247,8 @@ prepare(){
 
   make -s kernelrelease > version
   msg2 "Prepared $pkgbase version $(<version)"
+
+  make menuconfig
 }
 
 build(){
