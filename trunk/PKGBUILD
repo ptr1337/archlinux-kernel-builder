@@ -97,8 +97,8 @@ for _p in "${pkgname[@]}"; do
   }"
 done
 pkgver=5.11
-major=5.11
-pkgrel=8
+major=5.11.1
+pkgrel=1
 arch=(x86_64)
 url="https://www.kernel.org/"
 license=(GPL-2.0)
