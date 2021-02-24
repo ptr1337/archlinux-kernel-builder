@@ -222,6 +222,7 @@ prepare(){
 
   # Customize the kernel
   source "${startdir}"/prepare
+  source "${startdir}"/strip_down
 
   configure
 
