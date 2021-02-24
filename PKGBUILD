@@ -106,11 +106,11 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
              "python" "python-appdirs" "python-mako" "python-evdev" "python-sphinx_rtd_theme" "python-graphviz" "python-sphinx"
              "clang" "lib32-clang" "bc" "gcc" "gcc-libs" "lib32-gcc-libs" "glibc" "lib32-glibc" "pahole" "patch" "gtk3" "llvm" "lib32-llvm"
              "llvm-libs" "lib32-llvm-libs" "lld" "kmod" "libmikmod" "lib32-libmikmod" "xmlto" "xmltoman" "graphviz" "imagemagick" "imagemagick-doc"
-             "rsync" "cpio" "inetutils")
+             "rsync" "cpio" "inetutils" "gzip" "zstd" "xz")
 patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$major
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar.xz"
         "config-5.11"
-        "$patchsource/misc/choose-gcc-optimization.sh"
+        "$patchsource/cpu-patches/0001-cpu-5.11-merge-graysky-s-patchset.patch"
         "$patchsource/zen-patches/0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch"
         "$patchsource/misc/0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch"
         "$patchsource/misc/0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch"
@@ -148,7 +148,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         #"$patchsource/ZFS-patches/0011-ZFS-fix.patch
 md5sums=("46518d989b33efc5438bb8711b066b4a"  #linux-5.11.1.tar.xz
          "efa5b2f5b6c05d0445198391bcb69a0e"  #config-5.11
-         "b3f0a4804b6fe031f674988441c1af35"  #choose-gcc-optimization.sh
+         "SKIP"  #0001-cpu-5.11-merge-graysky-s-patchset.patch
          "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
          "d15597054a4c5e405f980d07d5eac11a"  #0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch
          "f99b82d6f424d1a729a9b8c5a1be2b84"  #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
@@ -220,12 +220,36 @@ prepare(){
   msg2 "Copy "${srcdir}"/config to linux-$pkgver/.config"
   cp "${srcdir}"/config-$major .config
 
+  # Customize the kernel
   source "${startdir}"/prepare
 
   configure
 
+  plain ""
+  plain "#########################################"
+  plain "Do you want to strip down the kernel config?"
+  plain "Look at the strip_down code in the prepare script to see what will be disabled"
+  plain "Will create a file soon with all the disabled options"
+  plain "If you have some suggestion of what can be disabled feel free to create a pull request"
+  plain "or send me an email at : kevall474@tuta.io"
+  read -rp "`echo $' > 1.Yes\n > 2.No\n > Default (Yes)\nchoice[1-2]: '`" _strip;
+  if [[ $_strip = "1" ]]; then
+    plain ""
+    msg2 "Begin to strip down kernel config"
+    strip_down
+  elif [[ $_strip = "2" ]]; then
+    msg2 "You choose to not strip down the kernel config"
+  else
+    plain ""
+    msg2 "Begin to strip down kernel config"
+    strip_down
+  fi
+
+  cpu_arch
+
+  # Remove choose-gcc-optimization.sh. Added cpu patches by graysky
   # Let's user choose microarchitecture optimization in GCC
-  sh ${srcdir}/choose-gcc-optimization.sh $_microarchitecture
+  #sh ${srcdir}/choose-gcc-optimization.sh $_microarchitecture
 
   # Setting localversion
   msg2 "Setting localversion..."
