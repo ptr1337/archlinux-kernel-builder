@@ -226,26 +226,6 @@ prepare(){
 
   configure
 
-  plain ""
-  plain "#########################################"
-  plain "Do you want to strip down the kernel config?"
-  plain "Look at the strip_down code in the prepare script to see what will be disabled"
-  plain "Will create a file soon with all the disabled options"
-  plain "If you have some suggestion of what can be disabled feel free to create a pull request"
-  plain "or send me an email at : kevall474@tuta.io"
-  read -rp "`echo $' > 1.Yes\n > 2.No\n > Default (Yes)\nchoice[1-2]: '`" _strip;
-  if [[ $_strip = "1" ]]; then
-    plain ""
-    msg2 "Begin to strip down kernel config"
-    strip_down
-  elif [[ $_strip = "2" ]]; then
-    msg2 "You choose to not strip down the kernel config"
-  else
-    plain ""
-    msg2 "Begin to strip down kernel config"
-    strip_down
-  fi
-
   cpu_arch
 
   # Remove choose-gcc-optimization.sh. Added cpu patches by graysky
