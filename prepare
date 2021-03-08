@@ -1243,33 +1243,6 @@ configure(){
   sleep 2s
 
   plain ""
-  plain "#########################################"
-  plain "Enable/disable CONFIG_RT_GROUP_SCHED (Real-Time group scheduling)"
-  plain ""
-  plain "Realtime scheduling is all about determinism, a group has to be able to rely on"
-  plain "the amount of bandwidth (eg. CPU time) being constant. In order to schedule"
-  plain "multiple groups of realtime tasks, each group must be assigned a fixed portion"
-  plain "of the CPU time available.  Without a minimum guarantee a realtime group can"
-  plain "obviously fall short. A fuzzy upper limit is of no use since it cannot be"
-  plain "relied upon. Which leaves us with just the single fixed portion."
-  plain ""
-  read -rp "`echo $' > 1.Enable\n > 2.Disable\n > Default (Disable)\nchoice[1-2]: '`" _rt_group;
-  if [[ $_rt_group = "1" ]]; then
-    msg2 "Enable CONFIG_RT_GROUP_SCHED"
-    scripts/config --enable CONFIG_RT_GROUP_SCHED
-  elif [[ $_rt_group = "2" ]]; then
-    msg2 "Disable CONFIG_RT_GROUP_SCHED"
-    scripts/config --undefine CONFIG_RT_GROUP_SCHED
-    scripts/config --disable CONFIG_RT_GROUP_SCHED
-  else
-    msg2 "Enable CONFIG_RT_GROUP_SCHED"
-    scripts/config --undefine CONFIG_RT_GROUP_SCHED
-    scripts/config --disable CONFIG_RT_GROUP_SCHED
-  fi
-
-  sleep 2s
-
-  plain ""
   if [[ $_cpu_sched = "1" ]]; then
     msg2 "Enable MuQSS"
     scripts/config --enable CONFIG_SCHED_MC
