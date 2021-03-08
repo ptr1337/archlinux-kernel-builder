@@ -121,8 +121,8 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/ntfs3-patches/0001-ntfs3-patches.patch"
         "$patchsource/misc/0002-init-Kconfig-enable-O3-for-all-arches.patch"
         "$patchsource/block-patches/0001-block-patches.patch"
-        "$patchsource/bfq-patches/5.11-bfq-reverts-ver1.patch"
-        "$patchsource/bfq-patches/5.11-bfq-dev-lucjan-v14-r2K210208.patch"
+        #"$patchsource/bfq-patches/5.11-bfq-reverts-ver1.patch"
+        "$patchsource/bfq-patches/0001-bfq-patches.patch"
         "$patchsource/aufs-patches/0001-aufs-20210111.patch"
         "$patchsource/bbr2-patches/0001-bbr2-5.11-introduce-BBRv2.patch"
         "$patchsource/btrfs-patches/0001-btrfs-patches.patch"
@@ -131,11 +131,8 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/spadfs-patches/0001-spadfs-5.11-merge-v1.0.12.patch"
         "$patchsource/zswap-patches/0001-zswap-patches.patch"
         "$patchsource/pf-patches/0001-pf-patches.patch"
-        "$patchsource/miscellaneous-patches/0001-fixes-miscellaneous.patch"
+        #"$patchsource/miscellaneous-patches/0001-fixes-miscellaneous.patch"
         "$patchsource/arch-patches/0002-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch"
-        "$patchsource/arch-patches/0002-Bluetooth-btusb-Some-Qualcomm-Bluetooth-adapters-sto.patch"
-        "$patchsource/arch-patches/0003-Revert-drm-amd-display-reuse-current-context-instead.patch"
-        "$patchsource/arch-patches/0004-drm-amdgpu-fix-shutdown-with-s0ix.patch"
         "$patchsource/android-patches/0001-Export-symbols-needed-by-Android-drivers.patch"
         "$patchsource/android-patches/0002-android-Enable-building-ashmem-and-binder-as-modules.patch"
         "$patchsource/ksm-patches/0001-ksm-patches.patch"
@@ -146,9 +143,9 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         #"$patchsource/iommu-patches/0006-add-acs-overrides_iommu.patch"
         #"$patchsource/aufs-patches/0001-aufs-20210215.patch"
         #"$patchsource/ZFS-patches/0011-ZFS-fix.patch
-md5sums=("46518d989b33efc5438bb8711b066b4a"  #linux-5.11.1.tar.xz
+md5sums=("7ad34c43cbbc4c278139c3970f943042"  #linux-5.11.4.tar.xz
          "efa5b2f5b6c05d0445198391bcb69a0e"  #config-5.11
-         "SKIP"  #0001-cpu-5.11-merge-graysky-s-patchset.patch
+         "5b69193ff948ba0283341fe108eaf699"  #0001-cpu-5.11-merge-graysky-s-patchset.patch
          "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
          "d15597054a4c5e405f980d07d5eac11a"  #0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch
          "f99b82d6f424d1a729a9b8c5a1be2b84"  #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
@@ -156,24 +153,21 @@ md5sums=("46518d989b33efc5438bb8711b066b4a"  #linux-5.11.1.tar.xz
          "9a6ac945f08f93c6d778618100ddf753"  #0001-ZEN-Add-VHBA-driver.patch
          "307f39a7c060ac3073607964091234c0"  #0001-futex2-resync-from-gitlab.collabora.com.patch
          "57f4afa1be10eec300542767942ad938"  #0001-clearlinux-patches.patch
-         "5c329c12318ee35bda48bb96a92c5aa9"  #0001-ntfs3-patches.patch
-         "5ef95c9aa1a3010b57c9be03f8369abb"  #0002-init-Kconfig-enable-O3-for-all-arches.patch
-         "374eac14e43ba8480fa74c8f51ebf4a5"  #0001-block-patches.patch
-         "1003f5af700d5e9b3c3949143cae7579"  #5.11-bfq-reverts-ver1.patch
-         "f626930d7bf3fa8cd3e99c1ee8fbdb74"  #5.11-bfq-dev-lucjan-v14-r2K210208.patch
+         "f44a0004faf9f1a261950a5048d7b915"  #0001-ntfs3-patches.patch
+         "18d1544e8ff22cd52f8a5ddf7b845579"  #0002-init-Kconfig-enable-O3-for-all-arches.patch
+         "3cf79ddcad9c0f659664bd6fc2ae30ec"  #0001-block-patches.patch
+         #"1003f5af700d5e9b3c3949143cae7579"  #5.11-bfq-reverts-ver1.patch
+         "f00a0eff4ae887b5b9a7f573e2d32323"  #0001-bfq-patches.patch
          "f6b385b6f38178df8f4b037aabcf1404"  #0001-aufs-20210111.patch
          "686d82306fff905945ffb6f0eede14d4"  #0001-bbr2-5.11-introduce-BBRv2.patch
-         "0eede73d784a27150c2a7720dea0f0fa"  #0001-btrfs-patches.patch
+         "6b9b62aa785e1cc9c461b7ed7ead53e5"  #0001-btrfs-patches.patch
          "0ab93e8e3437a5093520c10cca741531"  #0001-v4l2loopback-5.11-merge-v0.12.5.patch
          "cc70bf905a1237a41b11338b2eba4a8b"  #0001-mm-patches.patch
          "ddcda13d2e86984517e841b4acebd2f5"  #0001-spadfs-5.11-merge-v1.0.12.patch
          "64e629e48f15cc0ebddfee366386f17a"  #0001-zswap-patches.patch
          "936ab98a8dce1eedd4bce2b412e4e13f"  #0001-pf-patches.patch
-         "eb463ec74fcdd002cae827e964e33572"  #0001-fixes-miscellaneous.patch
+         #"a44130f4cbbaa7f17c70d2028208a61f"  #0001-fixes-miscellaneous.patch
          "e7ef63d6e6fb1ed9d8c2b4d3f65de86c"  #0002-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch
-         "5cbf26872b5e716d4c49acd309169633"  #0002-Bluetooth-btusb-Some-Qualcomm-Bluetooth-adapters-sto.patch
-         "34d442266fadf10835a83f916e55cf58"  #0003-Revert-drm-amd-display-reuse-current-context-instead.patch
-         "738f9c2c80f7c2e484291994259acbac"  #0004-drm-amdgpu-fix-shutdown-with-s0ix.patch
          "3b5866097de15af399841405bc844020"  #0001-Export-symbols-needed-by-Android-drivers.patch
          "0eda7e947dd25e6b77ea40d734deea8d"  #0002-android-Enable-building-ashmem-and-binder-as-modules.patch
          "9c37d7643710ffa49552cc43b96980ed"  #0001-ksm-patches.patch
