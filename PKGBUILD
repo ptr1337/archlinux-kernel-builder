@@ -183,7 +183,7 @@ if [[ $_cpu_sched = "1" ]]; then
  md5sums+=("SKIP")
 elif [[ $_cpu_sched = "2" ]] || [[ $_cpu_sched = "3" ]]; then
   source+=("${patchsource}/prjc-patches/0009-prjc_v5.11-r2.patch")
-  md5sums+=("f1f238aaae5f6a94defa70a0796ebd01")  #0009-prjc_v5.11-r0.patch
+  md5sums+=("9c2c403990fee5a6c37c13e4f9963162")  #0009-prjc_v5.11-r2.patch
 fi
 
 export KBUILD_BUILD_HOST=archlinux
