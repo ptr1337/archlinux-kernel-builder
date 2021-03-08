@@ -1,10 +1,10 @@
-# linux-pkg
+# LInux
 
 Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, Hamad Al Marri, Con Kolivas and Alfred Chen.
 
 # Version
 
-- 5.11.1
+- 5.11.4
 
 # Build
 
