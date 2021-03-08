@@ -782,7 +782,8 @@ configure(){
   plain "Use CattaRappa mode (Tickless/Dynticks) ?"
   plain "Can give higher performances in many cases but lower consistency on"
   plain "some hardware."
-  plain "Just tickless idle can perform better with some platforms (mostly AMD) or CPU schedulers (mostly MuQSS)."
+  plain "Just tickless idle can perform better with some platforms (mostly AMD)"
+  plain "or CPU schedulers (mostly MuQSS)."
   plain ""
   read -rp "`echo $' > 1.Periodic ticks\n > 2.Full tickless\n > 3.Tickless idle\n > Default (Full tickless)\nchoice[1-3]: '`" _tick
   if [[ "$_tick" = "1" ]]; then
