@@ -10,12 +10,12 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
     git clone https://github.com/kevall474/linux-pkg
     cd linux-pkg
-    env _cpu_sched=(1,2 or 3) _compiler=(1,2,3 or 4) makepkg -s
+    env _cpu_sched=(1,2,3 or 4) _compiler=(1,2,3 or 4) makepkg -s
 
 ## Install
 
-    sudo pacman -U linux-kernel-(optional if cpu sched selected : muqss,bmq,pds)
-    sudo pacman -U linux-kernel-(optional if cpu sched selected : muqss,bmq,pds)-headers
+    sudo pacman -U linux-kernel-(optional if cpu sched selected : muqss,bmq,pds,cacule)
+    sudo pacman -U linux-kernel-(optional if cpu sched selected : muqss,bmq,pds,caule)-headers
 
 ## Build variables
 
@@ -26,6 +26,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
         1 : MuQSS by Con Kolivas
         2 : BMQ by Alfred Chen
         3 : PDS by Alfred Chen
+        4 : CacULE by Hamad Al Marri
 
 Leave this variable empty if you don't want to add a CPU Scheduler.
 
@@ -129,6 +130,20 @@ deadline(simplfy to just deadline from here on). In PDS, balance action among
 run queues are kept as less as possible to reduce the migration cost. Cpumask
 data structure is widely used in cpu affinity checking and cpu preemption/
 selection to make PDS scalable with increasing cpu number.
+
+## CacULE CPU Scheduler
+
+![cacule_sched](https://user-images.githubusercontent.com/68618182/103179297-92ac0100-4858-11eb-83aa-8992f33d67f8.png)
+
+CacULE is a newer version of Cachy. The CacULE CPU scheduler is based on interactivity score mechanism.
+The interactivity score is inspired by the ULE scheduler (FreeBSD scheduler).
+
+About CacULE Scheduler
+
+- Each CPU has its own runqueue.
+- NORMAL runqueue is a linked list of sched_entities (instead of RB-Tree).
+- RT and other runqueues are just the same as the CFS's.
+- Wake up tasks preempt currently running tasks if its interactivity score value is higher.
 
 # Update GRUB
 

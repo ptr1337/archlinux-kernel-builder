@@ -1431,6 +1431,12 @@ configure(){
     msg2 "Disable CFS"
     scripts/config --disable CONFIG_FAIR_GROUP_SCHED
     scripts/config --disable CONFIG_CFS_BANDWIDTH
+  elif [[ $_cpu_sched = "4" ]]; then
+    msg2 "Enable CacULE CPU scheduler..."
+    scripts/config --enable CONFIG_CACULE_SCHED
+    msg2 "Disable CFS"
+    scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+    scripts/config --disable CONFIG_CFS_BANDWIDTH
   else
     plain ""
     plain "#########################################"
