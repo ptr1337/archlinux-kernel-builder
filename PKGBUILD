@@ -145,7 +145,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         #"$patchsource/ZFS-patches/0011-ZFS-fix.patch
 md5sums=("7ad34c43cbbc4c278139c3970f943042"  #linux-5.11.4.tar.xz
          "efa5b2f5b6c05d0445198391bcb69a0e"  #config-5.11
-         "5b69193ff948ba0283341fe108eaf699"  #0001-cpu-5.11-merge-graysky-s-patchset.patch
+         "4fcdc5862d5259e7be24ecada332ce99"  #0001-cpu-5.11-merge-graysky-s-patchset.patch
          "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
          "d15597054a4c5e405f980d07d5eac11a"  #0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch
          "f99b82d6f424d1a729a9b8c5a1be2b84"  #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
