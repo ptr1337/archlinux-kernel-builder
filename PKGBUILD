@@ -96,7 +96,7 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11.1
+pkgver=5.11.4
 major=5.11
 pkgrel=1
 arch=(x86_64)
@@ -188,7 +188,7 @@ if [[ $_cpu_sched = "1" ]]; then
  source+=("$patchsource/muqss-patches/patch-5.11-ck1")
  md5sums+=("SKIP")
 elif [[ $_cpu_sched = "2" ]] || [[ $_cpu_sched = "3" ]]; then
-  source+=("${patchsource}/prjc-patches/0009-prjc_v5.11-r0.patch")
+  source+=("${patchsource}/prjc-patches/0009-prjc_v5.11-r2.patch")
   md5sums+=("f1f238aaae5f6a94defa70a0796ebd01")  #0009-prjc_v5.11-r0.patch
 fi
 
