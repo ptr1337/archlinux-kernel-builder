@@ -6,6 +6,10 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 - 5.11.4
 
+## linux-api-headers
+
+- 5.12
+
 # Build
 
     git clone https://github.com/kevall474/linux-pkg
