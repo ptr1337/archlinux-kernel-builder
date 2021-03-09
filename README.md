@@ -4,13 +4,15 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 # Version
 
+## Linux kernel
+
 - 5.11.4
 
 ## linux-api-headers
 
 - 5.12
 
-# Build linux kernel
+# Build Linux kernel
 
     git clone https://github.com/kevall474/Linux.git
     cd Linux
@@ -28,7 +30,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
     cd linux-api-headers
     makepkg -si
 
-## Build variables (linux kernel)
+## Build variables (Linux kernel)
 
 ### _cpu_sched
 
