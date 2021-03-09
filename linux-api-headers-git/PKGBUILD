@@ -24,7 +24,6 @@ provides=("linux-api-headers=$pkgver" "linux-api-headers")
 # remove linux github source from source add do a git clone --depth=1 for fast cloning
 
 prepare(){
-  
   if ! dir linux; then
     git clone --depth=1 https://github.com/torvalds/linux.git
   fi
