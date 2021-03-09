@@ -1,4 +1,4 @@
-# LInux
+# Linux
 
 Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, Hamad Al Marri, Con Kolivas and Alfred Chen.
 
