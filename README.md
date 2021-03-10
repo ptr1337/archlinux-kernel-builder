@@ -6,7 +6,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 ## Linux kernel
 
-- 5.11.4
+- 5.11.5
 
 ## linux-api-headers (git version)
 
