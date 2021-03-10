@@ -23,6 +23,7 @@
 #Set '2' for BMQ CPU Scheduler
 #Set '3' for PDS CPU Scheduler
 #Set '4' for CacULE CPU Scheduler
+#Set '5' for UPDS CPU Scheduler
 #Leave empty for no CPU Scheduler
 #Default is empty. It will build with no cpu scheduler. To build with cpu shceduler just use : env _cpu_sched=(1,2 or 3) makepkg -s
 if [ -z ${_cpu_sched+x} ]; then
@@ -89,6 +90,8 @@ elif [[ $_cpu_sched = "3" ]]; then
   pkgbase=linux-kernel-pds
 elif [[ $_cpu_sched = "4" ]]; then
   pkgbase=linux-kernel-cacule
+elif [[ $_cpu_sched = "5" ]]; then
+  pkgbase=linux-kernel-upds
 else
   pkgbase=linux-kernel
 fi
@@ -99,7 +102,7 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11.4
+pkgver=5.11.5
 major=5.11
 pkgrel=1
 arch=(x86_64)
@@ -131,7 +134,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/btrfs-patches/0001-btrfs-patches.patch"
         "$patchsource/loopback-patches/0001-v4l2loopback-5.11-merge-v0.12.5.patch"
         "$patchsource/mm-patches/0001-mm-patches.patch"
-        "$patchsource/spadfs-patches/0001-spadfs-5.11-merge-v1.0.12.patch"
+        "$patchsource/spadfs-patches/0001-spadfs-5.11-merge-v1.0.13.patch"
         "$patchsource/zswap-patches/0001-zswap-patches.patch"
         "$patchsource/pf-patches/0001-pf-patches.patch"
         #"$patchsource/miscellaneous-patches/0001-fixes-miscellaneous.patch"
@@ -146,7 +149,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         #"$patchsource/iommu-patches/0006-add-acs-overrides_iommu.patch"
         #"$patchsource/aufs-patches/0001-aufs-20210215.patch"
         #"$patchsource/ZFS-patches/0011-ZFS-fix.patch
-md5sums=("7ad34c43cbbc4c278139c3970f943042"  #linux-5.11.4.tar.xz
+md5sums=("24d340375b2ba733924ea484b2c30ca6"  #linux-5.11.5.tar.xz
          "efa5b2f5b6c05d0445198391bcb69a0e"  #config-5.11
          "4fcdc5862d5259e7be24ecada332ce99"  #0001-cpu-5.11-merge-graysky-s-patchset.patch
          "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
@@ -166,7 +169,7 @@ md5sums=("7ad34c43cbbc4c278139c3970f943042"  #linux-5.11.4.tar.xz
          "6b9b62aa785e1cc9c461b7ed7ead53e5"  #0001-btrfs-patches.patch
          "0ab93e8e3437a5093520c10cca741531"  #0001-v4l2loopback-5.11-merge-v0.12.5.patch
          "cc70bf905a1237a41b11338b2eba4a8b"  #0001-mm-patches.patch
-         "ddcda13d2e86984517e841b4acebd2f5"  #0001-spadfs-5.11-merge-v1.0.12.patch
+         "49b4c1a2098d0f0584eb8d0eda2a60c9"  #0001-spadfs-5.11-merge-v1.0.13.patch
          "64e629e48f15cc0ebddfee366386f17a"  #0001-zswap-patches.patch
          "936ab98a8dce1eedd4bce2b412e4e13f"  #0001-pf-patches.patch
          #"a44130f4cbbaa7f17c70d2028208a61f"  #0001-fixes-miscellaneous.patch
@@ -190,6 +193,9 @@ elif [[ $_cpu_sched = "2" ]] || [[ $_cpu_sched = "3" ]]; then
 elif [[ $_cpu_sched = "4" ]]; then
   source+=("${patchsource}/cacule-patches/cacule-5.11.patch")
   md5sums+=("a7e0da8aef50e25eed6140513a4cd9c4")  #cacule-5.11.patch
+elif [[ $_cpu_sched = "5" ]]; then
+  source+=("${patchsource}/upds-patches/0005-v5.11_undead-pds099o.patch")
+  md5sums+=("1c6d05cffa90464a2ae6f9e00d670e50")  #0005-v5.11_undead-pds099o.patch
 fi
 
 export KBUILD_BUILD_HOST=archlinux
