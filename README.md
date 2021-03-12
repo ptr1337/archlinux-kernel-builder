@@ -55,6 +55,20 @@ Leave this variable empty if you don't want to add a CPU Scheduler.
 
 If not set it will build with CLANG+LLVM by default.
 
+## Troubleshooting
+
+### The system isn't booting with the compiled kernel used a custom llvm/clang version
+
+- If youre compiling with llvm-rc or llvm-git be sure to compile the mesa-* packages against it.
+- Systems with nvidia graphics just need to compile them with env _compiler=(1 or 2) makepkg -s | 1=gcc 2=clang
+- Systems with amd graphics need to compile with env _llvm=y _compiler=(1 or 2) makepkg -s 
+- After compiling install both packages with sudo pacman -U mesa-*.pkg.zst lib32-mesa-*.pkg.zst 
+
+You will find the following packages here:
+https://github.com/kevall474/LLVM
+https://github.com/kevall474/Mesa
+
+
 # CPU Scheduler
 
 ## MuQSS CPU Scheduler
