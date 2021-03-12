@@ -45,37 +45,23 @@ CONFIG_KEXEC=n
 CONFIG_KEXEC_FILE=n
 CONFIG_CRASH_DUMP=n
 
-if you are not using this kernel as guest in a virtual machine, then disable CONFIG_HYPERVISOR_GUEST
-cpu type
-
-I have "Intel(R) Core(TM) i7-4600U CPU @ 2.10GHz" therefore I used CONFIG_MCORE2 (Processor family (Core 2/newer Xeon))
-
-may need to include -march=corei7-avx flag KCFLAGS="-O2 -march=corei7-avx" KCPPFLAGS="-O2 -march=corei7-avx"
-
-CONFIG_NR_CPUS = 4 #as I have 4 cpus
-power
-
-    Default CPUFreq governor (performance)
-    CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
-    CONFIG_CPU_FREQ_GOV_PERFORMANCE=y
-    CONFIG_CPU_FREQ_GOV_ONDEMAND=n
 
 General architecture-dependent options
 
-    CONFIG_KPROBES=n
-    CONFIG_STACKPROTECTOR=n
-    CONFIG_VMAP_STACK=n
+CONFIG_KPROBES=n
+CONFIG_STACKPROTECTOR=n
+CONFIG_VMAP_STACK=n
 
 Security
 
-    CONFIG_SECURITY=n
-    CONFIG_HARDENED_USERCOPY=n
+CONFIG_SECURITY=n
+CONFIG_HARDENED_USERCOPY=n
 
 Kernel hacking
 
-    CONFIG_PAGE_EXTENSION=n
-    Disable all except
-        CONFIG_DYNAMIC_DEBUG=y
-        CONFIG_STRICT_DEVMEM=y
-        CONFIG_IO_STRICT_DEVMEM=y
-    CONFIG_RCU_CPU_STALL_TIMEOUT=4
+CONFIG_PAGE_EXTENSION=n
+Disable all except
+CONFIG_DYNAMIC_DEBUG=y
+CONFIG_STRICT_DEVMEM=y
+CONFIG_IO_STRICT_DEVMEM=y
+CONFIG_RCU_CPU_STALL_TIMEOUT=4
