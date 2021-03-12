@@ -102,7 +102,7 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11.5
+pkgver=5.11.6
 major=5.11
 pkgrel=1
 arch=(x86_64)
@@ -149,7 +149,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         #"$patchsource/iommu-patches/0006-add-acs-overrides_iommu.patch"
         #"$patchsource/aufs-patches/0001-aufs-20210215.patch"
         #"$patchsource/ZFS-patches/0011-ZFS-fix.patch
-md5sums=("24d340375b2ba733924ea484b2c30ca6"  #linux-5.11.5.tar.xz
+md5sums=("2ee99a4ae9dc9aca99386a6e8fb7b11f"  #linux-5.11.6.tar.xz
          "efa5b2f5b6c05d0445198391bcb69a0e"  #config-5.11
          "4fcdc5862d5259e7be24ecada332ce99"  #0001-cpu-5.11-merge-graysky-s-patchset.patch
          "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
