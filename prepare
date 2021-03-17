@@ -1280,6 +1280,24 @@ configure(){
   sleep 2s
 
   plain ""
+  plain "#########################################"
+  plain "Enable support for winesync, an experimental replacement for esync"
+  plain "https://repo.or.cz/linux/zf.git/shortlog/refs/heads/winesync"
+  read -rp "`echo $' > 1.Yes\n > 2.No\n > Default (Yes)\nchoice[1-2]: '`" _wine
+  if [[ "$_wine" = "1" ]]; then
+    msg2 "Enable winesync support"
+    scripts/config --module CONFIG_WINESYNC
+  elif [[ "$_wine" = "2" ]]; then
+    msg2 "Disable winesync support"
+    scripts/config --disable CONFIG_WINESYNC
+  else
+    msg2 "Enable winesync support"
+    scripts/config --module CONFIG_WINESYNC
+  fi
+
+  sleep 2s
+
+  plain ""
   if [[ $_cpu_sched = "1" ]]; then
     msg2 "Enable MuQSS"
     scripts/config --enable CONFIG_SCHED_MC
