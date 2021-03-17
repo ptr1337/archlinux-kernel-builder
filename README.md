@@ -16,7 +16,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
     git clone https://github.com/kevall474/Linux.git
     cd Linux
-    env _cpu_sched=(1,2,3,4 or 5) _compiler=(1,2,3 or 4) makepkg -s
+    env _cpu_sched=(1,2,3,4,5 or 6) _compiler=(1,2,3 or 4) makepkg -s
 
 ## Install
 
@@ -41,6 +41,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
         3 : PDS by Alfred Chen
         4 : CacULE by Hamad Al Marri
         5 : UPDS by TK-Glitch
+        6 : CacULE-RDB by Hamad Al Marri
 
 Leave this variable empty if you don't want to add a CPU Scheduler.
 
