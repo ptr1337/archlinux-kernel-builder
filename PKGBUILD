@@ -105,7 +105,7 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11.6
+pkgver=5.11.7
 major=5.11
 pkgrel=1
 arch=(x86_64)
@@ -155,7 +155,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         #"$patchsource/iommu-patches/0006-add-acs-overrides_iommu.patch"
         #"$patchsource/aufs-patches/0001-aufs-20210215.patch"
         #"$patchsource/ZFS-patches/0011-ZFS-fix.patch
-md5sums=("2ee99a4ae9dc9aca99386a6e8fb7b11f"  #linux-5.11.6.tar.xz
+md5sums=("0ab2fded387febab2b43e82e650254d8"  #linux-5.11.7.tar.xz
          "efa5b2f5b6c05d0445198391bcb69a0e"  #config-5.11
          "810a8ddf1b8fcce000dfca4d2661869b"  #0001-cpu-5.11-merge-graysky-s-patchset.patch
          "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
@@ -165,7 +165,7 @@ md5sums=("2ee99a4ae9dc9aca99386a6e8fb7b11f"  #linux-5.11.6.tar.xz
          "9a6ac945f08f93c6d778618100ddf753"  #0001-ZEN-Add-VHBA-driver.patch
          "307f39a7c060ac3073607964091234c0"  #0001-futex2-resync-from-gitlab.collabora.com.patch
          "57f4afa1be10eec300542767942ad938"  #0001-clearlinux-patches.patch
-         "f44a0004faf9f1a261950a5048d7b915"  #0001-ntfs3-patches.patch
+         "eb9c889a981564a38659f263320fad23"  #0001-ntfs3-patches.patch
          "18d1544e8ff22cd52f8a5ddf7b845579"  #0002-init-Kconfig-enable-O3-for-all-arches.patch
          "3cf79ddcad9c0f659664bd6fc2ae30ec"  #0001-block-patches.patch
          #"1003f5af700d5e9b3c3949143cae7579"  #5.11-bfq-reverts-ver1.patch
@@ -177,15 +177,15 @@ md5sums=("2ee99a4ae9dc9aca99386a6e8fb7b11f"  #linux-5.11.6.tar.xz
          "cc70bf905a1237a41b11338b2eba4a8b"  #0001-mm-patches.patch
          "49b4c1a2098d0f0584eb8d0eda2a60c9"  #0001-spadfs-5.11-merge-v1.0.13.patch
          "64e629e48f15cc0ebddfee366386f17a"  #0001-zswap-patches.patch
-         "936ab98a8dce1eedd4bce2b412e4e13f"  #0001-pf-patches.patch
-         #"a44130f4cbbaa7f17c70d2028208a61f"  #0001-fixes-miscellaneous.patch
+         "a4dde6acfaaf280bba258683332b24ad"  #0001-pf-patches.patch
+         #"1a5bd4415ee56b91ed21c28562058817"  #0001-fixes-miscellaneous.patch
          "e7ef63d6e6fb1ed9d8c2b4d3f65de86c"  #0002-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch
          "3b5866097de15af399841405bc844020"  #0001-Export-symbols-needed-by-Android-drivers.patch
          "0eda7e947dd25e6b77ea40d734deea8d"  #0002-android-Enable-building-ashmem-and-binder-as-modules.patch
          "9c37d7643710ffa49552cc43b96980ed"  #0001-ksm-patches.patch
          "855e96bb7ebe1a52b97f5eaaff95908a"  #0001-init-add-support-for-zstd-compressed-modules.patch
          "88f7a6c8a8ab3fb27ee5ab1f27a22f8a"  #0001-zstd-dev-patches.patch
-         "88cf7de95382a2b4cd58bffa363a855a"  #0001-lqx-patches.patch
+         "4f5b46d26699b4f4e7d7bc153979d3e0"  #0001-lqx-patches.patch
          "c347d6857d8a537491c932d2093e19e3"  #0007-v5.11-winesync.patch
          "8e71f0c43157654c4105224d89cc6709"  #zenify.patch
          "27e6001bacfcfca1c161bf6ef946a79b") #vm.max_map_count.patch
