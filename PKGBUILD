@@ -24,6 +24,7 @@
 #Set '3' for PDS CPU Scheduler
 #Set '4' for CacULE CPU Scheduler
 #Set '5' for UPDS CPU Scheduler
+#Set '6' for CacULE-RDB CPU Scheduler
 #Leave empty for no CPU Scheduler
 #Default is empty. It will build with no cpu scheduler. To build with cpu shceduler just use : env _cpu_sched=(1,2 or 3) makepkg -s
 if [ -z ${_cpu_sched+x} ]; then
@@ -92,6 +93,8 @@ elif [[ $_cpu_sched = "4" ]]; then
   pkgbase=linux-kernel-cacule
 elif [[ $_cpu_sched = "5" ]]; then
   pkgbase=linux-kernel-upds
+elif [[ $_cpu_sched = "6" ]]; then
+  pkgbase=linux-kernel-cacule-rdb
 else
   pkgbase=linux-kernel
 fi
