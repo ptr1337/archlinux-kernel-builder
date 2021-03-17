@@ -146,7 +146,8 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/zstd-patches/0001-zstd-dev-patches.patch"
         "$patchsource/lqx-patches/0001-lqx-patches.patch"
         "$patchsource/wine-patches/0007-v5.11-winesync.patch"
-        "$patchsource/misc/zenify.patch")
+        "$patchsource/misc/zenify.patch"
+        "$patchsource/misc/vm.max_map_count.patch")
         #"$patchsource/uksm-patches/0001-UKSM-for-5.11.patch"
         #"$patchsource/iommu-patches/0006-add-acs-overrides_iommu.patch"
         #"$patchsource/aufs-patches/0001-aufs-20210215.patch"
@@ -183,7 +184,8 @@ md5sums=("2ee99a4ae9dc9aca99386a6e8fb7b11f"  #linux-5.11.6.tar.xz
          "88f7a6c8a8ab3fb27ee5ab1f27a22f8a"  #0001-zstd-dev-patches.patch
          "88cf7de95382a2b4cd58bffa363a855a"  #0001-lqx-patches.patch
          "c347d6857d8a537491c932d2093e19e3"  #0007-v5.11-winesync.patch
-         "8e71f0c43157654c4105224d89cc6709") #zenify.patch
+         "8e71f0c43157654c4105224d89cc6709"  #zenify.patch
+         "SKIP")
          #"3d4defdab76bf6c766b94ea41493db51"  #0001-UKSM-for-5.11.patch
          #"168a924c7c83ecdc872a9a1c6d1c8bdb"  #0006-add-acs-overrides_iommu.patch
          #"c11b864bb47868d5ab72360d960ff6a8"  #0001-aufs-20210215.patch
