@@ -59,9 +59,9 @@ If not set it will build with CLANG+LLVM by default.
 
 ## The system isn't booting with the compiled kernel used a custom llvm/clang version
 
-- If youre compiling with llvm-rc or llvm-git be sure to compile the mesa-* lib32-mesa-* packages against it.
+- If youre compiling with llvm-rc or llvm-git be sure to recompile the mesa-* lib32-mesa-* packages against it.
 - Systems with intel/nvidia graphics just need to compile them with env _compiler=(1 or 2) makepkg -s | 1=gcc 2=clang
-- Systems with AMD graphics need to compile with env _llvm=y _compiler=(1 or 2) makepkg -s | _llvm=y is optional. It's to enable LLVM by default since ACO is the default shader compiler.
+- Systems with AMD graphics need to compile with env _llvm=y _compiler=(1 or 2) makepkg -s | 1=gcc 2=clang | _llvm=y is optional. It's to enable LLVM by default since ACO is the default shader compiler.
 - After compiling install both packages with sudo pacman -U mesa-*.pkg.zst lib32-mesa-*.pkg.zst 
 
 You will find the following packages here:
