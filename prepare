@@ -1281,6 +1281,50 @@ configure(){
 
   plain ""
   plain "#########################################"
+  plain "Enable support for fsync, an experimental replacement for esync in"
+  plain "Valve Proton 4.11+"
+  read -rp "`echo $' > 1.Yes\n > 2.No\n > Default (Yes)\nchoice[1-2]: '`" _fsync
+  if [[ "$_fsync" = "1" ]]; then
+    msg2 "Enable Fsync support"
+    scripts/config --enable CONFIG_FUTEX
+    scripts/config --enable CONFIG_FUTEX_PI
+  elif [[ "$_fsync" = "2" ]]; then
+    msg2 "Disable Fsync support"
+    scripts/config --disable CONFIG_FUTEX
+    scripts/config --disable CONFIG_FUTEX_PI
+  else
+    msg2 "Enable Fsync support"
+    scripts/config --enable CONFIG_FUTEX
+    scripts/config --enable CONFIG_FUTEX_PI
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
+  plain "Enable support for futex2, an experimental replacement for esync and"
+  plain "fsync in Valve Proton 5.13 experimental"
+  plain "Can be enabled alongside regular fsync patchset to have a fallback option"
+  plain "Enabling Futex2 will enable fsync support by default"
+  plain "https://gitlab.collabora.com/tonyk/linux/-/tree/futex2-dev"
+  plain "https://github.com/ValveSoftware/Proton/issues/4568"
+  plain ""
+  read -rp "`echo $' > 1.Yes\n > 2.No\n > Default (Yes)\nchoice[1-2]: '`" _futex2
+  if [[ "$_futex2" = "1" ]]; then
+    msg2 "Enable Futex2 support"
+    scripts/config --enable CONFIG_FUTEX2
+  elif [[ "$_futex2" = "2" ]]; then
+    msg2 "Disable Futex2 support"
+    scripts/config --disable CONFIG_FUTEX2
+  else
+    msg2 "Enable Futex2 support"
+    scripts/config --enable CONFIG_FUTEX2
+  fi
+
+  sleep 2s
+
+  plain ""
+  plain "#########################################"
   plain "Enable support for winesync, an experimental replacement for esync"
   plain "https://repo.or.cz/linux/zf.git/shortlog/refs/heads/winesync"
   read -rp "`echo $' > 1.Yes\n > 2.No\n > Default (Yes)\nchoice[1-2]: '`" _wine
