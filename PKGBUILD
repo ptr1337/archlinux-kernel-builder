@@ -123,7 +123,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/zen-patches/0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch"
         "$patchsource/misc/0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch"
         "$patchsource/misc/0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch"
-        "$patchsource/xanmod-patches/0001-sched-autogroup-Add-kernel-parameter-and-config-opti.patch"
+        "$patchsource/xanmod-patches/0001-xanmod-patches.patch"
         "$patchsource/zen-patches/0001-ZEN-Add-VHBA-driver.patch"
         "$patchsource/futex-patches/0001-futex2-resync-from-gitlab.collabora.com.patch"
         "$patchsource/clearlinux-patches/0001-clearlinux-patches.patch"
@@ -161,7 +161,7 @@ md5sums=("0ab2fded387febab2b43e82e650254d8"  #linux-5.11.7.tar.xz
          "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
          "d15597054a4c5e405f980d07d5eac11a"  #0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch
          "f99b82d6f424d1a729a9b8c5a1be2b84"  #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
-         "367fb55844e4a30aaff526ce4d9cd804"  #0001-sched-autogroup-Add-kernel-parameter-and-config-opti.patch
+         "c87afb8937411d41e7460c4c80a67464"  #0001-xanmod-patches.patch
          "9a6ac945f08f93c6d778618100ddf753"  #0001-ZEN-Add-VHBA-driver.patch
          "307f39a7c060ac3073607964091234c0"  #0001-futex2-resync-from-gitlab.collabora.com.patch
          "57f4afa1be10eec300542767942ad938"  #0001-clearlinux-patches.patch
