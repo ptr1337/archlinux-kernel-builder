@@ -237,15 +237,10 @@ prepare(){
 
   # Customize the kernel
   source "${startdir}"/prepare
-  source "${startdir}"/strip_down
 
   configure
 
   cpu_arch
-
-  # Remove choose-gcc-optimization.sh. Added cpu patches by graysky
-  # Let's user choose microarchitecture optimization in GCC
-  #sh ${srcdir}/choose-gcc-optimization.sh $_microarchitecture
 
   # Setting localversion
   msg2 "Setting localversion..."
