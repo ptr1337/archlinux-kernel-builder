@@ -18,29 +18,29 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 # Build
 
-## Build Linux kernel
+### Build Linux kernel
 
     git clone https://github.com/kevall474/Linux.git
     cd Linux/Linux
     env _cpu_sched=(1,2,3,4,5 or 6) _compiler=(1,2,3 or 4) makepkg -s
 
-### Install
+#### Install
 
     sudo pacman -U linux-kernel-(optional if cpu sched selected : muqss,bmq,pds,cacule,upds)
     sudo pacman -U linux-kernel-(optional if cpu sched selected : muqss,bmq,pds,caule,upds)-headers
 
-## Build Linux kernel
+### Build Linux kernel
 
     git clone https://github.com/kevall474/Linux.git
     cd Linux/XanMod
     env _compiler=(1,2,3 or 4) makepkg -s
 
-### Install
+#### Install
 
     sudo pacman -U xanmod-kernel
     sudo pacman -U xanmod-kernel-headers
     
-## Build linux-api-headers
+### Build linux-api-headers
 
     git clone https://github.com/kevall474/Linux.git
     cd Linux
@@ -49,9 +49,9 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 # Build variables
 
-## Linux kernel
+### Linux kernel
 
-### _cpu_sched
+#### _cpu_sched
 
 - Will add a CPU Scheduler if you want :
 
@@ -64,7 +64,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 Leave this variable empty if you don't want to add a CPU Scheduler.
 
-### _compiler
+#### _compiler
 
 - Will set compiler to build the kernel :
 
@@ -75,9 +75,9 @@ Leave this variable empty if you don't want to add a CPU Scheduler.
 
 If not set it will build with CLANG+LLVM by default.
 
-## XanMod kernel
+### XanMod kernel
 
-### _compiler
+#### _compiler
 
 - Will set compiler to build the kernel :
 
@@ -90,7 +90,7 @@ If not set it will build with CLANG+LLVM by default.
 
 # Troubleshooting
 
-## The system isn't booting with the compiled kernel used a custom llvm/clang version
+### The system isn't booting with the compiled kernel used a custom llvm/clang version
 
 - If you're compiling with llvm-rc or llvm-git be sure to recompile the mesa-* lib32-mesa-* packages against it.
 - Systems with intel/nvidia graphics just need to compile them with env _compiler=(1 or 2) makepkg -s | _compiler=1 ==> GCC  _compiler=2 ==> CLANG
