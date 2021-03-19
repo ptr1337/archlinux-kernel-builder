@@ -4,15 +4,15 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 # Version
 
-## Linux kernel
+### Linux kernel
 
 - 5.11.7
 
-## XanMod kernel
+### XanMod kernel
 
 - 5.11.7-xanmod1
 
-## linux-api-headers (git version)
+### linux-api-headers (git version)
 
 - 5.12
 
