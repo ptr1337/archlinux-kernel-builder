@@ -16,36 +16,40 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 - 5.12
 
-# Build Linux kernel
+# Build
+
+## Build Linux kernel
 
     git clone https://github.com/kevall474/Linux.git
     cd Linux/Linux
     env _cpu_sched=(1,2,3,4,5 or 6) _compiler=(1,2,3 or 4) makepkg -s
 
-## Install
+### Install
 
     sudo pacman -U linux-kernel-(optional if cpu sched selected : muqss,bmq,pds,cacule,upds)
     sudo pacman -U linux-kernel-(optional if cpu sched selected : muqss,bmq,pds,caule,upds)-headers
 
-# Build Linux kernel
+## Build Linux kernel
 
     git clone https://github.com/kevall474/Linux.git
     cd Linux/XanMod
     env _compiler=(1,2,3 or 4) makepkg -s
 
-## Install
+### Install
 
     sudo pacman -U xanmod-kernel
     sudo pacman -U xanmod-kernel-headers
     
-# Build linux-api-headers
+## Build linux-api-headers
 
     git clone https://github.com/kevall474/Linux.git
     cd Linux
     cd linux-api-headers
     makepkg -si
 
-## Build variables (Linux kernel)
+# Build variables
+
+## Linux kernel :
 
 ### _cpu_sched
 
@@ -59,6 +63,19 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
         6 : CacULE-RDB by Hamad Al Marri
 
 Leave this variable empty if you don't want to add a CPU Scheduler.
+
+### _compiler
+
+- Will set compiler to build the kernel :
+
+        1 : GCC
+        2 : GCC+LLVM
+        3 : CLANG
+        4 : CLANG+LLVM
+
+If not set it will build with CLANG+LLVM by default.
+
+## XanMod kernel :
 
 ### _compiler
 
