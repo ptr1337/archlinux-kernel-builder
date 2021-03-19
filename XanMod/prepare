@@ -567,7 +567,7 @@ configure(){
   plain "smallest possible value (128B) system-wide to avoid these issues. This is"
   plain "the same as booting with 'pci=pcie_bus_peer2peer'."
   plain ""
-  read -rp "`echo $' > 1.Tune off\n > 2.Default\n > 3.Safe\n > 4.Performance\n > 5.Peer2peer\n > Default (Performance)\nchoice[1-4]: '`" _pcie_bus
+  read -rp "`echo $' > 1.Tune off\n > 2.Default\n > 3.Safe\n > 4.Performance\n > 5.Peer2peer\n > Default (Performance)\nchoice[1-5]: '`" _pcie_bus
   if [[ $_pcie_bus = "1" ]]; then
     msg2 "Set CONFIG_PCIE_BUS for tune off"
     scripts/config --enable CONFIG_PCIE_BUS_TUNE_OFF
@@ -1014,8 +1014,8 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Enable/disable CONFIG_BFQ_CGROUP_DEBUG"
-  read -rp "`echo $' > 1.Disable\n > 2.Enable\n > 3.Default(zen kernel : Disable)\n > Default (Enable)\nchoice[1-3]: '`" _bfq_cgroup
-  if [[ "$_bfq_cgroup" = "1" ]] || [[ "$_bfq_cgroup" = "3" ]]; then
+  read -rp "`echo $' > 1.Disable\n > 2.Enable\n > Default (Enable)\nchoice[1-2]: '`" _bfq_cgroup
+  if [[ "$_bfq_cgroup" = "1" ]]; then
     msg2 "disable CONFIG_BFQ_CGROUP_DEBUG..."
     scripts/config --disable CONFIG_BFQ_CGROUP_DEBUG
   elif [[ "$_bfq_cgroup" = "2" ]]; then

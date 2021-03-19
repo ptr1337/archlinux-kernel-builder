@@ -516,8 +516,8 @@ configure(){
   plain ""
   plain "Performance : Disable PCI Express ASPM L0s and L1, even if the BIOS enabled them."
   plain ""
-  read -rp "`echo $' > 1.Default\n > 2.Powersave\n > 3.Supersave\n > 4.Performance\n > 5.Default(zen kernel : Default)\n > Default (Performance)\nchoice[1-5]: '`" _pcieaspm
-  if [[ $_pcieaspm = "1" ]] || [[ $_pcieaspm = "5" ]]; then
+  read -rp "`echo $' > 1.Default\n > 2.Powersave\n > 3.Supersave\n > 4.Performance\n > Default (Performance)\nchoice[1-4]: '`" _pcieaspm
+  if [[ $_pcieaspm = "1" ]]; then
     msg2 "Set PCIEASPM DRIVER to default"
     scripts/config --enable CONFIG_PCIEASPM
     scripts/config --enable CONFIG_PCIEASPM_DEFAULT
@@ -567,7 +567,7 @@ configure(){
   plain "smallest possible value (128B) system-wide to avoid these issues. This is"
   plain "the same as booting with 'pci=pcie_bus_peer2peer'."
   plain ""
-  read -rp "`echo $' > 1.Tune off\n > 2.Default\n > 3.Safe\n > 4.Performance\n > 5.Peer2peer\n > 6.Default(zen kernel : Default)\n > Default (Performance)\nchoice[1-5]: '`" _pcie_bus
+  read -rp "`echo $' > 1.Tune off\n > 2.Default\n > 3.Safe\n > 4.Performance\n > 5.Peer2peer\n > Default (Performance)\nchoice[1-5]: '`" _pcie_bus
   if [[ $_pcie_bus = "1" ]]; then
     msg2 "Set CONFIG_PCIE_BUS for tune off"
     scripts/config --enable CONFIG_PCIE_BUS_TUNE_OFF
@@ -604,13 +604,13 @@ configure(){
   plain "Optimize for size (-Os) : Choosing this option will pass "-Os" to your"
   plain "compiler resulting in a smaller kernel."
   plain ""
-  read -rp "`echo $' > 1.Optimize for performance(-O2)\n > 2.Optimize for performance(-O3)\n > 3.Optimize for size(-Os)\n > 4.Default (zen-kernel : Optimize for performance (-O3))\n > Default (Optimize for performance (-O3))\nchoice[1-4]: '`" _optimize
+  read -rp "`echo $' > 1.Optimize for performance(-O2)\n > 2.Optimize for performance(-O3)\n > 3.Optimize for size(-Os)\n > Default (Optimize for performance (-O3))\nchoice[1-3]: '`" _optimize
   if [[ "$_optimize" = "1" ]]; then
     msg2 "Enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE"
     scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_SIZE
     scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
     scripts/config --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
-  elif [[ "$_optimize" = "2" ]] || [[ "$_optimize" = "4" ]]; then
+  elif [[ "$_optimize" = "2" ]]; then
     msg2 "Enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3"
     scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
     scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_SIZE
@@ -642,7 +642,7 @@ configure(){
   plain "on SMP and NUMA systems. If you are going to be using NTSC video"
   plain "or multimedia, selected 300Hz instead."
   plain ""
-  plain "350 HZ : 300 Hz is a good compromise choice allowing server performance"
+  plain "300 HZ : 300 Hz is a good compromise choice allowing server performance"
   plain "while also showing good interactive responsiveness even"
   plain "on SMP and NUMA systems and exactly dividing by both PAL and"
   plain "NTSC frame rates for video and multimedia work."
@@ -654,7 +654,7 @@ configure(){
   plain "1000 HZ : 1000 Hz is the preferred choice for desktop systems and other"
   plain "systems requiring fast interactive responses to events."
   plain ""
-  read -rp "`echo $' > 1.100\n > 2.250\n > 3.300\n > 4.750\n > 5.1000\n > 6.Default(zen kernel : 1000)\n > Default (1000)\nchoice[1-6]: '`" _timer_freq
+  read -rp "`echo $' > 1.100\n > 2.250\n > 3.300\n > 4.750\n > 5.1000\n > Default (1000)\nchoice[1-6]: '`" _timer_freq
   if [[ "$_timer_freq" = "1" ]]; then
     msg2 "Set timer frequency to 100HZ"
     scripts/config --enable CONFIG_HZ_100
@@ -671,7 +671,7 @@ configure(){
     msg2 "Set timer frequency to 750HZ"
     scripts/config --enable CONFIG_HZ_750
     scripts/config --set-val CONFIG_HZ 750
-  elif [[ "$_timer_freq" = "5" ]] || [[ "$_timer_freq" = "6" ]]; then
+  elif [[ "$_timer_freq" = "5" ]]; then
     msg2 "Set timer frequency to 1000HZ"
     scripts/config --enable CONFIG_HZ_1000
     scripts/config --set-val CONFIG_HZ 1000
@@ -967,11 +967,11 @@ configure(){
   plain "and synchronous writes, it will self-tune queue depths to achieve"
   plain "that goal."
   plain ""
-  read -rp "`echo $' > 1.Disable\n > 2.Enable\n > 3.Default(zen kernel : Enable)\n > Default (Disable)\nchoice[1-3]: '`" _kyber
+  read -rp "`echo $' > 1.Disable\n > 2.Enable\n > Default (Disable)\nchoice[1-2]: '`" _kyber
   if [[ "$_kyber" = "1" ]]; then
     msg2 "Disabling Kyber I/O scheduler"
     scripts/config --disable CONFIG_MQ_IOSCHED_KYBER
-  elif [[ "$_kyber" = "2" ]] || [[ "$_kyber" = "3" ]]; then
+  elif [[ "$_kyber" = "2" ]]; then
     msg2 "Enable Kyber I/O scheduler"
     scripts/config --enable CONFIG_MQ_IOSCHED_KYBER
   else
@@ -994,12 +994,12 @@ configure(){
   plain "first enters the io scheduler, it is assigned a deadline that is the"
   plain "current time + the read_expire value in units of milliseconds."
   plain ""
-  read -rp "`echo $' > 1.Disable\n > 2.Enable\n > 3.Default(zen kernel : Enable)\n > Default (Disable)\nchoice[1-3]: '`" _deadline
+  read -rp "`echo $' > 1.Disable\n > 2.Enable\n > Default (Disable)\nchoice[1-2]: '`" _deadline
   if [[ "$_deadline" = "1" ]]; then
     msg2 "Disabling MQ-Deadline I/O scheduler"
     scripts/config --disable CONFIG_MQ_IOSCHED_DEADLINE
     scripts/config --disable CONFIG_MQ_IOSCHED_DEADLINE_NODEFAULT
-  elif [[ "$_deadline" = "2" ]] || [[ "$_deadline" = "3" ]]; then
+  elif [[ "$_deadline" = "2" ]]; then
     msg2 "Enable Deadline I/O scheduler"
     scripts/config --enable CONFIG_MQ_IOSCHED_DEADLINE
 
@@ -1014,8 +1014,8 @@ configure(){
     plain "This can prevent existing userspace from forcing this scheduler"
     plain "over the kernel's choice."
     plain ""
-    read -rp "`echo $' > 1.Disable\n > 2.Enable\n > 3.Default(zen kernel : Disable)\n > Default (Enable)\nchoice[1-3]: '`" _deadline_nodefault
-    if [[ "$_deadline_nodefault" = "1" ]] || [[ "$_deadline_nodefault" = "3" ]]; then
+    read -rp "`echo $' > 1.Disable\n > 2.Enable\n > Default (Enable)\nchoice[1-2]: '`" _deadline_nodefault
+    if [[ "$_deadline_nodefault" = "1" ]]; then
       msg2 "Disable MQ-Deadline-Nodefault I/O scheduler"
       scripts/config --disable CONFIG_MQ_IOSCHED_DEADLINE_NODEFAULT
     elif [[ "$_deadline_nodefault" = "2" ]]; then
@@ -1036,8 +1036,8 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Enable/disable CONFIG_BFQ_CGROUP_DEBUG"
-  read -rp "`echo $' > 1.Disable\n > 2.Enable\n > 3.Default(zen kernel : Disable)\n > Default (Enable)\nchoice[1-3]: '`" _bfq_cgroup
-  if [[ "$_bfq_cgroup" = "1" ]] || [[ "$_bfq_cgroup" = "3" ]]; then
+  read -rp "`echo $' > 1.Disable\n > 2.Enable\n > Default (Enable)\nchoice[1-2]: '`" _bfq_cgroup
+  if [[ "$_bfq_cgroup" = "1" ]]; then
     msg2 "disable CONFIG_BFQ_CGROUP_DEBUG..."
     scripts/config --disable CONFIG_BFQ_CGROUP_DEBUG
   elif [[ "$_bfq_cgroup" = "2" ]]; then
@@ -1565,23 +1565,9 @@ configure(){
     scripts/config --disable CONFIG_FAIR_GROUP_SCHED
     scripts/config --disable CONFIG_CFS_BANDWIDTH
   else
-    plain ""
-    plain "#########################################"
-    plain "Enable/disable CFS"
-    read -rp "`echo $' > 1.Disable\n > 2.Enable\n > Default (Enable)\nchoice[1-2]: '`" _cfs
-    if [[ $_cfs = "1" ]]; then
-      msg2 "Disable CFS"
-      scripts/config --disable CONFIG_FAIR_GROUP_SCHED
-      scripts/config --disable CONFIG_CFS_BANDWIDTH
-    elif [[ $_cfs = "2" ]]; then
-      msg2 "Enable CFS"
-      scripts/config --enable CONFIG_FAIR_GROUP_SCHED
-      scripts/config --enable CONFIG_CFS_BANDWIDTH
-    else
-      msg2 "Enable CFS"
-      scripts/config --enable CONFIG_FAIR_GROUP_SCHED
-      scripts/config --enable CONFIG_CFS_BANDWIDTH
-    fi
+    msg2 "Enable CFS"
+    scripts/config --enable CONFIG_FAIR_GROUP_SCHED
+    scripts/config --enable CONFIG_CFS_BANDWIDTH
   fi
 
   sleep 2s
