@@ -19,13 +19,24 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 # Build Linux kernel
 
     git clone https://github.com/kevall474/Linux.git
-    cd Linux
+    cd Linux/Linux
     env _cpu_sched=(1,2,3,4,5 or 6) _compiler=(1,2,3 or 4) makepkg -s
 
 ## Install
 
     sudo pacman -U linux-kernel-(optional if cpu sched selected : muqss,bmq,pds,cacule,upds)
     sudo pacman -U linux-kernel-(optional if cpu sched selected : muqss,bmq,pds,caule,upds)-headers
+
+# Build Linux kernel
+
+    git clone https://github.com/kevall474/Linux.git
+    cd Linux/XanMod
+    env _compiler=(1,2,3 or 4) makepkg -s
+
+## Install
+
+    sudo pacman -U xanmod-kernel
+    sudo pacman -U xanmod-kernel-headers
     
 # Build linux-api-headers
 
