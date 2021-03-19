@@ -49,7 +49,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 # Build variables
 
-## Linux kernel :
+## Linux kernel
 
 ### _cpu_sched
 
@@ -75,7 +75,7 @@ Leave this variable empty if you don't want to add a CPU Scheduler.
 
 If not set it will build with CLANG+LLVM by default.
 
-## XanMod kernel :
+## XanMod kernel
 
 ### _compiler
 
