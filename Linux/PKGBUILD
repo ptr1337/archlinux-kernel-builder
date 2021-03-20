@@ -42,7 +42,7 @@ ARCH=x86
 #Set '2' to build with GCC and LLVM
 #Set '3' to build with CLANG
 #Set '4' to build with CLANG and LLVM
-#Default is empty. It will build with CLANG and LLVM. To build with different compiler just use : env _compiler=(1,2,3 or 4) makepkg -s
+#Default is empty. It will build with GCC. To build with different compiler just use : env _compiler=(1,2,3 or 4) makepkg -s
 if [ -z ${_compiler+x} ]; then
   _compiler=
 fi
@@ -72,12 +72,12 @@ elif [[ "$_compiler" = "4" ]]; then
   HOSTCXX=clang++
   buildwith="build with CLANG/LLVM"
 else
-  _compiler=4
-  CC=clang
-  CXX=clang++
-  HOSTCC=clang
-  HOSTCXX=clang++
-  buildwith="build with CLANG/LLVM"
+  _compiler=1
+  CC=gcc
+  CXX=g++
+  HOSTCC=gcc
+  HOSTCXX=g++
+  buildwith="build with GCC"
 fi
 
 ###################################################################################
