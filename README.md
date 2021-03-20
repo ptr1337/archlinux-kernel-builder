@@ -73,7 +73,7 @@ Leave this variable empty if you don't want to add a CPU Scheduler.
         3 : CLANG
         4 : CLANG+LLVM
 
-If not set it will build with CLANG+LLVM by default.
+If not set it will build with GCC by default.
 
 ### XanMod kernel
 
@@ -86,7 +86,7 @@ If not set it will build with CLANG+LLVM by default.
         3 : CLANG
         4 : CLANG+LLVM
 
-If not set it will build with CLANG+LLVM by default.
+If not set it will build with GCC by default.
 
 # Troubleshooting
 
