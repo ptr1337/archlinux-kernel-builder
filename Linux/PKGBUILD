@@ -105,7 +105,7 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11.7
+pkgver=5.11.8
 major=5.11
 pkgrel=1
 arch=(x86_64)
@@ -130,7 +130,6 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/ntfs3-patches/0001-ntfs3-patches.patch"
         "$patchsource/misc/0002-init-Kconfig-enable-O3-for-all-arches.patch"
         "$patchsource/block-patches/0001-block-patches.patch"
-        #"$patchsource/bfq-patches/5.11-bfq-reverts-ver1.patch"
         "$patchsource/bfq-patches/0001-bfq-patches.patch"
         "$patchsource/aufs-patches/0001-aufs-20210111.patch"
         "$patchsource/bbr2-patches/0001-bbr2-5.11-introduce-BBRv2.patch"
@@ -140,7 +139,6 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/spadfs-patches/0001-spadfs-5.11-merge-v1.0.13.patch"
         "$patchsource/zswap-patches/0001-zswap-patches.patch"
         "$patchsource/pf-patches/0001-pf-patches.patch"
-        #"$patchsource/miscellaneous-patches/0001-fixes-miscellaneous.patch"
         "$patchsource/arch-patches/0002-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch"
         "$patchsource/android-patches/0001-Export-symbols-needed-by-Android-drivers.patch"
         "$patchsource/android-patches/0002-android-Enable-building-ashmem-and-binder-as-modules.patch"
@@ -151,11 +149,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/wine-patches/0007-v5.11-winesync.patch"
         "$patchsource/misc/zenify.patch"
         "$patchsource/misc/vm.max_map_count.patch")
-        #"$patchsource/uksm-patches/0001-UKSM-for-5.11.patch"
-        #"$patchsource/iommu-patches/0006-add-acs-overrides_iommu.patch"
-        #"$patchsource/aufs-patches/0001-aufs-20210215.patch"
-        #"$patchsource/ZFS-patches/0011-ZFS-fix.patch
-md5sums=("0ab2fded387febab2b43e82e650254d8"  #linux-5.11.7.tar.xz
+md5sums=("60e5a715a325b1ebd9ec9e9020338f39"  #linux-5.11.8.tar.xz
          "efa5b2f5b6c05d0445198391bcb69a0e"  #config-5.11
          "810a8ddf1b8fcce000dfca4d2661869b"  #0001-cpu-5.11-merge-graysky-s-patchset.patch
          "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
@@ -165,20 +159,18 @@ md5sums=("0ab2fded387febab2b43e82e650254d8"  #linux-5.11.7.tar.xz
          "9a6ac945f08f93c6d778618100ddf753"  #0001-ZEN-Add-VHBA-driver.patch
          "307f39a7c060ac3073607964091234c0"  #0001-futex2-resync-from-gitlab.collabora.com.patch
          "57f4afa1be10eec300542767942ad938"  #0001-clearlinux-patches.patch
-         "eb9c889a981564a38659f263320fad23"  #0001-ntfs3-patches.patch
+         "6525a6a46a4d7d82347c21eb2ce5a7a6"  #0001-ntfs3-patches.patch
          "18d1544e8ff22cd52f8a5ddf7b845579"  #0002-init-Kconfig-enable-O3-for-all-arches.patch
          "3cf79ddcad9c0f659664bd6fc2ae30ec"  #0001-block-patches.patch
-         #"1003f5af700d5e9b3c3949143cae7579"  #5.11-bfq-reverts-ver1.patch
          "2ddbf8792b067ff2ea204d2ac91de07b"  #0001-bfq-patches.patch
          "f6b385b6f38178df8f4b037aabcf1404"  #0001-aufs-20210111.patch
          "686d82306fff905945ffb6f0eede14d4"  #0001-bbr2-5.11-introduce-BBRv2.patch
-         "6b9b62aa785e1cc9c461b7ed7ead53e5"  #0001-btrfs-patches.patch
+         "dc096032b37f50e05e5d4449fe404c21"  #0001-btrfs-patches.patch
          "0ab93e8e3437a5093520c10cca741531"  #0001-v4l2loopback-5.11-merge-v0.12.5.patch
          "cc70bf905a1237a41b11338b2eba4a8b"  #0001-mm-patches.patch
          "49b4c1a2098d0f0584eb8d0eda2a60c9"  #0001-spadfs-5.11-merge-v1.0.13.patch
          "64e629e48f15cc0ebddfee366386f17a"  #0001-zswap-patches.patch
          "a4dde6acfaaf280bba258683332b24ad"  #0001-pf-patches.patch
-         #"268057e30b9f673c65ba118841753b66"  #0001-fixes-miscellaneous.patch
          "e7ef63d6e6fb1ed9d8c2b4d3f65de86c"  #0002-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch
          "3b5866097de15af399841405bc844020"  #0001-Export-symbols-needed-by-Android-drivers.patch
          "0eda7e947dd25e6b77ea40d734deea8d"  #0002-android-Enable-building-ashmem-and-binder-as-modules.patch
@@ -189,10 +181,6 @@ md5sums=("0ab2fded387febab2b43e82e650254d8"  #linux-5.11.7.tar.xz
          "c347d6857d8a537491c932d2093e19e3"  #0007-v5.11-winesync.patch
          "8e71f0c43157654c4105224d89cc6709"  #zenify.patch
          "27e6001bacfcfca1c161bf6ef946a79b") #vm.max_map_count.patch
-         #"3d4defdab76bf6c766b94ea41493db51"  #0001-UKSM-for-5.11.patch
-         #"168a924c7c83ecdc872a9a1c6d1c8bdb"  #0006-add-acs-overrides_iommu.patch
-         #"c11b864bb47868d5ab72360d960ff6a8"  #0001-aufs-20210215.patch
-         #"SKIP" #0011-ZFS-fix.patch
 if [[ $_cpu_sched = "1" ]]; then
  source+=("$patchsource/muqss-patches/patch-5.11-ck1")
  md5sums+=("SKIP")
