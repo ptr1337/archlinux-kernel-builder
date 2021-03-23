@@ -39,10 +39,8 @@ ARCH=x86
 
 #Set compiler to build the kernel
 #Set '1' to build with GCC
-#Set '2' to build with GCC and LLVM
-#Set '3' to build with CLANG
-#Set '4' to build with CLANG and LLVM
-#Default is empty. It will build with GCC. To build with different compiler just use : env _compiler=(1,2,3 or 4) makepkg -s
+#Set '2' to build with CLANG and LLVM
+#Default is empty. It will build with GCC. To build with different compiler just use : env _compiler=(1 or 2) makepkg -s
 if [ -z ${_compiler+x} ]; then
   _compiler=
 fi
@@ -52,51 +50,64 @@ if [[ "$_compiler" = "1" ]]; then
   CXX=g++
   HOSTCC=gcc
   HOSTCXX=g++
-  buildwith="build with GCC"
 elif [[ "$_compiler" = "2" ]]; then
-  CC=gcc
-  CXX=g++
-  HOSTCC=gcc
-  HOSTCXX=g++
-  buildwith="build with GCC/LLVM"
-elif [[ "$_compiler" = "3" ]]; then
   CC=clang
   CXX=clang++
   HOSTCC=clang
   HOSTCXX=clang++
-  buildwith="build with CLANG"
-elif [[ "$_compiler" = "4" ]]; then
-  CC=clang
-  CXX=clang++
-  HOSTCC=clang
-  HOSTCXX=clang++
-  buildwith="build with CLANG/LLVM"
 else
   _compiler=1
   CC=gcc
   CXX=g++
   HOSTCC=gcc
   HOSTCXX=g++
-  buildwith="build with GCC"
 fi
 
 ###################################################################################
 
 # This section set the pkgbase based on the cpu scheduler. So user can build different package based on the cpu schduler for testing.
 if [[ $_cpu_sched = "1" ]]; then
-  pkgbase=linux-kernel-muqss
+  if [[ "$_compiler" = "1" ]]; then
+    pkgbase=linux-kernel-muqss-gcc
+  elif [[ "$_compiler" = "2" ]]; then
+    pkgbase=linux-kernel-muqss-clang
+  fi
 elif [[ $_cpu_sched = "2" ]]; then
-  pkgbase=linux-kernel-bmq
+  if [[ "$_compiler" = "1" ]]; then
+    pkgbase=linux-kernel-bmq-gcc
+  elif [[ "$_compiler" = "2" ]]; then
+    pkgbase=linux-kernel-bmq-clang
+  fi
 elif [[ $_cpu_sched = "3" ]]; then
-  pkgbase=linux-kernel-pds
+  if [[ "$_compiler" = "1" ]]; then
+    pkgbase=linux-kernel-pds-gcc
+  elif [[ "$_compiler" = "2" ]]; then
+    pkgbase=linux-kernel-pds-clang
+  fi
 elif [[ $_cpu_sched = "4" ]]; then
-  pkgbase=linux-kernel-cacule
+  if [[ "$_compiler" = "1" ]]; then
+    pkgbase=linux-kernel-cacule-gcc
+  elif [[ "$_compiler" = "2" ]]; then
+    pkgbase=linux-kernel-cacule-clang
+  fi
 elif [[ $_cpu_sched = "5" ]]; then
-  pkgbase=linux-kernel-upds
+  if [[ "$_compiler" = "1" ]]; then
+    pkgbase=linux-kernel-upds-gcc
+  elif [[ "$_compiler" = "2" ]]; then
+    pkgbase=linux-kernel-upds-clang
+  fi
 elif [[ $_cpu_sched = "6" ]]; then
-  pkgbase=linux-kernel-cacule-rdb
+  if [[ "$_compiler" = "1" ]]; then
+    pkgbase=linux-kernel-cacule-rdb-gcc
+  elif [[ "$_compiler" = "2" ]]; then
+    pkgbase=linux-kernel-cacule-rdb-clang
+  fi
 else
-  pkgbase=linux-kernel
+  if [[ "$_compiler" = "1" ]]; then
+    pkgbase=linux-kernel-gcc
+  elif [[ "$_compiler" = "2" ]]; then
+    pkgbase=linux-kernel-clang
+  fi
 fi
 pkgname=("$pkgbase" "$pkgbase-headers")
 for _p in "${pkgname[@]}"; do
@@ -240,10 +251,6 @@ prepare(){
     make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
   elif [[ "$_compiler" = "2" ]]; then
     make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
-  elif [[ "$_compiler" = "3" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
-  elif [[ "$_compiler" = "4" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
   fi
 
   make -s kernelrelease > version
@@ -260,15 +267,11 @@ build(){
     make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
   elif [[ "$_compiler" = "2" ]]; then
     make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
-  elif [[ "$_compiler" = "3" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
-  elif [[ "$_compiler" = "4" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
   fi
 }
 
 _package(){
-  pkgdesc="Stable linux kernel and modules with a set of patches by TK-Glitch and Piotr Górski ${buildwith}"
+  pkgdesc="Stable linux kernel and modules with a set of patches by TK-Glitch and Piotr Górski"
   depends=("coreutils" "kmod" "initramfs" "mkinitcpio")
   optdepends=("linux-firmware: firmware images needed for some devices"
               "crda: to set the correct wireless channels of your country")
@@ -292,10 +295,6 @@ _package(){
     make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
   elif [[ "$_compiler" = "2" ]]; then
     make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
-  elif [[ "$_compiler" = "3" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
-  elif [[ "$_compiler" = "4" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
   fi
 
   # remove build and source links
@@ -305,7 +304,7 @@ _package(){
 
 _package-headers(){
   pkgdesc="Headers and scripts for building modules for the $pkgbase package"
-  depends=("${pkgbase}")
+  depends=("${pkgbase}" "pahole")
 
   cd linux-$pkgver
 
