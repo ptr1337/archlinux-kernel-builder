@@ -21,10 +21,8 @@ ARCH=x86
 
 #Set compiler to build the kernel
 #Set '1' to build with GCC
-#Set '2' to build with GCC and LLVM
-#Set '3' to build with CLANG
-#Set '4' to build with CLANG and LLVM
-#Default is empty. It will build with GCC. To build with different compiler just use : env _compiler=(1,2,3 or 4) makepkg -s
+#Set '2' to build with CLANG and LLVM
+#Default is empty. It will build with GCC. To build with different compiler just use : env _compiler=(1 or 2) makepkg -s
 if [ -z ${_compiler+x} ]; then
   _compiler=
 fi
@@ -36,18 +34,6 @@ if [[ "$_compiler" = "1" ]]; then
   HOSTCXX=g++
   buildwith="build with GCC"
 elif [[ "$_compiler" = "2" ]]; then
-  CC=gcc
-  CXX=g++
-  HOSTCC=gcc
-  HOSTCXX=g++
-  buildwith="build with GCC/LLVM"
-elif [[ "$_compiler" = "3" ]]; then
-  CC=clang
-  CXX=clang++
-  HOSTCC=clang
-  HOSTCXX=clang++
-  buildwith="build with CLANG"
-elif [[ "$_compiler" = "4" ]]; then
   CC=clang
   CXX=clang++
   HOSTCC=clang
@@ -63,8 +49,11 @@ else
 fi
 
 ###################################################################################
-
-pkgbase=xanmod-kernel
+if [[ "$_compiler" = "1" ]]; then
+  pkgbase=xanmod-kernel-gcc
+elif [[ "$_compiler" = "2" ]]; then
+  pkgbase=xanmod-kernel-clang
+fi
 pkgname=("$pkgbase" "$pkgbase-headers")
 for _p in "${pkgname[@]}"; do
   eval "package_$_p() {
@@ -163,10 +152,6 @@ prepare(){
     make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
   elif [[ "$_compiler" = "2" ]]; then
     make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
-  elif [[ "$_compiler" = "3" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
-  elif [[ "$_compiler" = "4" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
   fi
 
   make -s kernelrelease > version
@@ -183,15 +168,11 @@ build(){
     make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
   elif [[ "$_compiler" = "2" ]]; then
     make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
-  elif [[ "$_compiler" = "3" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
-  elif [[ "$_compiler" = "4" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} -j$(nproc) all
   fi
 }
 
 _package(){
-  pkgdesc="The Linux kernel and modules with Xanmod patches ${buildwith}"
+  pkgdesc="The Linux kernel and modules with Xanmod patches"
   depends=("coreutils" "kmod" "initramfs" "mkinitcpio")
   optdepends=("linux-firmware: firmware images needed for some devices"
               "crda: to set the correct wireless channels of your country")
@@ -215,10 +196,6 @@ _package(){
     make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
   elif [[ "$_compiler" = "2" ]]; then
     make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
-  elif [[ "$_compiler" = "3" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
-  elif [[ "$_compiler" = "4" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
   fi
 
   # remove build and source links
@@ -228,7 +205,7 @@ _package(){
 
 _package-headers(){
   pkgdesc="Headers and scripts for building modules for the $pkgbase package"
-  depends=("${pkgbase}")
+  depends=("${pkgbase}" "pahole")
 
   cd linux-$major
 
