@@ -116,7 +116,7 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11.8
+pkgver=5.11.9
 major=5.11
 pkgrel=1
 arch=(x86_64)
@@ -142,7 +142,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/misc/0002-init-Kconfig-enable-O3-for-all-arches.patch"
         "$patchsource/block-patches/0001-block-patches.patch"
         "$patchsource/bfq-patches/0001-bfq-patches.patch"
-        "$patchsource/aufs-patches/0001-aufs-20210111.patch"
+        "$patchsource/aufs-patches/0001-aufs-20210308.patch"
         "$patchsource/bbr2-patches/0001-bbr2-5.11-introduce-BBRv2.patch"
         "$patchsource/btrfs-patches/0001-btrfs-patches.patch"
         "$patchsource/loopback-patches/0001-v4l2loopback-5.11-merge-v0.12.5.patch"
@@ -160,7 +160,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/wine-patches/0007-v5.11-winesync.patch"
         "$patchsource/misc/zenify.patch"
         "$patchsource/misc/vm.max_map_count.patch")
-md5sums=("60e5a715a325b1ebd9ec9e9020338f39"  #linux-5.11.8.tar.xz
+md5sums=("1f226ffd6b58c567ed659efaffdfe0df"  #linux-5.11.9.tar.xz
          "efa5b2f5b6c05d0445198391bcb69a0e"  #config-5.11
          "810a8ddf1b8fcce000dfca4d2661869b"  #0001-cpu-5.11-merge-graysky-s-patchset.patch
          "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
@@ -173,8 +173,8 @@ md5sums=("60e5a715a325b1ebd9ec9e9020338f39"  #linux-5.11.8.tar.xz
          "6525a6a46a4d7d82347c21eb2ce5a7a6"  #0001-ntfs3-patches.patch
          "18d1544e8ff22cd52f8a5ddf7b845579"  #0002-init-Kconfig-enable-O3-for-all-arches.patch
          "3cf79ddcad9c0f659664bd6fc2ae30ec"  #0001-block-patches.patch
-         "2ddbf8792b067ff2ea204d2ac91de07b"  #0001-bfq-patches.patch
-         "f6b385b6f38178df8f4b037aabcf1404"  #0001-aufs-20210111.patch
+         "379a49cafda4a5448b7a873722eb1a96"  #0001-bfq-patches.patch
+         "76d68d069b5947349933c6baba07cf2f"  #0001-aufs-20210308.patch
          "686d82306fff905945ffb6f0eede14d4"  #0001-bbr2-5.11-introduce-BBRv2.patch
          "dc096032b37f50e05e5d4449fe404c21"  #0001-btrfs-patches.patch
          "0ab93e8e3437a5093520c10cca741531"  #0001-v4l2loopback-5.11-merge-v0.12.5.patch
@@ -186,8 +186,8 @@ md5sums=("60e5a715a325b1ebd9ec9e9020338f39"  #linux-5.11.8.tar.xz
          "3b5866097de15af399841405bc844020"  #0001-Export-symbols-needed-by-Android-drivers.patch
          "0eda7e947dd25e6b77ea40d734deea8d"  #0002-android-Enable-building-ashmem-and-binder-as-modules.patch
          "9c37d7643710ffa49552cc43b96980ed"  #0001-ksm-patches.patch
-         "855e96bb7ebe1a52b97f5eaaff95908a"  #0001-init-add-support-for-zstd-compressed-modules.patch
-         "88f7a6c8a8ab3fb27ee5ab1f27a22f8a"  #0001-zstd-dev-patches.patch
+         "67990d678f3711202db0fe6e1a90654b"  #0001-init-add-support-for-zstd-compressed-modules.patch
+         "77e1f3171f7f773739c4f8bb9fb20795"  #0001-zstd-dev-patches.patch
          "4f5b46d26699b4f4e7d7bc153979d3e0"  #0001-lqx-patches.patch
          "c347d6857d8a537491c932d2093e19e3"  #0007-v5.11-winesync.patch
          "8e71f0c43157654c4105224d89cc6709"  #zenify.patch

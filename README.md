@@ -6,11 +6,11 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 ### Linux kernel
 
-- 5.11.8
+- 5.11.9
 
 ### XanMod kernel
 
-- 5.11.8-xanmod1
+- 5.11.9-xanmod1
 
 ### linux-api-headers (git version)
 
@@ -22,23 +22,13 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
     git clone https://github.com/kevall474/Linux.git
     cd Linux/Linux
-    env _cpu_sched=(1,2,3,4,5 or 6) _compiler=(1,2,3 or 4) makepkg -s
+    env _cpu_sched=(1,2,3,4,5 or 6) _compiler=(1 or 2) makepkg -s
 
-#### Install
-
-    sudo pacman -U linux-kernel-(optional if cpu sched selected : muqss,bmq,pds,cacule,upds)
-    sudo pacman -U linux-kernel-(optional if cpu sched selected : muqss,bmq,pds,caule,upds)-headers
-
-### Build Linux kernel
+### Build XanMod kernel
 
     git clone https://github.com/kevall474/Linux.git
     cd Linux/XanMod
-    env _compiler=(1,2,3 or 4) makepkg -s
-
-#### Install
-
-    sudo pacman -U xanmod-kernel
-    sudo pacman -U xanmod-kernel-headers
+    env _compiler=(1 or 2) makepkg -s
     
 ### Build linux-api-headers
 
@@ -69,9 +59,7 @@ Leave this variable empty if you don't want to add a CPU Scheduler.
 - Will set compiler to build the kernel :
 
         1 : GCC
-        2 : GCC+LLVM
-        3 : CLANG
-        4 : CLANG+LLVM
+        2 : CLANG+LLVM
 
 If not set it will build with GCC by default.
 
@@ -82,9 +70,7 @@ If not set it will build with GCC by default.
 - Will set compiler to build the kernel :
 
         1 : GCC
-        2 : GCC+LLVM
-        3 : CLANG
-        4 : CLANG+LLVM
+        2 : CLANG+LLVM
 
 If not set it will build with GCC by default.
 
