@@ -198,7 +198,7 @@ if [[ $_cpu_sched = "1" ]]; then
 elif [[ $_cpu_sched = "2" ]] || [[ $_cpu_sched = "3" ]]; then
   source+=("${patchsource}/prjc-patches/0009-prjc_v5.11-r2.patch")
   md5sums+=("9c2c403990fee5a6c37c13e4f9963162")  #0009-prjc_v5.11-r2.patch
-elif [[ $_cpu_sched = "4" ]] [[ $_cpu_sched = "6" ]]; then
+elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "6" ]]; then
   source+=("${patchsource}/cacule-patches/cacule-5.11.patch")
   md5sums+=("a7e0da8aef50e25eed6140513a4cd9c4")  #cacule-5.11.patch
 elif [[ $_cpu_sched = "5" ]]; then
