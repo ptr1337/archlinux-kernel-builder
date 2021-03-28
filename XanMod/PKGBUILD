@@ -61,8 +61,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11.9_xanmod1
-versiontag=5.11.9-xanmod1
+pkgver=5.11.10_xanmod1
+versiontag=5.11.10-xanmod1
 major=5.11
 pkgrel=1
 arch=(x86_64)
@@ -93,21 +93,21 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.
         "$patchsource/misc/zenify.patch"
         "$patchsource/misc/vm.max_map_count.patch")
 md5sums=("d2985a3f16ef1ea3405c04c406e29dcc"  #linux-5.11.tar.xz
-         "d397505847b0b2f84170b98180a137e2"  #patch-5.11.9-xanmod1.xz
+         "80f8b683820ded7a6744efd51a32ef3f"  #patch-5.11.10-xanmod1.xz
          "f99b82d6f424d1a729a9b8c5a1be2b84"  #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
          "9a6ac945f08f93c6d778618100ddf753"  #0001-ZEN-Add-VHBA-driver.patch
          "379a49cafda4a5448b7a873722eb1a96"  #0001-bfq-patches.patch
          "76d68d069b5947349933c6baba07cf2f"  #0001-aufs-20210308.patch
-         "dc096032b37f50e05e5d4449fe404c21"  #0001-btrfs-patches.patch
+         "b84834cdb1522f10e6bfce9894a221a3"  #0001-btrfs-patches.patch
          "0ab93e8e3437a5093520c10cca741531"  #0001-v4l2loopback-5.11-merge-v0.12.5.patch
          "cc70bf905a1237a41b11338b2eba4a8b"  #0001-mm-patches.patch
          "49b4c1a2098d0f0584eb8d0eda2a60c9"  #0001-spadfs-5.11-merge-v1.0.13.patch
          "64e629e48f15cc0ebddfee366386f17a"  #0001-zswap-patches.patch
-         "a4dde6acfaaf280bba258683332b24ad"  #0001-pf-patches.patch
+         "f7e7e6cddb72ad8ae741849dddb6e6fa"  #0001-pf-patches.patch
          "e7ef63d6e6fb1ed9d8c2b4d3f65de86c"  #0002-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch
          "9c37d7643710ffa49552cc43b96980ed"  #0001-ksm-patches.patch
          "4f5b46d26699b4f4e7d7bc153979d3e0"  #0001-lqx-patches.patch
-         "c347d6857d8a537491c932d2093e19e3"  #0007-v5.11-winesync.patch
+         "ab8f21e210aec26c7825033d57433e33"  #0007-v5.11-winesync.patch
          "8e71f0c43157654c4105224d89cc6709"  #zenify.patch
          "27e6001bacfcfca1c161bf6ef946a79b") #vm.max_map_count.patch
 
