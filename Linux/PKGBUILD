@@ -116,7 +116,7 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11.10
+pkgver=5.11.11
 major=5.11
 pkgrel=1
 arch=(x86_64)
@@ -160,9 +160,9 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/wine-patches/0007-v5.11-winesync.patch"
         "$patchsource/misc/zenify.patch"
         "$patchsource/misc/vm.max_map_count.patch")
-md5sums=("a74b23a7d91e3d155062c71573d5381b"  #linux-5.11.10.tar.xz
+md5sums=("f0cb4bd4f683e41b8d8cee60f03d5b67"  #linux-5.11.11.tar.xz
          "efa5b2f5b6c05d0445198391bcb69a0e"  #config-5.11
-         "2e11ace64e5f6eb4a49a92032256ba64"  #0001-cpu-5.11-merge-graysky-s-patchset.patch
+         "d9f3a67eb69f813fb9a359c06ecec3c5"  #0001-cpu-5.11-merge-graysky-s-patchset.patch
          "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
          "d15597054a4c5e405f980d07d5eac11a"  #0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch
          "f99b82d6f424d1a729a9b8c5a1be2b84"  #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
@@ -170,7 +170,7 @@ md5sums=("a74b23a7d91e3d155062c71573d5381b"  #linux-5.11.10.tar.xz
          "9a6ac945f08f93c6d778618100ddf753"  #0001-ZEN-Add-VHBA-driver.patch
          "307f39a7c060ac3073607964091234c0"  #0001-futex2-resync-from-gitlab.collabora.com.patch
          "57f4afa1be10eec300542767942ad938"  #0001-clearlinux-patches.patch
-         "6525a6a46a4d7d82347c21eb2ce5a7a6"  #0001-ntfs3-patches.patch
+         "db7c48ff69c7163e6e4bbae5b1350e64"  #0001-ntfs3-patches.patch
          "18d1544e8ff22cd52f8a5ddf7b845579"  #0002-init-Kconfig-enable-O3-for-all-arches.patch
          "3cf79ddcad9c0f659664bd6fc2ae30ec"  #0001-block-patches.patch
          "379a49cafda4a5448b7a873722eb1a96"  #0001-bfq-patches.patch

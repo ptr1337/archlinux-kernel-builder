@@ -6,7 +6,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 ### Linux kernel
 
-- 5.11.10
+- 5.11.11
 
 ### XanMod kernel
 
