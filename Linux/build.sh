@@ -6,27 +6,27 @@ makepkg -s
 
 rm -rf pkg/ src/
 
-env _cpu_shed=1 makepkg -s
+env _cpu_sched=1 makepkg -s
 
 rm -rf pkg/ src/
 
-env _cpu_shed=2 makepkg -s
+env _cpu_sched=2 makepkg -s
 
 rm -rf pkg/ src/
 
-env _cpu_shed=3 makepkg -s
+env _cpu_sched=3 makepkg -s
 
 rm -rf pkg/ src/
 
-env _cpu_shed=4 makepkg -s
+env _cpu_sched=4 makepkg -s
 
 rm -rf pkg/ src/
 
-env _cpu_shed=5 makepkg -s
+env _cpu_sched=5 makepkg -s
 
 rm -rf pkg/ src/
 
-env _cpu_shed=6 makepkg -s
+env _cpu_sched=6 makepkg -s
 
 rm -rf pkg/ src/
 
@@ -36,26 +36,26 @@ env _compiler=2 makepkg -s
 
 rm -rf pkg/ src/
 
-env _cpu_shed=1 _compiler=2 makepkg -s
+env _cpu_sched=1 _compiler=2 makepkg -s
 
 rm -rf pkg/ src/
 
-env _cpu_shed=2 _compiler=2 makepkg -s
+env _cpu_sched=2 _compiler=2 makepkg -s
 
 rm -rf pkg/ src/
 
-env _cpu_shed=3 _compiler=2 makepkg -s
+env _cpu_sched=3 _compiler=2 makepkg -s
 
 rm -rf pkg/ src/
 
-env _cpu_shed=4 _compiler=2 makepkg -s
+env _cpu_sched=4 _compiler=2 makepkg -s
 
 rm -rf pkg/ src/
 
-env _cpu_shed=5 _compiler=2 makepkg -s
+env _cpu_sched=5 _compiler=2 makepkg -s
 
 rm -rf pkg/ src/
 
-env _cpu_shed=6 _compiler=2 makepkg -s
+env _cpu_sched=6 _compiler=2 makepkg -s
 
 rm -rf pkg/ src/
