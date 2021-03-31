@@ -61,8 +61,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11.10_xanmod1
-versiontag=5.11.10-xanmod1
+pkgver=5.11.11_xanmod1
+versiontag=5.11.11-xanmod1
 major=5.11
 pkgrel=1
 arch=(x86_64)
@@ -93,7 +93,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.
         "$patchsource/misc/zenify.patch"
         "$patchsource/misc/vm.max_map_count.patch")
 md5sums=("d2985a3f16ef1ea3405c04c406e29dcc"  #linux-5.11.tar.xz
-         "80f8b683820ded7a6744efd51a32ef3f"  #patch-5.11.10-xanmod1.xz
+         "03f7a5b8c0b87d52cb5e21d221e48648"  #patch-5.11.11-xanmod1.xz
          "f99b82d6f424d1a729a9b8c5a1be2b84"  #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
          "9a6ac945f08f93c6d778618100ddf753"  #0001-ZEN-Add-VHBA-driver.patch
          "379a49cafda4a5448b7a873722eb1a96"  #0001-bfq-patches.patch
