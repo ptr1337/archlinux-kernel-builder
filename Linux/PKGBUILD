@@ -162,7 +162,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/misc/vm.max_map_count.patch")
 md5sums=("f0cb4bd4f683e41b8d8cee60f03d5b67"  #linux-5.11.11.tar.xz
          "efa5b2f5b6c05d0445198391bcb69a0e"  #config-5.11
-         "d9f3a67eb69f813fb9a359c06ecec3c5"  #0001-cpu-5.11-merge-graysky-s-patchset.patch
+         "4862b906d15306da32e36a0f3e99624a"  #0001-cpu-5.11-merge-graysky-s-patchset.patch
          "a724ee14cb7aee1cfa6e4d9770c94723"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch
          "d15597054a4c5e405f980d07d5eac11a"  #0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch
          "f99b82d6f424d1a729a9b8c5a1be2b84"  #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
@@ -176,7 +176,7 @@ md5sums=("f0cb4bd4f683e41b8d8cee60f03d5b67"  #linux-5.11.11.tar.xz
          "379a49cafda4a5448b7a873722eb1a96"  #0001-bfq-patches.patch
          "76d68d069b5947349933c6baba07cf2f"  #0001-aufs-20210308.patch
          "686d82306fff905945ffb6f0eede14d4"  #0001-bbr2-5.11-introduce-BBRv2.patch
-         "b84834cdb1522f10e6bfce9894a221a3"  #0001-btrfs-patches.patch
+         "766941966c8db36612b0c04227429e51"  #0001-btrfs-patches.patch
          "0ab93e8e3437a5093520c10cca741531"  #0001-v4l2loopback-5.11-merge-v0.12.5.patch
          "cc70bf905a1237a41b11338b2eba4a8b"  #0001-mm-patches.patch
          "49b4c1a2098d0f0584eb8d0eda2a60c9"  #0001-spadfs-5.11-merge-v1.0.13.patch
@@ -186,7 +186,7 @@ md5sums=("f0cb4bd4f683e41b8d8cee60f03d5b67"  #linux-5.11.11.tar.xz
          "3b5866097de15af399841405bc844020"  #0001-Export-symbols-needed-by-Android-drivers.patch
          "0eda7e947dd25e6b77ea40d734deea8d"  #0002-android-Enable-building-ashmem-and-binder-as-modules.patch
          "9c37d7643710ffa49552cc43b96980ed"  #0001-ksm-patches.patch
-         "67990d678f3711202db0fe6e1a90654b"  #0001-init-add-support-for-zstd-compressed-modules.patch
+         "4249c9c2b8cf74b46655d00d7ffbd900"  #0001-init-add-support-for-zstd-compressed-modules.patch
          "77e1f3171f7f773739c4f8bb9fb20795"  #0001-zstd-dev-patches.patch
          "4f5b46d26699b4f4e7d7bc153979d3e0"  #0001-lqx-patches.patch
          "ab8f21e210aec26c7825033d57433e33"  #0007-v5.11-winesync.patch
@@ -196,11 +196,11 @@ if [[ $_cpu_sched = "1" ]]; then
  source+=("$patchsource/muqss-patches/patch-5.11-ck1")
  md5sums+=("SKIP")
 elif [[ $_cpu_sched = "2" ]] || [[ $_cpu_sched = "3" ]]; then
-  source+=("${patchsource}/prjc-patches/0009-prjc_v5.11-r2.patch")
-  md5sums+=("9c2c403990fee5a6c37c13e4f9963162")  #0009-prjc_v5.11-r2.patch
+  source+=("${patchsource}/prjc-patches/0009-prjc_v5.11-r3.patch")
+  md5sums+=("3ed563f52e61ceabcb8dea99256635c2")  #0009-prjc_v5.11-r3.patch
 elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "6" ]]; then
   source+=("${patchsource}/cacule-patches/cacule-5.11.patch")
-  md5sums+=("a7e0da8aef50e25eed6140513a4cd9c4")  #cacule-5.11.patch
+  md5sums+=("3f53bfe5a6b4ac9d3443953de89aa20c")  #cacule-5.11.patch
 elif [[ $_cpu_sched = "5" ]]; then
   source+=("${patchsource}/upds-patches/0005-v5.11_undead-pds099o.patch")
   md5sums+=("1c6d05cffa90464a2ae6f9e00d670e50")  #0005-v5.11_undead-pds099o.patch

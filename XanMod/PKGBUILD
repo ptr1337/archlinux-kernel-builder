@@ -98,7 +98,7 @@ md5sums=("d2985a3f16ef1ea3405c04c406e29dcc"  #linux-5.11.tar.xz
          "9a6ac945f08f93c6d778618100ddf753"  #0001-ZEN-Add-VHBA-driver.patch
          "379a49cafda4a5448b7a873722eb1a96"  #0001-bfq-patches.patch
          "76d68d069b5947349933c6baba07cf2f"  #0001-aufs-20210308.patch
-         "b84834cdb1522f10e6bfce9894a221a3"  #0001-btrfs-patches.patch
+         "766941966c8db36612b0c04227429e51"  #0001-btrfs-patches.patch
          "0ab93e8e3437a5093520c10cca741531"  #0001-v4l2loopback-5.11-merge-v0.12.5.patch
          "cc70bf905a1237a41b11338b2eba4a8b"  #0001-mm-patches.patch
          "49b4c1a2098d0f0584eb8d0eda2a60c9"  #0001-spadfs-5.11-merge-v1.0.13.patch
