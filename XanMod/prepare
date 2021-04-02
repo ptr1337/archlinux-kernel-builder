@@ -90,7 +90,7 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Set module compression"
-  read -rp "`echo $' > 1.GZIP\n > 2.XZ\n > 3.ZSTD\n > Default (XZ)\nchoice[1-3]: '`" _compression;
+  read -rp "`echo $' > 1.GZIP\n > 2.XZ\n > 3.ZSTD\n > Default (ZSTD)\nchoice[1-3]: '`" _compression;
   if [[ $_compression = "1" ]]; then
     msg2 "Set module compression to GZIP"
     scripts/config --enable CONFIG_MODULE_COMPRESS
@@ -110,11 +110,11 @@ configure(){
     scripts/config --disable CONFIG_MODULE_COMPRESS_XZ
     scripts/config --enable CONFIG_MODULE_COMPRESS_ZSTD
   else
-    msg2 "Set module compression to XZ"
+    msg2 "Set module compression to ZSTD"
     scripts/config --enable CONFIG_MODULE_COMPRESS
-    scripts/config --disable CONFIG_MODULE_COMPRESS_ZSTD
     scripts/config --disable CONFIG_MODULE_COMPRESS_GZIP
-    scripts/config --enable CONFIG_MODULE_COMPRESS_XZ
+    scripts/config --disable CONFIG_MODULE_COMPRESS_XZ
+    scripts/config --enable CONFIG_MODULE_COMPRESS_ZSTD
   fi
 
   sleep 2s
