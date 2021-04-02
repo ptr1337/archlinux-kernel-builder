@@ -215,7 +215,7 @@ configure(){
   plain "#########################################"
   plain "Enable/disable FUNCTION_TRACER/GRAPH_TRACER"
   plain "Limits debugging and analyzing of the kernel"
-  read -rp "`echo $' > 1.Enable\n > 2.dDsable (possibly increase performance)\n > Default (Disable)\nchoice[1-2]: '`" _tracer;
+  read -rp "`echo $' > 1.Enable\n > 2.Disable (possibly increase performance)\n > Default (Disable)\nchoice[1-2]: '`" _tracer;
   if [[ $_tracer = "1" ]]; then
     msg2 "Enable FUNCTION_TRACER/GRAPH_TRACER"
     scripts/config --enable CONFIG_FUNCTION_TRACER
