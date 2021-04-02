@@ -116,12 +116,14 @@ export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
 prepare(){
+  
+  unxz "$startdir"/patch-$versiontag.xz
 
   cd linux-$major
 
   # Apply XanMod patch
   msg2 "Apply XanMod patch"
-  patch -Np1 < ../patch-$versiontag
+  patch -Np1 < ../../patch-$versiontag
 
   # Apply any patch
   local src
