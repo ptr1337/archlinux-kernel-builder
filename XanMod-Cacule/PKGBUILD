@@ -123,8 +123,9 @@ prepare() {
     unlink "$srcdir/patch-$versiontag.xz"
     xz -dc "$startdir/patch-$versiontag.xz" > "$srcdir/patch-$versiontag"
   fi
-    # Apply Xanmod patch
-    patch -Np1 -i ../patch-$versiontag
+  
+  # Apply Xanmod patch
+  patch -Np1 -i ../patch-$versiontag
 
   # Apply any patch
   local src
