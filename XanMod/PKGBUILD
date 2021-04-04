@@ -116,14 +116,18 @@ export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
 prepare(){
-  
-  unxz "$startdir"/patch-$versiontag.xz
 
   cd linux-$major
-
-  # Apply XanMod patch
-  msg2 "Apply XanMod patch"
-  patch -Np1 < ../../patch-$versiontag
+  
+  # hacky work around for xz not getting extracted
+  # https://bbs.archlinux.org/viewtopic.php?id=265115
+  if [[ ! -f "$srcdir/patch-$versiontag" ]]; then
+    unlink "$srcdir/patch-$versiontag.xz"
+    xz -dc "$startdir/patch-$versiontag.xz" > "$srcdir/patch-$versiontag"
+  fi
+  
+  # Apply Xanmod patch
+  patch -Np1 -i ../patch-$versiontag
 
   # Apply any patch
   local src
