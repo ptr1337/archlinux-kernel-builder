@@ -1553,7 +1553,7 @@ configure(){
     plain "Apply suggested config by Hamad Al Marri"
     read -rp "`echo $' > 1.Yes\n > 2.No\n > Default (No)\nchoice[1-2]: '`" _suggest_cacule
     if [[ $_suggest_cacule = "1" ]]; then
-      msg2 "APPLY suggested config"
+      msg2 "Apply suggested config"
       msg2 "Security Cacule"
       scripts/config --disable CONFIG_SECURITY
       scripts/config --disable CONFIG_HARDENED_USERCOPY
@@ -1659,7 +1659,7 @@ configure(){
     plain "Apply suggested config by Hamad Al Marri"
     read -rp "`echo $' > 1.Yes\n > 2.No\n > Default (No)\nchoice[1-2]: '`" _suggest_cacule
     if [[ $_suggest_cacule = "1" ]]; then
-      msg2 "APPLY suggested config"
+      msg2 "Apply suggested config"
       msg2 "Security Cacule"
       scripts/config --disable CONFIG_SECURITY
       scripts/config --disable CONFIG_HARDENED_USERCOPY
