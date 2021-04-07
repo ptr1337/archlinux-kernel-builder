@@ -12,13 +12,12 @@
 #Credits: Piotr Gorski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan/kernel-patches> ---> For the patches and the base pkgbuild
 #Credits: Tk-Glitch <https://github.com/Tk-Glitch> ---> For some patches. base PKGBUILD and prepare script
 #Credits: Con Kolivas <kernel@kolivas.org> <http://ck.kolivas.org/> ---> For MuQSS patches
-#Credits: Hamad Al Marri <https://github.com/hamadmarri/cachy-sched> ---> For Cachy CPU Scheduler patch
 #Credits: Hamad Al Marri <https://github.com/hamadmarri/cachy-sched> ---> For CacULE CPU Scheduler patch
 #Credits: Alfred Chen <https://gitlab.com/alfredchen/projectc> ---> For the BMQ/PDS CPU Scheduler patch
 
 #################################
 
-#Set CPU Scheduler for stable and rc release
+#Set CPU Scheduler
 #Set '1' for MuQSS CPU Scheduler
 #Set '2' for BMQ CPU Scheduler
 #Set '3' for PDS CPU Scheduler
