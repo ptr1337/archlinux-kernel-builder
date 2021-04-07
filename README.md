@@ -12,10 +12,6 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 - 5.11.11-xanmod1
 
-### linux-api-headers (git version)
-
-- 5.12
-
 # Build
 
 ### Build Linux kernel
