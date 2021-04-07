@@ -15,7 +15,7 @@
 #Credits: Hamad Al Marri <https://github.com/hamadmarri/cachy-sched> ---> For CacULE CPU Scheduler patch
 #Credits: Alfred Chen <https://gitlab.com/alfredchen/projectc> ---> For the BMQ/PDS CPU Scheduler patch
 
-#################################
+################# CPU Scheduler #################
 
 #Set CPU Scheduler
 #Set '1' for MuQSS CPU Scheduler
