@@ -135,6 +135,10 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/misc/0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch"
         "$patchsource/xanmod-patches/0001-xanmod-patches.patch"
         "$patchsource/zen-patches/0001-ZEN-Add-VHBA-driver.patch"
+	"$patchsource/zen-patches/0002-ZEN-intel-pstate-Implement-enable-parameter.patch"
+	"$patchsource/zen-patches/0003-drm-i915-ilk-glk-Fix-link-training-on-links-with-LTT.patch"
+	"$patchsource/zen-patches/0004-drm-i915-dp-Prevent-setting-the-LTTPR-LT-mode-if-no-.patch"
+	"$patchsource/zen-patches/0005-drm-i915-Disable-LTTPR-support-when-the-DPCD-rev-1.4.patch"
         "$patchsource/futex-patches/0001-futex2-resync-from-gitlab.collabora.com.patch"
         "$patchsource/clearlinux-patches/0001-clearlinux-patches.patch"
         "$patchsource/ntfs3-patches/0001-ntfs3-patches.patch"
@@ -153,7 +157,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/android-patches/0001-Export-symbols-needed-by-Android-drivers.patch"
         "$patchsource/android-patches/0002-android-Enable-building-ashmem-and-binder-as-modules.patch"
         "$patchsource/ksm-patches/0001-ksm-patches.patch"
-        "$patchsource/zstd-patches/0001-init-add-support-for-zstd-compressed-modules.patch"
+        "$patchsource/zstd-patches/0001-zstd-patches.patch"
         "$patchsource/zstd-patches/0001-zstd-dev-patches.patch"
         "$patchsource/lqx-patches/0001-lqx-patches.patch"
         "$patchsource/wine-patches/0007-v5.11-winesync.patch"
@@ -166,7 +170,11 @@ md5sums=("f0cb4bd4f683e41b8d8cee60f03d5b67"  #linux-5.11.11.tar.xz
          "d15597054a4c5e405f980d07d5eac11a"  #0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch
          "f99b82d6f424d1a729a9b8c5a1be2b84"  #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
          "c87afb8937411d41e7460c4c80a67464"  #0001-xanmod-patches.patch
-         "9a6ac945f08f93c6d778618100ddf753"  #0001-ZEN-Add-VHBA-driver.patch
+         "6042ba527a2379f858fbc099caa7dc70"  #0001-ZEN-Add-VHBA-driver.patch
+	 "930e035a6cb8f053e115ffe7347badb9"  #0002-ZEN-intel-pstate-Implement-enable-parameter.patch
+	 "a146eab93adb7e47c3f4cd5603cbaa80"  #0003-drm-i915-ilk-glk-Fix-link-training-on-links-with-LTT.patch
+	 "d6ddba87c8232b66def0974ccb972379"  #0004-drm-i915-dp-Prevent-setting-the-LTTPR-LT-mode-if-no-.patch
+	 "5ed7f1cae4a164bc201855a2768f7e1f"  #0005-drm-i915-Disable-LTTPR-support-when-the-DPCD-rev-1.4.patch
          "307f39a7c060ac3073607964091234c0"  #0001-futex2-resync-from-gitlab.collabora.com.patch
          "57f4afa1be10eec300542767942ad938"  #0001-clearlinux-patches.patch
          "db7c48ff69c7163e6e4bbae5b1350e64"  #0001-ntfs3-patches.patch
@@ -185,7 +193,7 @@ md5sums=("f0cb4bd4f683e41b8d8cee60f03d5b67"  #linux-5.11.11.tar.xz
          "3b5866097de15af399841405bc844020"  #0001-Export-symbols-needed-by-Android-drivers.patch
          "0eda7e947dd25e6b77ea40d734deea8d"  #0002-android-Enable-building-ashmem-and-binder-as-modules.patch
          "9c37d7643710ffa49552cc43b96980ed"  #0001-ksm-patches.patch
-         "4249c9c2b8cf74b46655d00d7ffbd900"  #0001-init-add-support-for-zstd-compressed-modules.patch
+         "cdb86c7a5a9e094fda204ae92919f597"  #0001-zstd-patches.patch
          "77e1f3171f7f773739c4f8bb9fb20795"  #0001-zstd-dev-patches.patch
          "4f5b46d26699b4f4e7d7bc153979d3e0"  #0001-lqx-patches.patch
          "ab8f21e210aec26c7825033d57433e33"  #0007-v5.11-winesync.patch
