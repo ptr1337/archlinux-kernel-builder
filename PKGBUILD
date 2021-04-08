@@ -205,7 +205,7 @@ elif [[ $_cpu_sched = "2" ]] || [[ $_cpu_sched = "3" ]]; then
   source+=("${patchsource}/prjc-patches/0009-prjc_v5.11-r3.patch")
   md5sums+=("3ed563f52e61ceabcb8dea99256635c2")  #0009-prjc_v5.11-r3.patch
 elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "6" ]]; then
-  source+=("https://raw.githubusercontent.com/hamadmarri/cacule-cpu-scheduler/master/patches/CacULE/v5.11/cacule-5.11.patch") ## using upstream should be easier if updates are comming or?
+  source+=("${patchsource}/cacule-patches/cacule-5.11.patch") ## using upstream should be easier if updates are comming or?
   md5sums+=("b85d9c75a137a4278537386ca274da9d")  #cacule-5.11.patch
 elif [[ $_cpu_sched = "5" ]]; then
   source+=("${patchsource}/upds-patches/0005-v5.11_undead-pds099o.patch")
