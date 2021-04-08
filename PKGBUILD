@@ -11,7 +11,24 @@
 #Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
 #Credits: Piotr Gorski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan/kernel-patches> ---> For the patches and the base pkgbuild
 #Credits: Tk-Glitch <https://github.com/Tk-Glitch> ---> For some patches. base PKGBUILD and prepare script
-#Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
+#Credits: Con Kolivas <kernel@kolivas.org> <http://ck.kolivas.org/> ---> For MuQSS patches
+#Credits: Hamad Al Marri <https://github.com/hamadmarri/cachy-sched> ---> For CacULE CPU Scheduler patch
+#Credits: Alfred Chen <https://gitlab.com/alfredchen/projectc> ---> For the BMQ/PDS CPU Scheduler patch
+
+################# CPU Scheduler #################
+
+#Set CPU Scheduler
+#Set '1' for MuQSS CPU Scheduler
+#Set '2' for BMQ CPU Scheduler
+#Set '3' for PDS CPU Scheduler
+#Set '4' for CacULE CPU Scheduler
+#Set '5' for UPDS CPU Scheduler
+#Set '6' for CacULE-RDB CPU Scheduler
+#Leave empty for no CPU Scheduler
+#Default is empty. It will build with no cpu scheduler. To build with cpu shceduler just use : env _cpu_sched=(1,2 or 3) makepkg -s
+if [ -z ${_cpu_sched+x} ]; then
+  _cpu_sched=
+fi
 
 ################################# Arch ################################
 
@@ -32,27 +49,64 @@ if [[ "$_compiler" = "1" ]]; then
   CXX=g++
   HOSTCC=gcc
   HOSTCXX=g++
-  buildwith="build with GCC"
 elif [[ "$_compiler" = "2" ]]; then
   CC=clang
   CXX=clang++
   HOSTCC=clang
   HOSTCXX=clang++
-  buildwith="build with CLANG/LLVM"
 else
   _compiler=1
   CC=gcc
   CXX=g++
   HOSTCC=gcc
   HOSTCXX=g++
-  buildwith="build with GCC"
 fi
 
 ###################################################################################
-if [[ "$_compiler" = "1" ]]; then
-  pkgbase=xanmod-cacule-gcc
-elif [[ "$_compiler" = "2" ]]; then
-  pkgbase=xanmod-cacule-clang
+
+# This section set the pkgbase based on the cpu scheduler. So user can build different package based on the cpu schduler for testing.
+if [[ $_cpu_sched = "1" ]]; then
+  if [[ "$_compiler" = "1" ]]; then
+    pkgbase=linux-kernel-muqss-gcc
+  elif [[ "$_compiler" = "2" ]]; then
+    pkgbase=linux-kernel-muqss-clang
+  fi
+elif [[ $_cpu_sched = "2" ]]; then
+  if [[ "$_compiler" = "1" ]]; then
+    pkgbase=linux-kernel-bmq-gcc
+  elif [[ "$_compiler" = "2" ]]; then
+    pkgbase=linux-kernel-bmq-clang
+  fi
+elif [[ $_cpu_sched = "3" ]]; then
+  if [[ "$_compiler" = "1" ]]; then
+    pkgbase=linux-kernel-pds-gcc
+  elif [[ "$_compiler" = "2" ]]; then
+    pkgbase=linux-kernel-pds-clang
+  fi
+elif [[ $_cpu_sched = "4" ]]; then
+  if [[ "$_compiler" = "1" ]]; then
+    pkgbase=linux-kernel-cacule-gcc
+  elif [[ "$_compiler" = "2" ]]; then
+    pkgbase=linux-kernel-cacule-clang
+  fi
+elif [[ $_cpu_sched = "5" ]]; then
+  if [[ "$_compiler" = "1" ]]; then
+    pkgbase=linux-kernel-upds-gcc
+  elif [[ "$_compiler" = "2" ]]; then
+    pkgbase=linux-kernel-upds-clang
+  fi
+elif [[ $_cpu_sched = "6" ]]; then
+  if [[ "$_compiler" = "1" ]]; then
+    pkgbase=linux-kernel-cacule-rdb-gcc
+  elif [[ "$_compiler" = "2" ]]; then
+    pkgbase=linux-kernel-cacule-rdb-clang
+  fi
+else
+  if [[ "$_compiler" = "1" ]]; then
+    pkgbase=linux-kernel-gcc
+  elif [[ "$_compiler" = "2" ]]; then
+    pkgbase=linux-kernel-clang
+  fi
 fi
 pkgname=("$pkgbase" "$pkgbase-headers")
 for _p in "${pkgname[@]}"; do
@@ -61,12 +115,11 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11.11_xanmod1_cacule
-versiontag=5.11.10-xanmod1-cacule
+pkgver=5.11.12
 major=5.11
 pkgrel=1
 arch=(x86_64)
-url="https://xanmod.org/"
+url="https://www.kernel.org/"
 license=(GPL-2.0)
 makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules" "libelf" "elfutils"
              "python" "python-appdirs" "python-mako" "python-evdev" "python-sphinx_rtd_theme" "python-graphviz" "python-sphinx"
@@ -74,12 +127,26 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
              "llvm-libs" "lib32-llvm-libs" "lld" "kmod" "libmikmod" "lib32-libmikmod" "xmlto" "xmltoman" "graphviz" "imagemagick" "imagemagick-doc"
              "rsync" "cpio" "inetutils" "gzip" "zstd" "xz")
 patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$major
-source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
-        "https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz"
+source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar.xz"
+        "config-5.11"
+        "$patchsource/cpu-patches/0001-cpu-5.11-merge-graysky-s-patchset.patch"
+        "$patchsource/zen-patches/0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch"
+        "$patchsource/misc/0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch"
         "$patchsource/misc/0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch"
+        "$patchsource/xanmod-patches/0001-xanmod-patches.patch"
         "$patchsource/zen-patches/0001-ZEN-Add-VHBA-driver.patch"
+	      "$patchsource/zen-patches/0002-ZEN-intel-pstate-Implement-enable-parameter.patch"
+	      "$patchsource/zen-patches/0003-drm-i915-ilk-glk-Fix-link-training-on-links-with-LTT.patch"
+	      "$patchsource/zen-patches/0004-drm-i915-dp-Prevent-setting-the-LTTPR-LT-mode-if-no-.patch"
+	      "$patchsource/zen-patches/0005-drm-i915-Disable-LTTPR-support-when-the-DPCD-rev-1.4.patch"
+        "$patchsource/futex-patches/0001-futex2-resync-from-gitlab.collabora.com.patch"
+        "$patchsource/clearlinux-patches/0001-clearlinux-patches.patch"
+        "$patchsource/ntfs3-patches/0001-ntfs3-patches.patch"
+        "$patchsource/misc/0002-init-Kconfig-enable-O3-for-all-arches.patch"
+        "$patchsource/block-patches/0001-block-patches.patch"
         "$patchsource/bfq-patches/0001-bfq-patches.patch"
         "$patchsource/aufs-patches/0001-aufs-20210308.patch"
+        "$patchsource/bbr2-patches/0001-bbr2-5.11-introduce-BBRv2.patch"
         "$patchsource/btrfs-patches/0001-btrfs-patches.patch"
         "$patchsource/loopback-patches/0001-v4l2loopback-5.11-merge-v0.12.5.patch"
         "$patchsource/mm-patches/0001-mm-patches.patch"
@@ -87,16 +154,35 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.
         "$patchsource/zswap-patches/0001-zswap-patches.patch"
         "$patchsource/pf-patches/0001-pf-patches.patch"
         "$patchsource/arch-patches/0002-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch"
+        "$patchsource/android-patches/0001-Export-symbols-needed-by-Android-drivers.patch"
+        "$patchsource/android-patches/0002-android-Enable-building-ashmem-and-binder-as-modules.patch"
         "$patchsource/ksm-patches/0001-ksm-patches.patch"
+        "$patchsource/zstd-patches/0001-zstd-patches.patch"
+        "$patchsource/zstd-patches/0001-zstd-dev-patches.patch"
         "$patchsource/lqx-patches/0001-lqx-patches.patch"
         "$patchsource/wine-patches/0007-v5.11-winesync.patch"
+#        "$patchsource/misc/zenify.patch"
         "$patchsource/misc/vm.max_map_count.patch")
-md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
-         '211e07ada1f7653bc28208c3cf5cb49b'
+md5sums=('d3f93c35c0ba78cffeae4a77ff7a614b'
+         '8431bf7b65880cfcade827da2b8089e4'
+         '4862b906d15306da32e36a0f3e99624a'
+         'a724ee14cb7aee1cfa6e4d9770c94723'
+         'd15597054a4c5e405f980d07d5eac11a'
          'f99b82d6f424d1a729a9b8c5a1be2b84'
-         '9a6ac945f08f93c6d778618100ddf753'
+         'c87afb8937411d41e7460c4c80a67464'
+         '6042ba527a2379f858fbc099caa7dc70'
+         '930e035a6cb8f053e115ffe7347badb9'
+         'a146eab93adb7e47c3f4cd5603cbaa80'
+         'd6ddba87c8232b66def0974ccb972379'
+         '5ed7f1cae4a164bc201855a2768f7e1f'
+         '307f39a7c060ac3073607964091234c0'
+         '57f4afa1be10eec300542767942ad938'
+         'db7c48ff69c7163e6e4bbae5b1350e64'
+         '18d1544e8ff22cd52f8a5ddf7b845579'
+         '3cf79ddcad9c0f659664bd6fc2ae30ec'
          '379a49cafda4a5448b7a873722eb1a96'
          '76d68d069b5947349933c6baba07cf2f'
+         '686d82306fff905945ffb6f0eede14d4'
          '766941966c8db36612b0c04227429e51'
          '0ab93e8e3437a5093520c10cca741531'
          'cc70bf905a1237a41b11338b2eba4a8b'
@@ -104,28 +190,35 @@ md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
          '64e629e48f15cc0ebddfee366386f17a'
          'f7e7e6cddb72ad8ae741849dddb6e6fa'
          'e7ef63d6e6fb1ed9d8c2b4d3f65de86c'
+         '3b5866097de15af399841405bc844020'
+         '0eda7e947dd25e6b77ea40d734deea8d'
          '9c37d7643710ffa49552cc43b96980ed'
+         'cdb86c7a5a9e094fda204ae92919f597'
+         '77e1f3171f7f773739c4f8bb9fb20795'
          '4f5b46d26699b4f4e7d7bc153979d3e0'
          'ab8f21e210aec26c7825033d57433e33'
          '27e6001bacfcfca1c161bf6ef946a79b')
+if [[ $_cpu_sched = "1" ]]; then
+ source+=("$patchsource/muqss-patches/patch-5.11-ck1")
+ md5sums+=("SKIP")
+elif [[ $_cpu_sched = "2" ]] || [[ $_cpu_sched = "3" ]]; then
+  source+=("${patchsource}/prjc-patches/0009-prjc_v5.11-r3.patch")
+  md5sums+=("3ed563f52e61ceabcb8dea99256635c2")  #0009-prjc_v5.11-r3.patch
+elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "6" ]]; then
+  source+=("https://raw.githubusercontent.com/hamadmarri/cacule-cpu-scheduler/master/patches/CacULE/v5.11/cacule-5.11.patch") ## using upstream should be easier if updates are comming or?
+  md5sums+=("b85d9c75a137a4278537386ca274da9d")  #cacule-5.11.patch
+elif [[ $_cpu_sched = "5" ]]; then
+  source+=("${patchsource}/upds-patches/0005-v5.11_undead-pds099o.patch")
+  md5sums+=("1c6d05cffa90464a2ae6f9e00d670e50")  #0005-v5.11_undead-pds099o.patch
+fi
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
-prepare() {
+prepare(){
 
-  cd linux-$major
-
-  # hacky work around for xz not getting extracted
-  # https://bbs.archlinux.org/viewtopic.php?id=265115
-  if [[ ! -f "$srcdir/patch-$versiontag" ]]; then
-    unlink "$srcdir/patch-$versiontag.xz"
-    xz -dc "$startdir/patch-$versiontag.xz" > "$srcdir/patch-$versiontag"
-  fi
-  
-  # Apply Xanmod patch
-  patch -Np1 -i ../patch-$versiontag
+  cd linux-$pkgver
 
   # Apply any patch
   local src
@@ -137,8 +230,21 @@ prepare() {
     patch -Np1 < "../$src"
   done
 
+  if [[ $_cpu_sched = "1" ]]; then
+    msg2 "Applying patch patch-5.11-ck1"
+    patch -Np1 < ../patch-5.11-ck1
+ fi
+
+  # Copy the config file first
+  # Copy "${srcdir}"/config to linux-${pkgver}/.config
+  msg2 "Copy "${srcdir}"/config to linux-$pkgver/.config"
+  cp "${srcdir}"/config-$major .config
+
   # Customize the kernel
   source "${startdir}"/prepare
+  #source "${startdir}"/rapid_config
+
+  #rapid_config
 
   configure
 
@@ -162,7 +268,7 @@ prepare() {
 
 build(){
 
-  cd linux-$major
+  cd linux-$pkgver
 
   # make -j$(nproc) all
   msg2 "make -j$(nproc) all..."
@@ -174,13 +280,13 @@ build(){
 }
 
 _package(){
-  pkgdesc="The Linux kernel and modules with Xanmod patches"
+  pkgdesc="Stable linux kernel and modules with a set of patches by TK-Glitch and Piotr Górski"
   depends=("coreutils" "kmod" "initramfs" "mkinitcpio")
   optdepends=("linux-firmware: firmware images needed for some devices"
               "crda: to set the correct wireless channels of your country")
   provides=("VIRTUALBOX-GUEST-MODULES" "WIREGUARD-MODULE")
 
-  cd linux-$major
+  cd linux-$pkgver
 
   local kernver="$(<version)"
   local modulesdir="${pkgdir}"/usr/lib/modules/${kernver}
@@ -209,7 +315,7 @@ _package-headers(){
   pkgdesc="Headers and scripts for building modules for the $pkgbase package"
   depends=("${pkgbase}" "pahole")
 
-  cd linux-$major
+  cd linux-$pkgver
 
   local builddir="$pkgdir"/usr/lib/modules/"$(<version)"/build
 
