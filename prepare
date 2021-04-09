@@ -248,13 +248,13 @@ configure(){
   read -rp "`echo $' > 1.Enable\n > 2.Disable\n > Default (Disable)\nchoice[1-2]: '`" _ns;
   if [[ $_ns = "1" ]]; then
     msg2 "Enable CONFIG_USER_NS_UNPRIVILEGED"
-    scripts/config --disable CONFIG_USER_NS_UNPRIVILEGED
+    scripts/config --enable CONFIG_USER_NS_UNPRIVILEGED
   elif [[ $_ns = "2" ]]; then
     msg2 "Disable CONFIG_USER_NS_UNPRIVILEGED"
     scripts/config --disable CONFIG_USER_NS_UNPRIVILEGED
   else
-    msg2 "Disable CONFIG_USER_NS_UNPRIVILEGED"
-    scripts/config --disable CONFIG_USER_NS_UNPRIVILEGED
+    msg2 "Enable CONFIG_USER_NS_UNPRIVILEGED"
+    scripts/config --enable CONFIG_USER_NS_UNPRIVILEGED
   fi
 
   sleep 2s
@@ -1559,8 +1559,8 @@ configure(){
       scripts/config --disable CONFIG_HARDENED_USERCOPY
       msg2 "General Setup Cacule"
       scripts/config --disable CONFIG_EXPERT
-      scripts/config --disable CONFIG_SCHED_AUTOGROUP
-      scripts/config --disable CONFIG_CGROUP_SCHED
+      scripts/config --enable CONFIG_SCHED_AUTOGROUP
+      scripts/config --enable CONFIG_CGROUP_SCHED
       scripts/config --disable CONFIG_BSD_PROCESS_ACCT
       scripts/config --disable CONFIG_TASK_XACCT
       scripts/config --disable CONFIG_PSI
@@ -1568,7 +1568,7 @@ configure(){
       scripts/config --disable CONFIG_VIRT_CPU_ACCOUNTING_GEN
       scripts/config --enable CONFIG_TICK_CPU_ACCOUNTING
       scripts/config --disable CONFIG_MEMCG
-      scripts/config --disable CONFIG_CGROUP_CPUACCT
+      scripts/config --enable CONFIG_CGROUP_CPUACCT
       scripts/config --disable CONFIG_CGROUP_DEBUG
       scripts/config --disable CONFIG_CHECKPOINT_RESTORE
       scripts/config --disable CONFIG_SLAB_MERGE_DEFAULT
@@ -1581,7 +1581,7 @@ configure(){
       scripts/config --disable CONFIG_KEXEC
       scripts/config --disable CONFIG_KEXEC_FILE
       scripts/config --disable CONFIG_CRASH_DUMP
-      #scripts/config --set-val CONFIG_NR_CPUS "12"
+      scripts/config --set-val CONFIG_NR_CPUS "12"
       msg2 "Power Cacule"
       scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
       scripts/config --enable CONFIG_CPU_FREQ_GOV_PERFORMANCE

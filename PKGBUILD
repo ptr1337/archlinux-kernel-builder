@@ -133,12 +133,11 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/zen-patches/0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch"
         "$patchsource/misc/0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch"
         "$patchsource/misc/0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch"
-        "$patchsource/xanmod-patches/0001-xanmod-patches.patch"
         "$patchsource/zen-patches/0001-ZEN-Add-VHBA-driver.patch"
-	      "$patchsource/zen-patches/0002-ZEN-intel-pstate-Implement-enable-parameter.patch"
-	      "$patchsource/zen-patches/0003-drm-i915-ilk-glk-Fix-link-training-on-links-with-LTT.patch"
-	      "$patchsource/zen-patches/0004-drm-i915-dp-Prevent-setting-the-LTTPR-LT-mode-if-no-.patch"
-	      "$patchsource/zen-patches/0005-drm-i915-Disable-LTTPR-support-when-the-DPCD-rev-1.4.patch"
+	"$patchsource/zen-patches/0002-ZEN-intel-pstate-Implement-enable-parameter.patch"
+	"$patchsource/zen-patches/0003-drm-i915-ilk-glk-Fix-link-training-on-links-with-LTT.patch"
+	"$patchsource/zen-patches/0004-drm-i915-dp-Prevent-setting-the-LTTPR-LT-mode-if-no-.patch"
+	"$patchsource/zen-patches/0005-drm-i915-Disable-LTTPR-support-when-the-DPCD-rev-1.4.patch"
         "$patchsource/futex-patches/0001-futex2-resync-from-gitlab.collabora.com.patch"
         "$patchsource/clearlinux-patches/0001-clearlinux-patches.patch"
         "$patchsource/ntfs3-patches/0001-ntfs3-patches.patch"
@@ -153,23 +152,19 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/spadfs-patches/0001-spadfs-5.11-merge-v1.0.13.patch"
         "$patchsource/zswap-patches/0001-zswap-patches.patch"
         "$patchsource/pf-patches/0001-pf-patches.patch"
-        "$patchsource/arch-patches/0002-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch"
-        "$patchsource/android-patches/0001-Export-symbols-needed-by-Android-drivers.patch"
-        "$patchsource/android-patches/0002-android-Enable-building-ashmem-and-binder-as-modules.patch"
         "$patchsource/ksm-patches/0001-ksm-patches.patch"
         "$patchsource/zstd-patches/0001-zstd-patches.patch"
         "$patchsource/zstd-patches/0001-zstd-dev-patches.patch"
         "$patchsource/lqx-patches/0001-lqx-patches.patch"
         "$patchsource/wine-patches/0007-v5.11-winesync.patch"
-#        "$patchsource/misc/zenify.patch"
-        "$patchsource/misc/vm.max_map_count.patch")
+        "$patchsource/misc/vm.max_map_count.patch"
+        "$patchsource/initramfs-patches/0001-initramfs-patches.patch")
 md5sums=('d3f93c35c0ba78cffeae4a77ff7a614b'
          '8431bf7b65880cfcade827da2b8089e4'
          '4862b906d15306da32e36a0f3e99624a'
          'a724ee14cb7aee1cfa6e4d9770c94723'
          'd15597054a4c5e405f980d07d5eac11a'
          'f99b82d6f424d1a729a9b8c5a1be2b84'
-         'c87afb8937411d41e7460c4c80a67464'
          '6042ba527a2379f858fbc099caa7dc70'
          '930e035a6cb8f053e115ffe7347badb9'
          'a146eab93adb7e47c3f4cd5603cbaa80'
@@ -183,21 +178,19 @@ md5sums=('d3f93c35c0ba78cffeae4a77ff7a614b'
          '379a49cafda4a5448b7a873722eb1a96'
          '76d68d069b5947349933c6baba07cf2f'
          '686d82306fff905945ffb6f0eede14d4'
-         '766941966c8db36612b0c04227429e51'
+         '9370509e5f1ee530baf687450a57b4e7'
          '0ab93e8e3437a5093520c10cca741531'
-         'cc70bf905a1237a41b11338b2eba4a8b'
+         '7547ce8af415e4d587258fdf928a7eee'
          '49b4c1a2098d0f0584eb8d0eda2a60c9'
          '64e629e48f15cc0ebddfee366386f17a'
          'f7e7e6cddb72ad8ae741849dddb6e6fa'
-         'e7ef63d6e6fb1ed9d8c2b4d3f65de86c'
-         '3b5866097de15af399841405bc844020'
-         '0eda7e947dd25e6b77ea40d734deea8d'
          '9c37d7643710ffa49552cc43b96980ed'
          'cdb86c7a5a9e094fda204ae92919f597'
          '77e1f3171f7f773739c4f8bb9fb20795'
          '4f5b46d26699b4f4e7d7bc153979d3e0'
          'ab8f21e210aec26c7825033d57433e33'
-         '27e6001bacfcfca1c161bf6ef946a79b')
+         '27e6001bacfcfca1c161bf6ef946a79b'
+         '39d8fe1921a28bb6504f4eb23aa5d675')
 if [[ $_cpu_sched = "1" ]]; then
  source+=("$patchsource/muqss-patches/patch-5.11-ck1")
  md5sums+=("SKIP")
