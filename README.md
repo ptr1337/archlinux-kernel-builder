@@ -2,17 +2,11 @@
 
 Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, Hamad Al Marri, Con Kolivas and Alfred Chen.
 
-# Version
+## Kernelversion:
 
-### Linux kernel
+- 5.11.13
 
-- 5.11.11
-
-### XanMod kernel
-
-- 5.11.11-xanmod1
-
-# Build
+## Build
 
 ### Build Linux kernel
 
@@ -20,22 +14,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
     cd Linux/Linux
     env _cpu_sched=(1,2,3,4,5 or 6) _compiler=(1 or 2) makepkg -s
 
-### Build XanMod kernel
-
-    git clone https://github.com/kevall474/Linux.git
-    cd Linux/XanMod
-    env _compiler=(1 or 2) makepkg -s
-    
-### Build linux-api-headers
-
-    git clone https://github.com/kevall474/Linux.git
-    cd Linux
-    cd linux-api-headers
-    makepkg -si
-
-# Build variables
-
-### Linux kernel
+## Build variables
 
 #### _cpu_sched
 
@@ -59,16 +38,6 @@ Leave this variable empty if you don't want to add a CPU Scheduler.
 
 If not set it will build with GCC by default.
 
-### XanMod kernel
-
-#### _compiler
-
-- Will set compiler to build the kernel :
-
-        1 : GCC
-        2 : CLANG+LLVM
-
-If not set it will build with GCC by default.
 
 # Troubleshooting
 
@@ -77,7 +46,7 @@ If not set it will build with GCC by default.
 - If you're compiling with llvm-rc or llvm-git be sure to recompile the mesa-* lib32-mesa-* packages against it.
 - Systems with intel/nvidia graphics just need to compile them with env _compiler=(1 or 2) makepkg -s | _compiler=1 ==> GCC  _compiler=2 ==> CLANG
 - Systems with AMD graphics need to compile with env _llvm=y _compiler=(1 or 2) makepkg -s | _compiler=1 ==> GCC  _compiler=2 ==> CLANG | _llvm=y is optional. It's to enable LLVM by default since ACO is the default shader compiler.
-- After compiling install both packages with sudo pacman -U mesa-*.pkg.zst lib32-mesa-*.pkg.zst 
+- After compiling install both packages with sudo pacman -U mesa-*.pkg.zst lib32-mesa-*.pkg.zst
 
 You will find the following packages here:
 - https://github.com/kevall474/LLVM

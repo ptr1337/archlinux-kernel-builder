@@ -115,7 +115,7 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11.12
+pkgver=5.11.13
 major=5.11
 pkgrel=1
 arch=(x86_64)
@@ -134,10 +134,10 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/misc/0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch"
         "$patchsource/misc/0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch"
         "$patchsource/zen-patches/0001-ZEN-Add-VHBA-driver.patch"
-	"$patchsource/zen-patches/0002-ZEN-intel-pstate-Implement-enable-parameter.patch"
-	"$patchsource/zen-patches/0003-drm-i915-ilk-glk-Fix-link-training-on-links-with-LTT.patch"
-	"$patchsource/zen-patches/0004-drm-i915-dp-Prevent-setting-the-LTTPR-LT-mode-if-no-.patch"
-	"$patchsource/zen-patches/0005-drm-i915-Disable-LTTPR-support-when-the-DPCD-rev-1.4.patch"
+	      "$patchsource/zen-patches/0002-ZEN-intel-pstate-Implement-enable-parameter.patch"
+	      "$patchsource/zen-patches/0003-drm-i915-ilk-glk-Fix-link-training-on-links-with-LTT.patch"
+	      "$patchsource/zen-patches/0004-drm-i915-dp-Prevent-setting-the-LTTPR-LT-mode-if-no-.patch"
+	      7"$patchsource/zen-patches/0005-drm-i915-Disable-LTTPR-support-when-the-DPCD-rev-1.4.patch"
         "$patchsource/futex-patches/0001-futex2-resync-from-gitlab.collabora.com.patch"
         "$patchsource/clearlinux-patches/0001-clearlinux-patches.patch"
         "$patchsource/ntfs3-patches/0001-ntfs3-patches.patch"
@@ -198,8 +198,12 @@ elif [[ $_cpu_sched = "2" ]] || [[ $_cpu_sched = "3" ]]; then
   source+=("${patchsource}/prjc-patches/0009-prjc_v5.11-r3.patch")
   md5sums+=("3ed563f52e61ceabcb8dea99256635c2")  #0009-prjc_v5.11-r3.patch
 elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "6" ]]; then
-  source+=("${patchsource}/cacule-patches/cacule-5.11.patch") ## using upstream should be easier if updates are comming or?
-  md5sums+=("b85d9c75a137a4278537386ca274da9d")  #cacule-5.11.patch
+  source+=("${patchsource}/cacule-patches/cacule-5.11.patch"
+           "0002-cacule-Change-default-preemption-latency-to-2ms-for-.patch"
+           "0003-cacule-Set-cacule_harsh_mode-enabled-by-default.patch")  #cacule-5.11.patch)
+  md5sums+=("b85d9c75a137a4278537386ca274da9d"
+            "c2ec635637d263c4fe977efd0b917e56"
+            "09ca141fe7aff2a0f426e1d79f45aba3")  
 elif [[ $_cpu_sched = "5" ]]; then
   source+=("${patchsource}/upds-patches/0005-v5.11_undead-pds099o.patch")
   md5sums+=("1c6d05cffa90464a2ae6f9e00d670e50")  #0005-v5.11_undead-pds099o.patch

@@ -1559,8 +1559,8 @@ configure(){
       scripts/config --disable CONFIG_HARDENED_USERCOPY
       msg2 "General Setup Cacule"
       scripts/config --disable CONFIG_EXPERT
-      scripts/config --enable CONFIG_SCHED_AUTOGROUP
-      scripts/config --enable CONFIG_CGROUP_SCHED
+      scripts/config --disable CONFIG_SCHED_AUTOGROUP
+      scripts/config --disable CONFIG_CGROUP_SCHED
       scripts/config --disable CONFIG_BSD_PROCESS_ACCT
       scripts/config --disable CONFIG_TASK_XACCT
       scripts/config --disable CONFIG_PSI
@@ -1581,7 +1581,7 @@ configure(){
       scripts/config --disable CONFIG_KEXEC
       scripts/config --disable CONFIG_KEXEC_FILE
       scripts/config --disable CONFIG_CRASH_DUMP
-      scripts/config --set-val CONFIG_NR_CPUS "12"
+  #    scripts/config --set-val CONFIG_NR_CPUS "12"
       msg2 "Power Cacule"
       scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
       scripts/config --enable CONFIG_CPU_FREQ_GOV_PERFORMANCE
