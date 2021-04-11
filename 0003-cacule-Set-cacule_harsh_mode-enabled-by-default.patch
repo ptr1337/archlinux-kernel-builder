@@ -1,0 +1,26 @@
+From 08ebfd20fa2e4f29d283d8fd0ba331e437ac5903 Mon Sep 17 00:00:00 2001
+From: Alexandre Frade <kernel@xanmod.org>
+Date: Thu, 4 Mar 2021 20:16:23 +0000
+Subject: [PATCH 3/3] cacule: Set cacule_harsh_mode enabled by default
+
+Signed-off-by: Alexandre Frade <kernel@xanmod.org>
+---
+ kernel/sched/fair.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index f76fe95da4ce..ef68d9125e8f 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -138,7 +138,7 @@ int __weak arch_asym_cpu_priority(int cpu)
+ #endif
+ #ifdef CONFIG_CACULE_SCHED
+ int cacule_max_lifetime					= 30000; // in ms
+-int cacule_harsh_mode					= 0;
++int cacule_harsh_mode					= 1;
+ int interactivity_factor				= 32768;
+ #endif
+ 
+-- 
+2.30.1
+
