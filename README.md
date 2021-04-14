@@ -4,7 +4,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 ## Kernelversion:
 
-- 5.11.13
+- 5.11.14
 
 ## Build
 
