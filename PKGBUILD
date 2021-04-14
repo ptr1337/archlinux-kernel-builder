@@ -115,7 +115,7 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11.13
+pkgver=5.11.14
 major=5.11
 pkgrel=1
 arch=(x86_64)
@@ -126,28 +126,21 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
              "clang" "lib32-clang" "bc" "gcc" "gcc-libs" "lib32-gcc-libs" "glibc" "lib32-glibc" "pahole" "patch" "gtk3" "llvm" "lib32-llvm"
              "llvm-libs" "lib32-llvm-libs" "lld" "kmod" "libmikmod" "lib32-libmikmod" "xmlto" "xmltoman" "graphviz" "imagemagick" "imagemagick-doc"
              "rsync" "cpio" "inetutils" "gzip" "zstd" "xz")
-patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$major
+patchsource=https://raw.githubusercontent.com/ptr1337/kernel-patches/main/$major
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar.xz"
         "config-5.11"
         "$patchsource/cpu-patches/0001-cpu-5.11-merge-graysky-s-patchset.patch"
         "$patchsource/zen-patches/0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch"
         "$patchsource/misc/0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch"
         "$patchsource/misc/0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch"
-        "$patchsource/zen-patches/0001-ZEN-Add-VHBA-driver.patch"
-	"$patchsource/zen-patches/0002-ZEN-intel-pstate-Implement-enable-parameter.patch"
-	"$patchsource/zen-patches/0003-drm-i915-ilk-glk-Fix-link-training-on-links-with-LTT.patch"
-	"$patchsource/zen-patches/0004-drm-i915-dp-Prevent-setting-the-LTTPR-LT-mode-if-no-.patch"
-	"$patchsource/zen-patches/0005-drm-i915-Disable-LTTPR-support-when-the-DPCD-rev-1.4.patch"
+	      "$patchsource/zen-patches/0002-ZEN-intel-pstate-Implement-enable-parameter.patch"
         "$patchsource/futex-patches/0001-futex2-resync-from-gitlab.collabora.com.patch"
-        "$patchsource/clearlinux-patches/0001-clearlinux-patches.patch"
-        "$patchsource/ntfs3-patches/0001-ntfs3-patches.patch"
         "$patchsource/misc/0002-init-Kconfig-enable-O3-for-all-arches.patch"
         "$patchsource/block-patches/0001-block-patches.patch"
         "$patchsource/bfq-patches/0001-bfq-patches.patch"
         "$patchsource/aufs-patches/0001-aufs-20210308.patch"
         "$patchsource/bbr2-patches/0001-bbr2-5.11-introduce-BBRv2.patch"
         "$patchsource/btrfs-patches/0001-btrfs-patches.patch"
-        "$patchsource/loopback-patches/0001-v4l2loopback-5.11-merge-v0.12.5.patch"
         "$patchsource/mm-patches/0001-mm-patches.patch"
         "$patchsource/spadfs-patches/0001-spadfs-5.11-merge-v1.0.13.patch"
         "$patchsource/zswap-patches/0001-zswap-patches.patch"
@@ -155,39 +148,30 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar
         "$patchsource/ksm-patches/0001-ksm-patches.patch"
         "$patchsource/zstd-patches/0001-zstd-patches.patch"
         "$patchsource/zstd-patches/0001-zstd-dev-patches.patch"
-        "$patchsource/lqx-patches/0001-lqx-patches.patch"
         "$patchsource/wine-patches/0007-v5.11-winesync.patch"
         "$patchsource/misc/vm.max_map_count.patch"
         "$patchsource/initramfs-patches/0001-initramfs-patches.patch")
-md5sums=('d3f93c35c0ba78cffeae4a77ff7a614b'
-         '8431bf7b65880cfcade827da2b8089e4'
+md5sums=('4987e4b7cd8af4e36aeba3fca03f4d4a'
+         'ffeff3a1aee563c06ed607241662c786'
          '4862b906d15306da32e36a0f3e99624a'
          'a724ee14cb7aee1cfa6e4d9770c94723'
          'd15597054a4c5e405f980d07d5eac11a'
          'f99b82d6f424d1a729a9b8c5a1be2b84'
-         '6042ba527a2379f858fbc099caa7dc70'
          '930e035a6cb8f053e115ffe7347badb9'
-         'a146eab93adb7e47c3f4cd5603cbaa80'
-         'd6ddba87c8232b66def0974ccb972379'
-         '5ed7f1cae4a164bc201855a2768f7e1f'
          '307f39a7c060ac3073607964091234c0'
-         '57f4afa1be10eec300542767942ad938'
-         'db7c48ff69c7163e6e4bbae5b1350e64'
          '18d1544e8ff22cd52f8a5ddf7b845579'
          '3cf79ddcad9c0f659664bd6fc2ae30ec'
          '379a49cafda4a5448b7a873722eb1a96'
          '76d68d069b5947349933c6baba07cf2f'
          '686d82306fff905945ffb6f0eede14d4'
-         '9370509e5f1ee530baf687450a57b4e7'
-         '0ab93e8e3437a5093520c10cca741531'
+         '2d9f85cdf7d8c526b5eaa4341ac4058c'
          '7547ce8af415e4d587258fdf928a7eee'
          '49b4c1a2098d0f0584eb8d0eda2a60c9'
          '64e629e48f15cc0ebddfee366386f17a'
          'f7e7e6cddb72ad8ae741849dddb6e6fa'
          '9c37d7643710ffa49552cc43b96980ed'
-         'cdb86c7a5a9e094fda204ae92919f597'
+         'eccf701cb0f604c5fb9f06b500585889'
          '77e1f3171f7f773739c4f8bb9fb20795'
-         '4f5b46d26699b4f4e7d7bc153979d3e0'
          'ab8f21e210aec26c7825033d57433e33'
          '27e6001bacfcfca1c161bf6ef946a79b'
          '39d8fe1921a28bb6504f4eb23aa5d675')
@@ -199,11 +183,9 @@ elif [[ $_cpu_sched = "2" ]] || [[ $_cpu_sched = "3" ]]; then
   md5sums+=("3ed563f52e61ceabcb8dea99256635c2")  #0009-prjc_v5.11-r3.patch
 elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "6" ]]; then
   source+=("${patchsource}/cacule-patches/cacule-5.11.patch" #cacule-5.11.patch
-           "${patchsource}/cacule-patches/0002-cacule-Change-default-preemption-latency-to-2ms-for-.patch"
-           "${patchsource}/cacule-patches/0003-cacule-Set-cacule_harsh_mode-enabled-by-default.patch")
+           "${patchsource}/cacule-patches/0002-cacule-Change-default-preemption-latency-to-2ms-for-.patch")
   md5sums+=("b85d9c75a137a4278537386ca274da9d"
-            "c2ec635637d263c4fe977efd0b917e56"
-            "09ca141fe7aff2a0f426e1d79f45aba3")
+            "cdf2d612b6c1234ce124f0e8361fdc2e")
 elif [[ $_cpu_sched = "5" ]]; then
   source+=("${patchsource}/upds-patches/0005-v5.11_undead-pds099o.patch")
   md5sums+=("1c6d05cffa90464a2ae6f9e00d670e50")  #0005-v5.11_undead-pds099o.patch
