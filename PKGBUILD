@@ -245,7 +245,7 @@ prepare(){
 
   # Customize the kernel
   source "${startdir}"/prepare
-  source "${startdir}"/rapid_config
+#  source "${startdir}"/rapid_config
 
   configure
 
