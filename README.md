@@ -2,21 +2,23 @@
 
 Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, Hamad Al Marri, Con Kolivas and Alfred Chen.
 
-## Kernelversion:
+# Version
 
-- 5.11.14
+### Linux kernel
 
-## Build
+- 5.11.15
+
+# Build
 
 ### Build Linux kernel
 
     git clone https://github.com/kevall474/Linux.git
-    cd Linux/Linux
+    cd Linux
     env _cpu_sched=(1,2,3,4,5 or 6) _compiler=(1 or 2) makepkg -s
 
-## Build variables
+# Build variables
 
-#### _cpu_sched
+### _cpu_sched
 
 - Will add a CPU Scheduler if you want :
 
@@ -29,7 +31,7 @@ Linux kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski, H
 
 Leave this variable empty if you don't want to add a CPU Scheduler.
 
-#### _compiler
+### _compiler
 
 - Will set compiler to build the kernel :
 
@@ -37,7 +39,6 @@ Leave this variable empty if you don't want to add a CPU Scheduler.
         2 : CLANG+LLVM
 
 If not set it will build with GCC by default.
-
 
 # Troubleshooting
 

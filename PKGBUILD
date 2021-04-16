@@ -64,48 +64,48 @@ fi
 
 ###################################################################################
 
-# This section set the pkgbase based on the cpu scheduler. So user can build different package based on the cpu schduler for testing.
+# This section set the pkgbase based on the cpu scheduler, so user can build different package based on the cpu scheduler.
 if [[ $_cpu_sched = "1" ]]; then
   if [[ "$_compiler" = "1" ]]; then
-    pkgbase=linux-kernel-muqss-gcc
+    pkgbase=linux-muqss-gcc
   elif [[ "$_compiler" = "2" ]]; then
-    pkgbase=linux-kernel-muqss-clang
+    pkgbase=linux-muqss-clang
   fi
 elif [[ $_cpu_sched = "2" ]]; then
   if [[ "$_compiler" = "1" ]]; then
-    pkgbase=linux-kernel-bmq-gcc
+    pkgbase=linux-bmq-gcc
   elif [[ "$_compiler" = "2" ]]; then
-    pkgbase=linux-kernel-bmq-clang
+    pkgbase=linux-bmq-clang
   fi
 elif [[ $_cpu_sched = "3" ]]; then
   if [[ "$_compiler" = "1" ]]; then
-    pkgbase=linux-kernel-pds-gcc
+    pkgbase=linux-pds-gcc
   elif [[ "$_compiler" = "2" ]]; then
-    pkgbase=linux-kernel-pds-clang
+    pkgbase=linux-pds-clang
   fi
 elif [[ $_cpu_sched = "4" ]]; then
   if [[ "$_compiler" = "1" ]]; then
-    pkgbase=linux-kernel-cacule-gcc
+    pkgbase=linux-cacule-gcc
   elif [[ "$_compiler" = "2" ]]; then
-    pkgbase=linux-kernel-cacule-clang
+    pkgbase=linux-cacule-clang
   fi
 elif [[ $_cpu_sched = "5" ]]; then
   if [[ "$_compiler" = "1" ]]; then
-    pkgbase=linux-kernel-upds-gcc
+    pkgbase=linux-upds-gcc
   elif [[ "$_compiler" = "2" ]]; then
-    pkgbase=linux-kernel-upds-clang
+    pkgbase=linux-upds-clang
   fi
 elif [[ $_cpu_sched = "6" ]]; then
   if [[ "$_compiler" = "1" ]]; then
-    pkgbase=linux-kernel-cacule-rdb-gcc
+    pkgbase=linux-cacule-rdb-gcc
   elif [[ "$_compiler" = "2" ]]; then
-    pkgbase=linux-kernel-cacule-rdb-clang
+    pkgbase=linux-cacule-rdb-clang
   fi
 else
   if [[ "$_compiler" = "1" ]]; then
-    pkgbase=linux-kernel-gcc
+    pkgbase=linux-gcc
   elif [[ "$_compiler" = "2" ]]; then
-    pkgbase=linux-kernel-clang
+    pkgbase=linux-clang
   fi
 fi
 pkgname=("$pkgbase" "$pkgbase-headers")
@@ -115,7 +115,7 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.11.14
+pkgver=5.11.15
 major=5.11
 pkgrel=1
 arch=(x86_64)
@@ -126,55 +126,79 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
              "clang" "lib32-clang" "bc" "gcc" "gcc-libs" "lib32-gcc-libs" "glibc" "lib32-glibc" "pahole" "patch" "gtk3" "llvm" "lib32-llvm"
              "llvm-libs" "lib32-llvm-libs" "lld" "kmod" "libmikmod" "lib32-libmikmod" "xmlto" "xmltoman" "graphviz" "imagemagick" "imagemagick-doc"
              "rsync" "cpio" "inetutils" "gzip" "zstd" "xz")
-patchsource=https://raw.githubusercontent.com/ptr1337/kernel-patches/main/$major
+patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$major
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$pkgver.tar.xz"
         "config-5.11"
         "$patchsource/cpu-patches/0001-cpu-5.11-merge-graysky-s-patchset.patch"
         "$patchsource/zen-patches/0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch"
         "$patchsource/misc/0001-LL-kconfig-add-750Hz-timer-interrupt-kernel-config-o.patch"
         "$patchsource/misc/0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch"
-	      "$patchsource/zen-patches/0002-ZEN-intel-pstate-Implement-enable-parameter.patch"
+        "$patchsource/xanmod-patches/0001-xanmod-patches.patch"
+        "$patchsource/zen-patches/0001-ZEN-Add-VHBA-driver.patch"
+        "$patchsource/zen-patches/0002-ZEN-intel-pstate-Implement-enable-parameter.patch"
         "$patchsource/futex-patches/0001-futex2-resync-from-gitlab.collabora.com.patch"
+        "$patchsource/clearlinux-patches/0001-clearlinux-patches.patch"
+        "$patchsource/ntfs3-patches/0001-ntfs3-patches.patch"
         "$patchsource/misc/0002-init-Kconfig-enable-O3-for-all-arches.patch"
         "$patchsource/block-patches/0001-block-patches.patch"
         "$patchsource/bfq-patches/0001-bfq-patches.patch"
-        "$patchsource/aufs-patches/0001-aufs-20210308.patch"
+        "$patchsource/aufs-patches/0001-aufs-20210412.patch"
         "$patchsource/bbr2-patches/0001-bbr2-5.11-introduce-BBRv2.patch"
         "$patchsource/btrfs-patches/0001-btrfs-patches.patch"
+        "$patchsource/loopback-patches/0001-v4l2loopback-5.11-merge-v0.12.5.patch"
         "$patchsource/mm-patches/0001-mm-patches.patch"
         "$patchsource/spadfs-patches/0001-spadfs-5.11-merge-v1.0.13.patch"
         "$patchsource/zswap-patches/0001-zswap-patches.patch"
         "$patchsource/pf-patches/0001-pf-patches.patch"
+        "$patchsource/arch-patches/0002-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch"
+        "$patchsource/android-patches/0001-Export-symbols-needed-by-Android-drivers.patch"
+        "$patchsource/android-patches/0002-android-Enable-building-ashmem-and-binder-as-modules.patch"
         "$patchsource/ksm-patches/0001-ksm-patches.patch"
         "$patchsource/zstd-patches/0001-zstd-patches.patch"
         "$patchsource/zstd-patches/0001-zstd-dev-patches.patch"
+        "$patchsource/lqx-patches/0001-lqx-patches.patch"
         "$patchsource/wine-patches/0007-v5.11-winesync.patch"
         "$patchsource/misc/vm.max_map_count.patch"
         "$patchsource/initramfs-patches/0001-initramfs-patches.patch")
-md5sums=('4987e4b7cd8af4e36aeba3fca03f4d4a'
-         'ffeff3a1aee563c06ed607241662c786'
-         '4862b906d15306da32e36a0f3e99624a'
+md5sums=('d15043aa64a4b420019168f385b4216f'
+         'f6e6b7ba3f5e15e4370f1dfddfda81dd'
+         'fcb1edf2e91ff227c44aeac8b42409aa'
          'a724ee14cb7aee1cfa6e4d9770c94723'
          'd15597054a4c5e405f980d07d5eac11a'
          'f99b82d6f424d1a729a9b8c5a1be2b84'
-         '930e035a6cb8f053e115ffe7347badb9'
+         'c87afb8937411d41e7460c4c80a67464'
+         'a4d549a5463bbd988727f93ac08034d1'
+         'c1fb8dc16fe1933184c57f43449223a7'
          '307f39a7c060ac3073607964091234c0'
+         '57f4afa1be10eec300542767942ad938'
+         'aecc37df9f4a28953c6759b82207aaf7'
          '18d1544e8ff22cd52f8a5ddf7b845579'
          '3cf79ddcad9c0f659664bd6fc2ae30ec'
          '379a49cafda4a5448b7a873722eb1a96'
-         '76d68d069b5947349933c6baba07cf2f'
+         '5c8d12d4577e46ba118e4f18469c7f49'
          '686d82306fff905945ffb6f0eede14d4'
          '2d9f85cdf7d8c526b5eaa4341ac4058c'
+         '0ab93e8e3437a5093520c10cca741531'
          '7547ce8af415e4d587258fdf928a7eee'
          '49b4c1a2098d0f0584eb8d0eda2a60c9'
          '64e629e48f15cc0ebddfee366386f17a'
          'f7e7e6cddb72ad8ae741849dddb6e6fa'
+         'e7ef63d6e6fb1ed9d8c2b4d3f65de86c'
+         '3b5866097de15af399841405bc844020'
+         '0eda7e947dd25e6b77ea40d734deea8d'
          '9c37d7643710ffa49552cc43b96980ed'
          'eccf701cb0f604c5fb9f06b500585889'
          '77e1f3171f7f773739c4f8bb9fb20795'
+         '95b7d848ff2dc7bf7779a6177420c02a'
          'ab8f21e210aec26c7825033d57433e33'
          '27e6001bacfcfca1c161bf6ef946a79b'
-         '39d8fe1921a28bb6504f4eb23aa5d675')
+         '39d8fe1921a28bb6504f4eb23aa5d675'
+         '8e71f0c43157654c4105224d89cc6709')
+#zenify workarround with CacULE
+if [[ $_cpu_sched != "4" ]] && [[ $_cpu_sched != "6" ]]; then
+ source+=("$patchsource/misc/zenify.patch")
+ md5sums+=("8e71f0c43157654c4105224d89cc6709")  #zenify.patch
+fi
 if [[ $_cpu_sched = "1" ]]; then
  source+=("$patchsource/muqss-patches/patch-5.11-ck1")
  md5sums+=("SKIP")
@@ -182,10 +206,10 @@ elif [[ $_cpu_sched = "2" ]] || [[ $_cpu_sched = "3" ]]; then
   source+=("${patchsource}/prjc-patches/0009-prjc_v5.11-r3.patch")
   md5sums+=("3ed563f52e61ceabcb8dea99256635c2")  #0009-prjc_v5.11-r3.patch
 elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "6" ]]; then
-  source+=("${patchsource}/cacule-patches/cacule-5.11.patch" #cacule-5.11.patch
+  source+=("${patchsource}/cacule-patches/cacule-5.11.patch"
            "${patchsource}/cacule-patches/0002-cacule-Change-default-preemption-latency-to-2ms-for-.patch")
-  md5sums+=("b85d9c75a137a4278537386ca274da9d"
-            "cdf2d612b6c1234ce124f0e8361fdc2e")
+  md5sums+=("b85d9c75a137a4278537386ca274da9d"  #cacule-5.11.patch
+            "cdf2d612b6c1234ce124f0e8361fdc2e")  #0002-cacule-Change-default-preemption-latency-to-2ms-for-.patch
 elif [[ $_cpu_sched = "5" ]]; then
   source+=("${patchsource}/upds-patches/0005-v5.11_undead-pds099o.patch")
   md5sums+=("1c6d05cffa90464a2ae6f9e00d670e50")  #0005-v5.11_undead-pds099o.patch
@@ -221,13 +245,13 @@ prepare(){
 
   # Customize the kernel
   source "${startdir}"/prepare
-  #source "${startdir}"/rapid_config
-
-  #rapid_config
+  source "${startdir}"/rapid_config
 
   configure
 
   cpu_arch
+  
+  #rapid_config
 
   # Setting localversion
   msg2 "Setting localversion..."

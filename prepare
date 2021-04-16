@@ -248,13 +248,13 @@ configure(){
   read -rp "`echo $' > 1.Enable\n > 2.Disable\n > Default (Disable)\nchoice[1-2]: '`" _ns;
   if [[ $_ns = "1" ]]; then
     msg2 "Enable CONFIG_USER_NS_UNPRIVILEGED"
-    scripts/config --enable CONFIG_USER_NS_UNPRIVILEGED
+    scripts/config --disable CONFIG_USER_NS_UNPRIVILEGED
   elif [[ $_ns = "2" ]]; then
     msg2 "Disable CONFIG_USER_NS_UNPRIVILEGED"
     scripts/config --disable CONFIG_USER_NS_UNPRIVILEGED
   else
-    msg2 "Enable CONFIG_USER_NS_UNPRIVILEGED"
-    scripts/config --enable CONFIG_USER_NS_UNPRIVILEGED
+    msg2 "Disable CONFIG_USER_NS_UNPRIVILEGED"
+    scripts/config --disable CONFIG_USER_NS_UNPRIVILEGED
   fi
 
   sleep 2s
@@ -676,9 +676,9 @@ configure(){
     scripts/config --enable CONFIG_HZ_1000
     scripts/config --set-val CONFIG_HZ 1000
   else
-    msg2 "Set timer frequency to 750HZ"
-    scripts/config --enable CONFIG_HZ_750
-    scripts/config --set-val CONFIG_HZ 750
+    msg2 "Set timer frequency to 1000HZ"
+    scripts/config --enable CONFIG_HZ_1000
+    scripts/config --set-val CONFIG_HZ 1000
   fi
 
   sleep 2
@@ -851,10 +851,26 @@ configure(){
     scripts/config --disable CONFIG_V4L2_LOOPBACK
   else
     msg2 "Enable tristate V4L2 loopback device"
-    scripts/config --disable CONFIG_V4L2_LOOPBACK
+    scripts/config --module CONFIG_V4L2_LOOPBACK
   fi
 
   sleep 2s
+
+  # uncomment spadfs because of build fail
+  #plain ""
+  #plain "#########################################"
+  #plain "Enable/disable tristate SPADFS file system support"
+  #read -rp "`echo $' > 1.Enable\n > 2.Disable\n > Default (Enable)\nchoice[1-2]: '`" _spadfs
+  #if [[ "$_spadfs" = "1" ]]; then
+  #  msg2 "Enable tristate SPADFS file system support"
+  #  scripts/config --module CONFIG_SPADFS_FS
+  #elif [[ "$_spadfs" = "2" ]]; then
+  #  msg2 "Disable tristate SPADFS file system support"
+  #  scripts/config --disable CONFIG_SPADFS_FS
+  #else
+  #  msg2 "Enable tristate V4L2 SPADFS file system support"
+  #  scripts/config --module CONFIG_SPADFS_FS
+  #fi
 
   #sleep 2s
 
@@ -937,7 +953,7 @@ configure(){
     scripts/config --disable CONFIG_VHBA
   else
     msg2 "Enable CONFIG_VHBA"
-    scripts/config --disable CONFIG_VHBA
+    scripts/config --module CONFIG_VHBA
   fi
 
   sleep 2s
@@ -1249,7 +1265,7 @@ configure(){
   plain "kernel commandline during boot or a value of 0 via the file"
   plain "proc/sys/kernel/sched_autogroup_enabled."
   plain ""
-  read -rp "`echo $' > 1.Enable\n > 2.Disable\n > Default (Disable)\nchoice[1-2]: '`" _autogroup
+  read -rp "`echo $' > 1.Enable\n > 2.Disable\n > Default (Enable)\nchoice[1-2]: '`" _autogroup
   if [[ "$_autogroup" = "1" ]]; then
     msg2 "Enable CONFIG_SCHED_AUTOGROUP_DEFAULT_ENABLED"
     scripts/config --enable CONFIG_SCHED_AUTOGROUP_DEFAULT_ENABLED
@@ -1258,7 +1274,7 @@ configure(){
     scripts/config --disable CONFIG_SCHED_AUTOGROUP_DEFAULT_ENABLED
   else
     msg2 "Enable CONFIG_SCHED_AUTOGROUP_DEFAULT_ENABLED"
-    scripts/config --disable CONFIG_SCHED_AUTOGROUP_DEFAULT_ENABLED
+    scripts/config --enable CONFIG_SCHED_AUTOGROUP_DEFAULT_ENABLED
   fi
 
   sleep 2s
@@ -1528,9 +1544,6 @@ configure(){
   elif [[ $_cpu_sched = "4" ]]; then
     msg2 "Enable CacULE CPU scheduler..."
     scripts/config --enable CONFIG_CACULE_SCHED
-    msg2 "Disable CFS"
-    scripts/config --disable CONFIG_FAIR_GROUP_SCHED
-    scripts/config --disable CONFIG_CFS_BANDWIDTH
 
     plain ""
     plain "#########################################"
@@ -1538,16 +1551,81 @@ configure(){
     read -rp "`echo $' > 1.Yes\n > 2.No\n > Default (No)\nchoice[1-2]: '`" _suggest_cacule
     if [[ $_suggest_cacule = "1" ]]; then
       msg2 "Apply suggested config"
+      msg2 "Security Cacule"
+      scripts/config --disable CONFIG_SECURITY
+      scripts/config --disable CONFIG_HARDENED_USERCOPY
+      msg2 "General Setup Cacule"
+      scripts/config --disable CONFIG_EXPERT
+      scripts/config --disable CONFIG_BSD_PROCESS_ACCT
+      scripts/config --disable CONFIG_TASK_XACCT
+      scripts/config --disable CONFIG_PSI
+      scripts/config --disable CONFIG_AUDIT
+      scripts/config --disable CONFIG_VIRT_CPU_ACCOUNTING_GEN
+      scripts/config --enable CONFIG_TICK_CPU_ACCOUNTING
+      scripts/config --disable CONFIG_MEMCG
+      scripts/config --disable CONFIG_CGROUP_CPUACCT
+      scripts/config --disable CONFIG_CGROUP_DEBUG
+      scripts/config --disable CONFIG_CHECKPOINT_RESTORE
+      scripts/config --disable CONFIG_SLAB_MERGE_DEFAULT
+      scripts/config --disable CONFIG_SLAB_FREELIST_HARDENED
+      scripts/config --disable CONFIG_SLUB_CPU_PARTIAL
+      scripts/config --disable CONFIG_PROFILING
       msg2 "Processor type and features Cacule"
       scripts/config --disable CONFIG_RETPOLINE
       scripts/config --disable CONFIG_X86_5LEVEL
       scripts/config --disable CONFIG_KEXEC
       scripts/config --disable CONFIG_KEXEC_FILE
       scripts/config --disable CONFIG_CRASH_DUMP
-      scripts/config --set-val CONFIG_NR_CPUS "12"
-      scripts/config --disable CONFIG_EXPERT
-      scripts/config --disable CONFIG_SCHED_AUTOGROUP
-      scripts/config --disable CONFIG_CGROUP_SCHED
+      #scripts/config --set-val CONFIG_NR_CPUS "12"
+      msg2 "Power Cacule"
+      scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
+      scripts/config --enable CONFIG_CPU_FREQ_GOV_PERFORMANCE
+      scripts/config --disable CONFIG_CPU_FREQ_GOV_ONDEMAND
+      msg2 "General architecture-dependent options Cacule"
+      scripts/config --disable CONFIG_KPROBES
+      scripts/config --disable CONFIG_STACKPROTECTOR
+      scripts/config --disable CONFIG_VMAP_STACK
+      msg2 "Kernel hacking Cacule"
+      scripts/config --disable CONFIG_FTRACE
+      scripts/config --disable CONFIG_DEBUG_KERNEL
+      scripts/config --disable CONFIG_PAGE_EXTENSION
+      scripts/config --disable CONFIG_PRINTK_TIME
+      scripts/config --disable CONFIG_DEBUG_INFO
+      scripts/config --set-val CONFIG_RCU_CPU_STALL_TIMEOUT 4
+      scripts/config --disable CONFIG_ENABLE_MUST_CHECK
+      scripts/config --disable CONFIG_STRIP_ASM_SYMS
+      scripts/config --disable CONFIG_UNUSED_SYMBOLS
+      scripts/config --disable CONFIG_DEBUG_FS
+      scripts/config --disable CONFIG_OPTIMIZE_INLINING
+      scripts/config --disable CONFIG_DEBUG_SECTION_MISMATCH
+      scripts/config --disable CONFIG_SECTION_MISMATCH_WARN_ONLY
+      scripts/config --disable CONFIG_STACK_VALIDATION
+      scripts/config --disable CONFIG_DEBUG_FORCE_WEAK_PER_CPU
+      scripts/config --disable CONFIG_MAGIC_SYSRQ
+      scripts/config --disable CONFIG_MAGIC_SYSRQ_SERIAL
+      scripts/config --disable CONFIG_PAGE_EXTENSION
+      scripts/config --disable CONFIG_DEBUG_PAGEALLOC
+      scripts/config --disable CONFIG_PAGE_OWNER
+      scripts/config --disable CONFIG_DEBUG_MEMORY_INIT
+      scripts/config --disable CONFIG_HARDLOCKUP_DETECTOR
+      scripts/config --disable CONFIG_SOFTLOCKUP_DETECTOR
+      scripts/config --disable CONFIG_DETECT_HUNG_TASK
+      scripts/config --disable CONFIG_WQ_WATCHDOG
+      scripts/config --disable CONFIG_SCHED_DEBUG
+      scripts/config --disable CONFIG_SCHEDSTATS
+      scripts/config --set-val CONFIG_PANIC_TIMEOUT 10
+      scripts/config --disable CONFIG_SCHED_STACK_END_CHECK
+      scripts/config --disable CONFIG_DEBUG_BUGVERBOSE
+      scripts/config --disable CONFIG_RCU_TRACE
+      scripts/config --set-val CONFIG_RCU_CPU_STALL_TIMEOUT 4
+      scripts/config --disable CONFIG_FAULT_INJECTION
+      scripts/config --disable CONFIG_LATENCYTOP
+      scripts/config --disable CONFIG_PROVIDE_OHCI1394_DMA_INIT
+      scripts/config --disable RUNTIME_TESTING_MENU
+      scripts/config --disable CONFIG_MEMTEST
+      scripts/config --disable CONFIG_KGDB
+      scripts/config --disable CONFIG_EARLY_PRINTK
+      scripts/config --disable CONFIG_DOUBLEFAULT
     elif [[ $_suggest_cacule = "2" ]]; then
       msg2 "Skip suggested config"
     else
@@ -1567,9 +1645,6 @@ configure(){
     scripts/config --enable CONFIG_CACULE_SCHED
     msg2 "Enable CacULE-RDB CPU scheduler..."
     scripts/config --enable CONFIG_CACULE_RDB
-    msg2 "Disable CFS"
-    scripts/config --disable CONFIG_FAIR_GROUP_SCHED
-    scripts/config --disable CONFIG_CFS_BANDWIDTH
 
     plain ""
     plain "#########################################"
@@ -1577,16 +1652,81 @@ configure(){
     read -rp "`echo $' > 1.Yes\n > 2.No\n > Default (No)\nchoice[1-2]: '`" _suggest_cacule
     if [[ $_suggest_cacule = "1" ]]; then
       msg2 "Apply suggested config"
+      msg2 "Security Cacule"
+      scripts/config --disable CONFIG_SECURITY
+      scripts/config --disable CONFIG_HARDENED_USERCOPY
+      msg2 "General Setup Cacule"
+      scripts/config --disable CONFIG_EXPERT
+      scripts/config --disable CONFIG_BSD_PROCESS_ACCT
+      scripts/config --disable CONFIG_TASK_XACCT
+      scripts/config --disable CONFIG_PSI
+      scripts/config --disable CONFIG_AUDIT
+      scripts/config --disable CONFIG_VIRT_CPU_ACCOUNTING_GEN
+      scripts/config --enable CONFIG_TICK_CPU_ACCOUNTING
+      scripts/config --disable CONFIG_MEMCG
+      scripts/config --disable CONFIG_CGROUP_CPUACCT
+      scripts/config --disable CONFIG_CGROUP_DEBUG
+      scripts/config --disable CONFIG_CHECKPOINT_RESTORE
+      scripts/config --disable CONFIG_SLAB_MERGE_DEFAULT
+      scripts/config --disable CONFIG_SLAB_FREELIST_HARDENED
+      scripts/config --disable CONFIG_SLUB_CPU_PARTIAL
+      scripts/config --disable CONFIG_PROFILING
       msg2 "Processor type and features Cacule"
       scripts/config --disable CONFIG_RETPOLINE
       scripts/config --disable CONFIG_X86_5LEVEL
       scripts/config --disable CONFIG_KEXEC
       scripts/config --disable CONFIG_KEXEC_FILE
       scripts/config --disable CONFIG_CRASH_DUMP
-      scripts/config --set-val CONFIG_NR_CPUS "12"
-      scripts/config --disable CONFIG_EXPERT
-      scripts/config --disable CONFIG_SCHED_AUTOGROUP
-      scripts/config --disable CONFIG_CGROUP_SCHED
+      #scripts/config --set-val CONFIG_NR_CPUS "12"
+      msg2 "Power Cacule"
+      scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
+      scripts/config --enable CONFIG_CPU_FREQ_GOV_PERFORMANCE
+      scripts/config --disable CONFIG_CPU_FREQ_GOV_ONDEMAND
+      msg2 "General architecture-dependent options Cacule"
+      scripts/config --disable CONFIG_KPROBES
+      scripts/config --disable CONFIG_STACKPROTECTOR
+      scripts/config --disable CONFIG_VMAP_STACK
+      msg2 "Kernel hacking Cacule"
+      scripts/config --disable CONFIG_FTRACE
+      scripts/config --disable CONFIG_DEBUG_KERNEL
+      scripts/config --disable CONFIG_PAGE_EXTENSION
+      scripts/config --disable CONFIG_PRINTK_TIME
+      scripts/config --disable CONFIG_DEBUG_INFO
+      scripts/config --set-val CONFIG_RCU_CPU_STALL_TIMEOUT 4
+      scripts/config --disable CONFIG_ENABLE_MUST_CHECK
+      scripts/config --disable CONFIG_STRIP_ASM_SYMS
+      scripts/config --disable CONFIG_UNUSED_SYMBOLS
+      scripts/config --disable CONFIG_DEBUG_FS
+      scripts/config --disable CONFIG_OPTIMIZE_INLINING
+      scripts/config --disable CONFIG_DEBUG_SECTION_MISMATCH
+      scripts/config --disable CONFIG_SECTION_MISMATCH_WARN_ONLY
+      scripts/config --disable CONFIG_STACK_VALIDATION
+      scripts/config --disable CONFIG_DEBUG_FORCE_WEAK_PER_CPU
+      scripts/config --disable CONFIG_MAGIC_SYSRQ
+      scripts/config --disable CONFIG_MAGIC_SYSRQ_SERIAL
+      scripts/config --disable CONFIG_PAGE_EXTENSION
+      scripts/config --disable CONFIG_DEBUG_PAGEALLOC
+      scripts/config --disable CONFIG_PAGE_OWNER
+      scripts/config --disable CONFIG_DEBUG_MEMORY_INIT
+      scripts/config --disable CONFIG_HARDLOCKUP_DETECTOR
+      scripts/config --disable CONFIG_SOFTLOCKUP_DETECTOR
+      scripts/config --disable CONFIG_DETECT_HUNG_TASK
+      scripts/config --disable CONFIG_WQ_WATCHDOG
+      scripts/config --disable CONFIG_SCHED_DEBUG
+      scripts/config --disable CONFIG_SCHEDSTATS
+      scripts/config --set-val CONFIG_PANIC_TIMEOUT 10
+      scripts/config --disable CONFIG_SCHED_STACK_END_CHECK
+      scripts/config --disable CONFIG_DEBUG_BUGVERBOSE
+      scripts/config --disable CONFIG_RCU_TRACE
+      scripts/config --set-val CONFIG_RCU_CPU_STALL_TIMEOUT 4
+      scripts/config --disable CONFIG_FAULT_INJECTION
+      scripts/config --disable CONFIG_LATENCYTOP
+      scripts/config --disable CONFIG_PROVIDE_OHCI1394_DMA_INIT
+      scripts/config --disable RUNTIME_TESTING_MENU
+      scripts/config --disable CONFIG_MEMTEST
+      scripts/config --disable CONFIG_KGDB
+      scripts/config --disable CONFIG_EARLY_PRINTK
+      scripts/config --disable CONFIG_DOUBLEFAULT
     elif [[ $_suggest_cacule = "2" ]]; then
       msg2 "Skip suggested config"
     else
@@ -1667,7 +1807,7 @@ cpu_arch(){
   > 60) GENERIC_CPU4 : Generic x86-64 CPU with v4 instructions. Run equally well on all x86-64 CPUs with min support of x86-64-v4. - GCC 11 required\n \
   > 61) MNATIVE_INTEL : Intel-Native optimizations autodetected by GCC.\n \
   > 62) MNATIVE_AMD : AMD-Native optimizations autodetected by GCC.\n \
-  > Default (57 : Gneric CPU)\nchoice[0-56]: '`" _microarchitecture
+  > Default (57 : Gneric CPU)\nchoice[0-62]: '`" _microarchitecture
 
   if [[ "$_microarchitecture" = "1" ]]; then
     scripts/config --disable CONFIG_GENERIC_CPU
